@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel3 = new System.Windows.Forms.Panel();
             this.LBuscar = new System.Windows.Forms.Label();
             this.LEstado = new System.Windows.Forms.Label();
@@ -38,15 +38,16 @@
             this.TBuscar = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.DGVBeneficios = new System.Windows.Forms.DataGridView();
-            this.CDescripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CTipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CDescuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CEstado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PHeader = new System.Windows.Forms.Panel();
             this.BAñadir = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.Descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id_beneficio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CDescripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CTipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CDescuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CEstado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVBeneficios)).BeginInit();
@@ -149,16 +150,17 @@
             this.DGVBeneficios.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVBeneficios.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(18)))), ((int)(((byte)(38)))));
             this.DGVBeneficios.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(27)))), ((int)(((byte)(56)))));
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DGVBeneficios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(27)))), ((int)(((byte)(56)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVBeneficios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.DGVBeneficios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVBeneficios.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.id_beneficio,
             this.CDescripcion,
             this.CTipo,
             this.CDescuento,
@@ -172,30 +174,6 @@
             this.DGVBeneficios.TabIndex = 3;
             this.DGVBeneficios.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVBeneficios_CellContentClick);
             this.DGVBeneficios.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DGVBeneficios_CellFormatting);
-            // 
-            // CDescripcion
-            // 
-            this.CDescripcion.HeaderText = "Descripcion";
-            this.CDescripcion.Name = "CDescripcion";
-            this.CDescripcion.ReadOnly = true;
-            // 
-            // CTipo
-            // 
-            this.CTipo.HeaderText = "Tipo de beneficio";
-            this.CTipo.Name = "CTipo";
-            this.CTipo.ReadOnly = true;
-            // 
-            // CDescuento
-            // 
-            this.CDescuento.HeaderText = "Descuento";
-            this.CDescuento.Name = "CDescuento";
-            this.CDescuento.ReadOnly = true;
-            // 
-            // CEstado
-            // 
-            this.CEstado.HeaderText = "Estado";
-            this.CEstado.Name = "CEstado";
-            this.CEstado.ReadOnly = true;
             // 
             // PHeader
             // 
@@ -247,6 +225,37 @@
             this.Descripcion.Name = "Descripcion";
             this.Descripcion.Width = 693;
             // 
+            // id_beneficio
+            // 
+            this.id_beneficio.HeaderText = "IdBeneficio";
+            this.id_beneficio.Name = "id_beneficio";
+            this.id_beneficio.ReadOnly = true;
+            this.id_beneficio.Visible = false;
+            // 
+            // CDescripcion
+            // 
+            this.CDescripcion.HeaderText = "Descripcion";
+            this.CDescripcion.Name = "CDescripcion";
+            this.CDescripcion.ReadOnly = true;
+            // 
+            // CTipo
+            // 
+            this.CTipo.HeaderText = "Tipo de beneficio";
+            this.CTipo.Name = "CTipo";
+            this.CTipo.ReadOnly = true;
+            // 
+            // CDescuento
+            // 
+            this.CDescuento.HeaderText = "Descuento";
+            this.CDescuento.Name = "CDescuento";
+            this.CDescuento.ReadOnly = true;
+            // 
+            // CEstado
+            // 
+            this.CEstado.HeaderText = "Estado";
+            this.CEstado.Name = "CEstado";
+            this.CEstado.ReadOnly = true;
+            // 
             // FormBeneficios
             // 
             this.AcceptButton = this.BAñadir;
@@ -285,6 +294,7 @@
         private System.Windows.Forms.Label LEstado;
         private System.Windows.Forms.Label LTipo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Descripcion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id_beneficio;
         private System.Windows.Forms.DataGridViewTextBoxColumn CDescripcion;
         private System.Windows.Forms.DataGridViewTextBoxColumn CTipo;
         private System.Windows.Forms.DataGridViewTextBoxColumn CDescuento;

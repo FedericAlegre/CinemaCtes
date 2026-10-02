@@ -7,83 +7,142 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace CinemaCtes
 {
     public partial class FormBeneficios : Form
     {
+        private string placeholderTexto = "Buscar beneficio...";
 
         public FormBeneficios()
         {
             InitializeComponent();
 
             CBTipo.SelectedIndex = 0; // Seleccionar "Todos" por defecto
-
-            CBEstado.SelectedIndex = 0; 
+            CBEstado.SelectedIndex = 0;
         }
 
-
-        private string placeholderTexto = "Buscar beneficio...";
         private void FormBeneficios_Load(object sender, EventArgs e)
         {
-
-            // Evento de Configuración inicial del buscador y manejo del placeholder del TextBox de búsqueda
             ClassEstilosHelper.ConfigurarPlaceholder(TBuscar, placeholderTexto);
-
-            // Configuración del DataGridView
             ClassEstilosHelper.AplicarEstiloTabla(DGVBeneficios);
-
-            // Crear las columnas de botones solo si no existen ya
             ClassEstilosHelper.AgregarBotonesAccion(DGVBeneficios);
+
+            // Cargar los datos reales desde la BD al iniciar
+            CargarTablaBeneficios();
         }
 
-        // Evento para abrir el formulario de registro de beneficios y agregar un nuevo beneficio
+        // Método para poblar el DataGridView desde SQL Server
+        private void CargarTablaBeneficios()
+        {
+            DGVBeneficios.Rows.Clear();
+            ConexionBD conexionBD = new ConexionBD();
+
+            try
+            {
+                using (SqlConnection conexion = conexionBD.ObtenerConexión())
+                {
+                    using (SqlCommand comando = new SqlCommand("SP_ListarBeneficios", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        using (SqlDataReader lector = comando.ExecuteReader())
+                        {
+                            while (lector.Read())
+                            {
+                                DGVBeneficios.Rows.Add(
+                                    lector["id_beneficio"],
+                                    lector["beneficio_descripcion"],
+                                    lector["tipo_beneficio_descripcion"], 
+                                    lector["descuento"],
+                                    lector["estado"]
+                                );
+                            }
+                        }
+                    }
+                }
+                FiltrarTabla();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar los beneficios: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void BAñadir_Click(object sender, EventArgs e)
         {
-            // Usamos 'using' para liberar memoria del formulario al cerrarlo
             using (FormRegistrarBeneficio formRegistro = new FormRegistrarBeneficio())
             {
-                // Mostrar como ventana modal (bloquea el fondo hasta cerrar)
                 DialogResult resultado = formRegistro.ShowDialog();
 
-                // Si el usuario guardó/insertó exitosamente
                 if (resultado == DialogResult.OK)
                 {
-                    string descripcion = formRegistro.Descripcion;
-                    string tipoBeneficio = formRegistro.TipoBeneficio;
-                    string descuento = formRegistro.Descuento;
-                    string estado = "Inactivo";
+                    ConexionBD conexionBD = new ConexionBD();
+                    try
+                    {
+                        int resultadoRegistro = 0;
 
-                    // Agregamos la fila a la tabla
-                    DGVBeneficios.Rows.Add(descripcion, tipoBeneficio, descuento, estado);
+                        using (SqlConnection conexion = conexionBD.ObtenerConexión())
+                        {
+                            using (SqlCommand comando = new SqlCommand("SP_RegistrarBeneficio", conexion))
+                            {
+                                comando.CommandType = CommandType.StoredProcedure;
+                                comando.Parameters.AddWithValue("@Descripcion", formRegistro.Descripcion);
+                                comando.Parameters.AddWithValue("@IdTipoBeneficio", formRegistro.IdTipoBeneficio);
+                                comando.Parameters.AddWithValue("@Descuento", formRegistro.Descuento);
 
-                    // Mensaje con detalles del registro recién creado
-                    MessageBox.Show(
-                        $"Se registró con éxito el beneficio:\n\n• Descripción: {descripcion}\n• Tipo: {tipoBeneficio}\n• Descuento: {descuento}",
-                        "Registro Guardado",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                    );
+                                // Parámetro de salida que nos devuelve 1 (éxito) o 0 (duplicado atrapado por SQL)
+                                SqlParameter paramResultado = new SqlParameter("@Resultado", SqlDbType.Int);
+                                paramResultado.Direction = ParameterDirection.Output;
+                                comando.Parameters.Add(paramResultado);
+
+                                comando.ExecuteNonQuery();
+
+                                resultadoRegistro = Convert.ToInt32(paramResultado.Value);
+                            }
+                        }
+
+                        if (resultadoRegistro == 0)
+                        {
+                            MessageBox.Show(
+                                "No se pudo registrar el beneficio porque ya existe uno con la misma descripción.",
+                                "Duplicado detectado",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning
+                            );
+                        }
+                        else
+                        {
+                            CargarTablaBeneficios(); // Recargamos la tabla desde la BD con el nuevo registro activo
+                            MessageBox.Show(
+                                "Se registró con éxito el beneficio.",
+                                "Registro Guardado",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information
+                            );
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al guardar el beneficio: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
 
-        // Evento para manejar los clics en las celdas del DataGridView
         private void DGVBeneficios_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
-            // Validamos que sea una fila válida y no la cabecera ni la última fila vacía
             if (e.RowIndex >= 0 && !DGVBeneficios.Rows[e.RowIndex].IsNewRow)
             {
-                // Obtenemos el nombre de la columna en la que se hizo clic
                 string nombreColumna = DGVBeneficios.Columns[e.ColumnIndex].Name;
+
+                int idBeneficio = Convert.ToInt32(DGVBeneficios.Rows[e.RowIndex].Cells[0].Value);
 
                 if (nombreColumna == "CModificar")
                 {
-                    // Lógica para Modificar
-                    string descActual = DGVBeneficios.Rows[e.RowIndex].Cells[0].Value?.ToString() ?? "";
-                    string tipoActual = DGVBeneficios.Rows[e.RowIndex].Cells[1].Value?.ToString() ?? "";
-                    string descUsoActual = DGVBeneficios.Rows[e.RowIndex].Cells[2].Value?.ToString() ?? "";
+                    string descActual = DGVBeneficios.Rows[e.RowIndex].Cells[1].Value?.ToString() ?? "";
+                    string tipoActual = DGVBeneficios.Rows[e.RowIndex].Cells[2].Value?.ToString() ?? "";
+                    string descUsoActual = DGVBeneficios.Rows[e.RowIndex].Cells[3].Value?.ToString() ?? "";
 
                     using (FormRegistrarBeneficio formModificar = new FormRegistrarBeneficio())
                     {
@@ -92,124 +151,96 @@ namespace CinemaCtes
 
                         if (resultado == DialogResult.OK)
                         {
-                            DGVBeneficios.Rows[e.RowIndex].Cells[0].Value = formModificar.Descripcion;
-                            DGVBeneficios.Rows[e.RowIndex].Cells[1].Value = formModificar.TipoBeneficio;
-                            DGVBeneficios.Rows[e.RowIndex].Cells[2].Value = formModificar.Descuento;
+                            ConexionBD conexionBD = new ConexionBD();
+                            try
+                            {
+                                using (SqlConnection conexion = conexionBD.ObtenerConexión())
+                                {
+                                    using (SqlCommand comando = new SqlCommand("SP_ModificarBeneficio", conexion))
+                                    {
+                                        comando.CommandType = CommandType.StoredProcedure;
+                                        comando.Parameters.AddWithValue("@IdBeneficio", idBeneficio);
+                                        comando.Parameters.AddWithValue("@Descripcion", formModificar.Descripcion);
+                                        comando.Parameters.AddWithValue("@TipoBeneficio", formModificar.IdTipoBeneficio);
+                                        comando.Parameters.AddWithValue("@Descuento", formModificar.Descuento);
 
-                            MessageBox.Show("Beneficio modificado correctamente.", "Modificado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        comando.ExecuteNonQuery();
+                                    }
+                                }
+
+                                CargarTablaBeneficios();
+                                MessageBox.Show("Beneficio modificado correctamente.", "Modificado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Error al modificar: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
                     }
                 }
                 else if (nombreColumna == "CEliminar")
                 {
-                    // Capturamos información clave de la fila seleccionada
-                    string descripcionBeneficio = DGVBeneficios.Rows[e.RowIndex].Cells[0].Value?.ToString() ?? "Sin descripción";
-                    string tipoBeneficio = DGVBeneficios.Rows[e.RowIndex].Cells[1].Value?.ToString() ?? "";
-                    string estadoActual = DGVBeneficios.Rows[e.RowIndex].Cells[3].Value?.ToString() ?? "Activo";
-
-                    if (estadoActual == "Activo")
+                    ConexionBD conexionBD = new ConexionBD();
+                    try
                     {
-                        // Cambiamos a Inactivo y mostramos la información en el mensaje
-                        DGVBeneficios.Rows[e.RowIndex].Cells[3].Value = "Inactivo";
+                        using (SqlConnection conexion = conexionBD.ObtenerConexión())
+                        {
+                            using (SqlCommand comando = new SqlCommand("SP_CambiarEstadoBeneficio", conexion))
+                            {
+                                comando.CommandType = CommandType.StoredProcedure;
+                                comando.Parameters.AddWithValue("@IdBeneficio", idBeneficio);
 
-                        MessageBox.Show(
-                            $"El beneficio '{descripcionBeneficio}' ({tipoBeneficio}) ha sido desactivado correctamente.",
-                            "Estado Actualizado",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information
-                        );
+                                comando.ExecuteNonQuery();
+                            }
+                        }
+
+                        CargarTablaBeneficios();
+                        MessageBox.Show("Estado del beneficio actualizado correctamente.", "Estado Actualizado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        // Cambiamos a Activo y mostramos la información en el mensaje
-                        DGVBeneficios.Rows[e.RowIndex].Cells[3].Value = "Activo";
-
-                        MessageBox.Show(
-                            $"El beneficio '{descripcionBeneficio}' ({tipoBeneficio}) ha sido activado correctamente.",
-                            "Estado Actualizado",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information
-                        );
+                        MessageBox.Show("Error al cambiar estado: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
         }
 
-
-        //Evento de filtrado de tabla
         private void FiltrarTabla()
         {
             string textoBusqueda = TBuscar.Text.Trim().ToLower();
-
-            // Si el texto es exactamente el placeholder, lo tratamos como vacío
-            if (textoBusqueda == placeholderTexto.ToLower())
-            {
-                textoBusqueda = "";
-            }
+            if (textoBusqueda == placeholderTexto.ToLower()) textoBusqueda = "";
 
             string tipoSeleccionado = CBTipo.SelectedItem?.ToString() ?? "Todos";
             string estadoSeleccionado = CBEstado.SelectedItem?.ToString() ?? "Todos";
 
             foreach (DataGridViewRow row in DGVBeneficios.Rows)
             {
-                // Omitir la fila de nueva entrada si estuviera habilitada (aunque la tengamos bloqueada)
                 if (row.IsNewRow) continue;
 
-                // Asumimos el orden de columnas: 
-                // 0: Descripción, 1: Tipo de beneficio, 2: Descuento, 3: Estado
-                string descripcion = row.Cells[0].Value?.ToString().ToLower() ?? "";
-                string tipo = row.Cells[1].Value?.ToString() ?? "";
-                string estado = row.Cells[3].Value?.ToString() ?? "";
+                // Ajustando a los índices reales según si el ID está en la celda 0
+                string descripcion = row.Cells[1].Value?.ToString().ToLower() ?? "";
+                string tipo = row.Cells[2].Value?.ToString() ?? "";
+                string estado = row.Cells[4].Value?.ToString() ?? "";
 
-                // Validar filtro de texto (busca coincidencia en la descripción)
                 bool coincideTexto = string.IsNullOrEmpty(textoBusqueda) || descripcion.Contains(textoBusqueda);
-
-                // Validar filtro de tipo
                 bool coincideTipo = (tipoSeleccionado == "Todos") || (tipo == tipoSeleccionado);
-
-                // Validar filtro de estado
                 bool coincideEstado = (estadoSeleccionado == "Todos") || (estado == estadoSeleccionado);
 
-                // Si cumple con los tres criterios, la fila se muestra; de lo contrario, se oculta
-                bool mostrar = coincideTexto && coincideTipo && coincideEstado;
-                row.Visible = mostrar;
+                row.Visible = coincideTexto && coincideTipo && coincideEstado;
             }
         }
 
-        // Eventos para disparar el filtrado cuando cambian los controles
-        private void TBuscar_TextChanged(object sender, EventArgs e)
-        {
-            FiltrarTabla();
-        }
+        private void TBuscar_TextChanged(object sender, EventArgs e) => FiltrarTabla();
+        private void CBTipo_SelectedIndexChanged(object sender, EventArgs e) => FiltrarTabla();
+        private void CBEstado_SelectedIndexChanged(object sender, EventArgs e) => FiltrarTabla();
 
-        private void CBTipo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            FiltrarTabla();
-        }
-
-        private void CBEstado_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            FiltrarTabla();
-        }
-
-        // Evento para cambiar el texto del botón según el estado del beneficio
         private void DGVBeneficios_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            // Verificamos si estamos en la columna de nuestro botón de acción
             if (DGVBeneficios.Columns[e.ColumnIndex].Name == "CEliminar" && e.RowIndex >= 0)
             {
-                // Leemos el valor del estado de esa misma fila 
-                string estado = DGVBeneficios.Rows[e.RowIndex].Cells[3].Value?.ToString() ?? "Activo";
-
-                // Cambiamos el texto del botón según el estado
-                if (estado == "Activo")
-                {
-                    e.Value = "Desactivar";
-                }
-                else
-                {
-                    e.Value = "Activar";
-                }
+                // Celda 4 es el estado en este mapeo con ID incluido
+                string estado = DGVBeneficios.Rows[e.RowIndex].Cells[4].Value?.ToString() ?? "Activo";
+                e.Value = (estado == "Activo") ? "Desactivar" : "Activar";
             }
         }
     }

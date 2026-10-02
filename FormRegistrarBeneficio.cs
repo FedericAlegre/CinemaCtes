@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace CinemaCtes
 {
@@ -16,7 +17,7 @@ namespace CinemaCtes
         // Propiedades públicas para exponer los datos ingresados
         public string Descripcion => TDescripcion.Text;
         public string Descuento => TDescuento.Text;
-        public string TipoBeneficio => CBTipo.Text;
+        public int IdTipoBeneficio => Convert.ToInt32(CBTipo.SelectedValue); 
 
         public FormRegistrarBeneficio()
         {
@@ -24,7 +25,39 @@ namespace CinemaCtes
         }
 
         private void FormRegistrarBeneficio_Load(object sender, EventArgs e)
-        {  
+        {
+            CargarComboTipos();
+        }
+
+        private void CargarComboTipos()
+        {
+            ConexionBD conexionBD = new ConexionBD();
+            try
+            {
+                using (SqlConnection conexion = conexionBD.ObtenerConexión())
+                {
+                    using (SqlCommand comando = new SqlCommand("SP_ListarTiposBeneficio", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+
+                        using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                        {
+                            DataTable dt = new DataTable();
+                            adaptador.Fill(dt);
+
+                            // Configuramos el ComboBox
+                            CBTipo.DataSource = dt;
+                            CBTipo.DisplayMember = "descripcion";     // Lo que ve el usuario
+                            CBTipo.ValueMember = "id_tipo_beneficio"; // El ID oculto que se usará para la FK
+                            CBTipo.SelectedIndex = -1;                // Opcional: Para que comience sin selección por defecto
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar los tipos de beneficio: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void BInsertar_Click(object sender, EventArgs e)
@@ -85,12 +118,11 @@ namespace CinemaCtes
 
         public void CargarDatos(string descripcion, string tipo, string descuento)
         {
-            // Asignamos los valores recibidos a los controles de tu formulario de registro
-            // (Asegurate de cambiar los nombres si tus TextBox o ComboBox se llaman distinto)
             TDescripcion.Text = descripcion;
-            CBTipo.Text = tipo;
             TDescuento.Text = descuento;
 
+            // Seleccionamos el tipo de beneficio en el ComboBox de forma segura buscando por texto
+            CBTipo.Text = tipo;
             this.Text = "Modificar Beneficio";
         }
     }
