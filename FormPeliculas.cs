@@ -19,74 +19,101 @@ namespace CinemaCtes
         }
 
         private string placeholderTexto = "Buscar Pelicula...";
+
         private void FormPeliculas_Load(object sender, EventArgs e)
         {
-
-            // Evento de Configuración inicial del buscador y manejo del placeholder del TextBox de búsqueda
             ClassEstilosHelper.ConfigurarPlaceholder(TBuscar, placeholderTexto);
-
-            // Configuración del DataGridView
             ClassEstilosHelper.AplicarEstiloTabla(DGVPeliculas);
-
-            // Crear las columnas de botones solo si no existen ya
             ClassEstilosHelper.AgregarBotonesAccion(DGVPeliculas);
 
-            CargarCombosFiltros(); // Cargamos las opciones para los filtros superiores
-
-            // Cargamos datos de ejemplo (Modo Maqueta)
-            CargarTablaPeliculas();
+            CargarCombosFiltros(); // Cargamos filtros desde la BD
+            CargarTablaPeliculas(); // Cargamos la grilla desde la BD
         }
 
-
-        // Método para cargar los combos de filtros con opciones predefinidas
+        // Método para cargar los combos de filtros
         private void CargarCombosFiltros()
         {
-            // Filtro de Etiqueta / Género (Agregamos opción "Todos" para resetear el filtro)
-            CBEtiqueta.Items.Clear();
-            CBEtiqueta.Items.Add("Todas");
-            CBEtiqueta.Items.Add("Acción");
-            CBEtiqueta.Items.Add("Comedia");
-            CBEtiqueta.Items.Add("Drama");
-            CBEtiqueta.Items.Add("Terror");
-            CBEtiqueta.Items.Add("Ciencia Ficción");
-            CBEtiqueta.Items.Add("Animación");
-            CBEtiqueta.SelectedIndex = 0;
-
-            // Filtro de Estado
+            // 1. Filtro de Estado
             CBEstado.Items.Clear();
             CBEstado.Items.Add("Todos");
             CBEstado.Items.Add("Activo");
             CBEstado.Items.Add("Inactivo");
             CBEstado.SelectedIndex = 0;
+
+            // 2. Filtro de Etiquetas desde la BD
+            CBEtiqueta.Items.Clear();
+            CBEtiqueta.Items.Add("Todas");
+
+            ConexionBD conexionBD = new ConexionBD();
+            try
+            {
+                using (SqlConnection conexion = conexionBD.ObtenerConexión())
+                {
+                    using (SqlCommand comando = new SqlCommand("SP_ListarEtiquetas", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        using (SqlDataReader lector = comando.ExecuteReader())
+                        {
+                            while (lector.Read())
+                            {
+                                CBEtiqueta.Items.Add(lector["descripcion"].ToString());
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar etiquetas para el filtro: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            if (CBEtiqueta.Items.Count > 0)
+                CBEtiqueta.SelectedIndex = 0;
         }
 
-        // Método para cargar datos de ejemplo en el DataGridView (Modo Maqueta)
+        // Método para cargar datos desde la Base de Datos en el DataGridView
         private void CargarTablaPeliculas()
         {
             DGVPeliculas.Rows.Clear();
+            ConexionBD conexionBD = new ConexionBD();
 
-            // Filas de ejemplo (Modo Maqueta)
-            AgregarFilaMaqueta("Avengers: Endgame", 181, "Los Vengadores se reúnen para deshacer las acciones de Thanos.", DateTime.Now, DateTime.Now.AddDays(30), "Acción", "Activo", 1);
-            AgregarFilaMaqueta("Intensamente 2", 96, "Alegría y Tristeza se enfrentan a una nueva etapa.", DateTime.Now, DateTime.Now.AddDays(30), "Animación", "Activo", 2);
+            try
+            {
+                using (SqlConnection conexion = conexionBD.ObtenerConexión())
+                {
+                    using (SqlCommand comando = new SqlCommand("SP_ListarPeliculas", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        using (SqlDataReader lector = comando.ExecuteReader())
+                        {
+                            while (lector.Read())
+                            {
+                                int n = DGVPeliculas.Rows.Add();
+                                DGVPeliculas.Rows[n].Cells[0].Value = lector["titulo"];
+                                DGVPeliculas.Rows[n].Cells[1].Value = lector["duracion"] + " min";
+                                DGVPeliculas.Rows[n].Cells[2].Value = lector["sinopsis"];
+
+                                DateTime desde = Convert.ToDateTime(lector["desde"]);
+                                DateTime hasta = Convert.ToDateTime(lector["hasta"]);
+                                DGVPeliculas.Rows[n].Cells[3].Value = desde.ToShortDateString();
+                                DGVPeliculas.Rows[n].Cells[4].Value = hasta.ToShortDateString();
+
+                                DGVPeliculas.Rows[n].Cells[5].Value = lector["etiquetas"]?.ToString() ?? ""; // Múltiples etiquetas separadas por coma
+                                DGVPeliculas.Rows[n].Cells[6].Value = lector["estado"];
+                                DGVPeliculas.Rows[n].Cells[7].Value = lector["id_pelicula"]; // ID Oculto
+                            }
+                        }
+                    }
+                }
+                AplicarFiltros();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar las películas: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-
-        // Método auxiliar para agregar una fila de ejemplo al DataGridView
-        private void AgregarFilaMaqueta(string titulo, int duracion, string sinopsis, DateTime desde, DateTime hasta, string etiqueta, string estado, int id)
-        {
-            int n = DGVPeliculas.Rows.Add();
-            DGVPeliculas.Rows[n].Cells[0].Value = titulo;   // Columna 0: Título
-            DGVPeliculas.Rows[n].Cells[1].Value = duracion + " min"; // Columna 1: Duración
-            DGVPeliculas.Rows[n].Cells[2].Value = sinopsis; // Columna 2: Sinopsis
-            DGVPeliculas.Rows[n].Cells[3].Value = desde.ToShortDateString();
-            DGVPeliculas.Rows[n].Cells[4].Value = hasta.ToShortDateString();
-            DGVPeliculas.Rows[n].Cells[5].Value = etiqueta;
-            DGVPeliculas.Rows[n].Cells[6].Value = estado;
-            DGVPeliculas.Rows[n].Cells[7].Value = id; // ID Oculto
-        }
-
-
-        // Evento para abrir el formulario de registro de película y agregar una nueva película al DataGridView
+        // Evento para abrir el formulario de registro y dar de alta una película
         private void BAnadirPelicula_Click(object sender, EventArgs e)
         {
             using (FormRegistrarPelicula formRegistrar = new FormRegistrarPelicula())
@@ -95,73 +122,217 @@ namespace CinemaCtes
 
                 if (resultado == DialogResult.OK)
                 {
-                    int nuevoId = DGVPeliculas.Rows.Count + 1;
+                    // Obtenemos la lista de IDs seleccionados en el CheckedListBox y los unimos en formato "1,2,3"
+                    List<int> idsEtiquetas = formRegistrar.ObtenerEtiquetasSeleccionadas();
+                    string idsEtiquetasCsv = string.Join(",", idsEtiquetas);
 
-                    int n = DGVPeliculas.Rows.Add();
-                    DGVPeliculas.Rows[n].Cells[0].Value = formRegistrar.Titulo;
-                    DGVPeliculas.Rows[n].Cells[1].Value = formRegistrar.Duracion + " min"; 
-                    DGVPeliculas.Rows[n].Cells[2].Value = formRegistrar.Sinopsis; 
-                    DGVPeliculas.Rows[n].Cells[3].Value = formRegistrar.Desde.ToShortDateString();
-                    DGVPeliculas.Rows[n].Cells[4].Value = formRegistrar.Hasta.ToShortDateString();
-                    DGVPeliculas.Rows[n].Cells[5].Value = formRegistrar.EtiquetaSeleccionada;
-                    DGVPeliculas.Rows[n].Cells[6].Value = "Activo";
-                    DGVPeliculas.Rows[n].Cells[7].Value = nuevoId; // ID Oculto
+                    ConexionBD conexionBD = new ConexionBD();
+                    try
+                    {
+                        int resultadoRegistro = 0;
 
-                    MessageBox.Show($"Película '{formRegistrar.Titulo}' agregada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        using (SqlConnection conexion = conexionBD.ObtenerConexión())
+                        {
+                            using (SqlCommand comando = new SqlCommand("SP_RegistrarPelicula", conexion))
+                            {
+                                comando.CommandType = CommandType.StoredProcedure;
+                                comando.Parameters.AddWithValue("@Titulo", formRegistrar.Titulo);
+                                comando.Parameters.AddWithValue("@Sinopsis", formRegistrar.Sinopsis);
+                                comando.Parameters.AddWithValue("@Duracion", formRegistrar.Duracion);
+                                comando.Parameters.AddWithValue("@Desde", formRegistrar.Desde);
+                                comando.Parameters.AddWithValue("@Hasta", formRegistrar.Hasta);
+                                comando.Parameters.AddWithValue("@IdsEtiquetas", idsEtiquetasCsv);
+
+                                SqlParameter paramResultado = new SqlParameter("@Resultado", SqlDbType.Int);
+                                paramResultado.Direction = ParameterDirection.Output;
+                                comando.Parameters.Add(paramResultado);
+
+                                comando.ExecuteNonQuery();
+                                resultadoRegistro = Convert.ToInt32(paramResultado.Value);
+                            }
+                        }
+
+                        if (resultadoRegistro == 0)
+                        {
+                            MessageBox.Show("Ya existe una película registrada con ese título.", "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        else
+                        {
+                            CargarTablaPeliculas();
+                            MessageBox.Show($"Película '{formRegistrar.Titulo}' agregada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al guardar la película: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
 
-
-        // Evento para manejar los clics en los botones de modificar y eliminar dentro del DataGridView
+        // Evento para modificar o cambiar el estado desde los botones de la grilla
         private void DGVPeliculas_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && !DGVPeliculas.Rows[e.RowIndex].IsNewRow)
             {
                 string nombreColumna = DGVPeliculas.Columns[e.ColumnIndex].Name;
-
-                // Leemos los datos actuales de la fila seleccionada
                 int idPelicula = Convert.ToInt32(DGVPeliculas.Rows[e.RowIndex].Cells[7].Value);
-                string tituloActual = DGVPeliculas.Rows[e.RowIndex].Cells[0].Value?.ToString() ?? "";
 
-                // Limpiamos el texto " min" para pasarlo como número entero al formulario de modificación
-                string duracionTexto = DGVPeliculas.Rows[e.RowIndex].Cells[1].Value?.ToString().Replace(" min", "") ?? "0"; // Columna 1
+                string tituloActual = DGVPeliculas.Rows[e.RowIndex].Cells[0].Value?.ToString() ?? "";
+                string duracionTexto = DGVPeliculas.Rows[e.RowIndex].Cells[1].Value?.ToString().Replace(" min", "") ?? "0";
                 int.TryParse(duracionTexto, out int duracionActual);
 
-                string sinopsisActual = DGVPeliculas.Rows[e.RowIndex].Cells[2].Value?.ToString() ?? ""; 
+                string sinopsisActual = DGVPeliculas.Rows[e.RowIndex].Cells[2].Value?.ToString() ?? "";
                 DateTime desdeActual = Convert.ToDateTime(DGVPeliculas.Rows[e.RowIndex].Cells[3].Value);
                 DateTime hastaActual = Convert.ToDateTime(DGVPeliculas.Rows[e.RowIndex].Cells[4].Value);
-                string etiquetaActual = DGVPeliculas.Rows[e.RowIndex].Cells[5].Value?.ToString() ?? "";
                 string estadoActual = DGVPeliculas.Rows[e.RowIndex].Cells[6].Value?.ToString() ?? "Activo";
 
                 if (nombreColumna == "CModificar")
                 {
                     using (FormRegistrarPelicula formModificar = new FormRegistrarPelicula())
                     {
-                        formModificar.CargarDatos(tituloActual, duracionActual, desdeActual, hastaActual, sinopsisActual, etiquetaActual);
+                        formModificar.CargarDatos(tituloActual, duracionActual, desdeActual, hastaActual, sinopsisActual);
                         DialogResult resultado = formModificar.ShowDialog();
 
                         if (resultado == DialogResult.OK)
                         {
-                            // Actualizamos la grilla visualmente
-                            DGVPeliculas.Rows[e.RowIndex].Cells[0].Value = formModificar.Titulo;
-                            DGVPeliculas.Rows[e.RowIndex].Cells[1].Value = formModificar.Duracion + " min";
-                            DGVPeliculas.Rows[e.RowIndex].Cells[2].Value = formModificar.Sinopsis;
-                            DGVPeliculas.Rows[e.RowIndex].Cells[3].Value = formModificar.Desde.ToShortDateString();
-                            DGVPeliculas.Rows[e.RowIndex].Cells[4].Value = formModificar.Hasta.ToShortDateString();
-                            DGVPeliculas.Rows[e.RowIndex].Cells[5].Value = formModificar.EtiquetaSeleccionada;
-                            
+                            List<int> idsEtiquetas = formModificar.ObtenerEtiquetasSeleccionadas();
+                            string idsEtiquetasCsv = string.Join(",", idsEtiquetas);
 
-                            MessageBox.Show("Película modificada correctamente.", "Modificado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            ConexionBD conexionBD = new ConexionBD();
+                            try
+                            {
+                                int resultadoModificacion = 0;
+
+                                using (SqlConnection conexion = conexionBD.ObtenerConexión())
+                                {
+                                    // Verificamos de forma previa si esta película tiene funciones activas programadas
+                                    // para advertirle al usuario antes de aplicar cambios de fechas.
+                                    bool tieneFuncionesActivas = false;
+                                    using (SqlCommand cmdVerificar = new SqlCommand("SELECT COUNT(1) FROM funcion WHERE id_pelicula = @IdPelicula AND fecha >= GETDATE() AND estado = 'Activo'", conexion))
+                                    {
+                                        cmdVerificar.Parameters.AddWithValue("@IdPelicula", idPelicula);
+                                        tieneFuncionesActivas = Convert.ToInt32(cmdVerificar.ExecuteScalar()) > 0;
+                                    }
+
+                                    if (tieneFuncionesActivas)
+                                    {
+                                        DialogResult advResult = MessageBox.Show(
+                                            $"Atención: La película '{tituloActual}' tiene funciones activas programadas.\n\nSi modifica el rango de fechas y alguna función queda fuera del nuevo período, se desactivará automáticamente.\n\n¿Desea continuar?",
+                                            "Advertencia de Funciones Asociadas",
+                                            MessageBoxButtons.YesNo,
+                                            MessageBoxIcon.Warning
+                                        );
+
+                                        if (advResult == DialogResult.No) return;
+                                    }
+
+                                    // Ejecutamos la modificación
+                                    using (SqlCommand comando = new SqlCommand("SP_ModificarPelicula", conexion))
+                                    {
+                                        comando.CommandType = CommandType.StoredProcedure;
+                                        comando.Parameters.AddWithValue("@IdPelicula", idPelicula);
+                                        comando.Parameters.AddWithValue("@Titulo", formModificar.Titulo);
+                                        comando.Parameters.AddWithValue("@Sinopsis", formModificar.Sinopsis);
+                                        comando.Parameters.AddWithValue("@Desde", formModificar.Desde);
+                                        comando.Parameters.AddWithValue("@Hasta", formModificar.Hasta);
+                                        comando.Parameters.AddWithValue("@IdsEtiquetas", idsEtiquetasCsv);
+
+                                        SqlParameter paramResultado = new SqlParameter("@Resultado", SqlDbType.Int);
+                                        paramResultado.Direction = ParameterDirection.Output;
+                                        comando.Parameters.Add(paramResultado);
+
+                                        comando.ExecuteNonQuery();
+                                        resultadoModificacion = Convert.ToInt32(paramResultado.Value);
+                                    }
+                                }
+
+                                if (resultadoModificacion == 0)
+                                {
+                                    MessageBox.Show("No se pudo modificar porque ya existe otra película con ese título.", "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                }
+                                else
+                                {
+                                    CargarTablaPeliculas();
+                                    MessageBox.Show("Película modificada correctamente.", "Modificado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Error al modificar: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
                     }
                 }
                 else if (nombreColumna == "CEliminar")
                 {
-                    string nuevoEstado = (estadoActual == "Activo") ? "Inactivo" : "Activo";
-                    DGVPeliculas.Rows[e.RowIndex].Cells[6].Value = nuevoEstado;
+                    ConexionBD conexionBD = new ConexionBD();
+                    try
+                    {
+                        int resultadoEstado = 1;
 
-                    MessageBox.Show($"La película '{tituloActual}' cambió su estado a '{nuevoEstado}'.", "Estado Actualizado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        // Intentamos cambiar el estado con @ForzarBaja = 0 (evaluación preventiva)
+                        using (SqlConnection conexion = conexionBD.ObtenerConexión())
+                        {
+                            using (SqlCommand comando = new SqlCommand("SP_CambiarEstadoPelicula", conexion))
+                            {
+                                comando.CommandType = CommandType.StoredProcedure;
+                                comando.Parameters.AddWithValue("@IdPelicula", idPelicula);
+                                comando.Parameters.AddWithValue("@ForzarBaja", 0);
+
+                                SqlParameter paramResultado = new SqlParameter("@Resultado", SqlDbType.Int);
+                                paramResultado.Direction = ParameterDirection.Output;
+                                comando.Parameters.Add(paramResultado);
+
+                                comando.ExecuteNonQuery();
+                                resultadoEstado = Convert.ToInt32(paramResultado.Value);
+                            }
+                        }
+
+                        // Si el resultado es 0, significa que tiene funciones activas futuras
+                        if (resultadoEstado == 0)
+                        {
+                            DialogResult dialogResult = MessageBox.Show(
+                                $"La película '{tituloActual}' tiene funciones activas programadas.\n\n¿Desea desactivarla de todos modos? Se cancelarán automáticamente sus funciones asociadas.",
+                                "Funciones Activas Detectadas",
+                                MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Warning
+                            );
+
+                            if (dialogResult == DialogResult.Yes)
+                            {
+                                // Volvemos a llamar al SP pero esta vez forzando la baja en cascada (@ForzarBaja = 1)
+                                using (SqlConnection conexion = conexionBD.ObtenerConexión())
+                                {
+                                    using (SqlCommand comando = new SqlCommand("SP_CambiarEstadoPelicula", conexion))
+                                    {
+                                        comando.CommandType = CommandType.StoredProcedure;
+                                        comando.Parameters.AddWithValue("@IdPelicula", idPelicula);
+                                        comando.Parameters.AddWithValue("@ForzarBaja", 1);
+
+                                        SqlParameter paramResultado = new SqlParameter("@Resultado", SqlDbType.Int);
+                                        paramResultado.Direction = ParameterDirection.Output;
+                                        comando.Parameters.Add(paramResultado);
+
+                                        comando.ExecuteNonQuery();
+                                    }
+                                }
+
+                                CargarTablaPeliculas();
+                                MessageBox.Show("La película y sus funciones futuras fueron desactivadas correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
+                        else
+                        {
+                            // Si no tenía funciones o se estaba activando, se hizo de forma directa
+                            CargarTablaPeliculas();
+                            MessageBox.Show("Estado de la película actualizado correctamente.", "Estado Actualizado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al cambiar estado: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
@@ -170,12 +341,7 @@ namespace CinemaCtes
         private void AplicarFiltros()
         {
             string textoBusqueda = TBuscar?.Text.Trim().ToLower() ?? "";
-
-            // Si el texto es el placeholder, lo tratamos como vacío para que no filtre por esas palabras
-            if (textoBusqueda == placeholderTexto.ToLower())
-            {
-                textoBusqueda = "";
-            }
+            if (textoBusqueda == placeholderTexto.ToLower()) textoBusqueda = "";
 
             string etiquetaFiltro = CBEtiqueta?.SelectedItem?.ToString() ?? "Todas";
             string estadoFiltro = CBEstado?.SelectedItem?.ToString() ?? "Todos";
@@ -184,40 +350,24 @@ namespace CinemaCtes
             {
                 if (row.IsNewRow) continue;
 
-                // Obtenemos los valores de forma segura
                 string titulo = row.Cells[0].Value?.ToString().ToLower() ?? "";
-                string etiqueta = row.Cells[5].Value?.ToString().Trim() ?? "";
+                string etiquetasFila = row.Cells[5].Value?.ToString().ToLower() ?? ""; // Contiene las etiquetas separadas por comas
                 string estado = row.Cells[6].Value?.ToString().Trim() ?? "";
 
-                // Evaluamos las condiciones
                 bool cumpleTexto = string.IsNullOrEmpty(textoBusqueda) || titulo.Contains(textoBusqueda);
 
                 bool cumpleEtiqueta = etiquetaFiltro.Equals("Todas", StringComparison.OrdinalIgnoreCase) ||
-                                      etiqueta.Equals(etiquetaFiltro, StringComparison.OrdinalIgnoreCase);
+                                      etiquetasFila.Contains(etiquetaFiltro.ToLower());
 
                 bool cumpleEstado = estadoFiltro.Equals("Todos", StringComparison.OrdinalIgnoreCase) ||
                                     estado.Equals(estadoFiltro, StringComparison.OrdinalIgnoreCase);
 
-                // Mostramos u ocultamos la fila
                 row.Visible = cumpleTexto && cumpleEtiqueta && cumpleEstado;
             }
         }
 
-        // Eventos para disparar el filtro automáticamente
-        private void TBuscar_TextChanged(object sender, EventArgs e)
-        {
-            AplicarFiltros();
-        }
-
-        private void CBEtiqueta_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            AplicarFiltros();
-        }
-
-        private void CBEstado_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            AplicarFiltros();
-        }
-
+        private void TBuscar_TextChanged(object sender, EventArgs e) => AplicarFiltros();
+        private void CBEtiqueta_SelectedIndexChanged(object sender, EventArgs e) => AplicarFiltros();
+        private void CBEstado_SelectedIndexChanged(object sender, EventArgs e) => AplicarFiltros();
     }
 }

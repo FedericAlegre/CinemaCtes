@@ -36,13 +36,13 @@
             this.BCancelar = new System.Windows.Forms.Button();
             this.BInsertar = new System.Windows.Forms.Button();
             this.LEtiqueta = new System.Windows.Forms.Label();
-            this.CBEtiqueta = new System.Windows.Forms.ComboBox();
             this.LAñadir = new System.Windows.Forms.Label();
             this.LHasta = new System.Windows.Forms.Label();
             this.LSinopsis = new System.Windows.Forms.Label();
             this.RTBSinopsis = new System.Windows.Forms.RichTextBox();
             this.DTPDesde = new System.Windows.Forms.DateTimePicker();
             this.DTPHasta = new System.Windows.Forms.DateTimePicker();
+            this.CLBEtiquetas = new System.Windows.Forms.CheckedListBox();
             this.SuspendLayout();
             // 
             // LDesde
@@ -113,24 +113,11 @@
             // LEtiqueta
             // 
             this.LEtiqueta.AutoSize = true;
-            this.LEtiqueta.Location = new System.Drawing.Point(265, 195);
+            this.LEtiqueta.Location = new System.Drawing.Point(265, 177);
             this.LEtiqueta.Name = "LEtiqueta";
             this.LEtiqueta.Size = new System.Drawing.Size(46, 13);
             this.LEtiqueta.TabIndex = 25;
             this.LEtiqueta.Text = "Etiqueta";
-            // 
-            // CBEtiqueta
-            // 
-            this.CBEtiqueta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CBEtiqueta.FormattingEnabled = true;
-            this.CBEtiqueta.Items.AddRange(new object[] {
-            "Administrador",
-            "Supervisor",
-            "Vendedor"});
-            this.CBEtiqueta.Location = new System.Drawing.Point(335, 192);
-            this.CBEtiqueta.Name = "CBEtiqueta";
-            this.CBEtiqueta.Size = new System.Drawing.Size(128, 21);
-            this.CBEtiqueta.TabIndex = 5;
             // 
             // LAñadir
             // 
@@ -154,7 +141,7 @@
             // LSinopsis
             // 
             this.LSinopsis.AutoSize = true;
-            this.LSinopsis.Location = new System.Drawing.Point(265, 119);
+            this.LSinopsis.Location = new System.Drawing.Point(265, 104);
             this.LSinopsis.Name = "LSinopsis";
             this.LSinopsis.Size = new System.Drawing.Size(46, 13);
             this.LSinopsis.TabIndex = 30;
@@ -165,7 +152,7 @@
             this.RTBSinopsis.Location = new System.Drawing.Point(335, 83);
             this.RTBSinopsis.MaxLength = 1000;
             this.RTBSinopsis.Name = "RTBSinopsis";
-            this.RTBSinopsis.Size = new System.Drawing.Size(128, 92);
+            this.RTBSinopsis.Size = new System.Drawing.Size(128, 56);
             this.RTBSinopsis.TabIndex = 4;
             this.RTBSinopsis.Text = "";
             // 
@@ -183,11 +170,22 @@
             this.DTPHasta.Size = new System.Drawing.Size(129, 20);
             this.DTPHasta.TabIndex = 3;
             // 
+            // CLBEtiquetas
+            // 
+            this.CLBEtiquetas.FormattingEnabled = true;
+            this.CLBEtiquetas.Location = new System.Drawing.Point(335, 155);
+            this.CLBEtiquetas.Name = "CLBEtiquetas";
+            this.CLBEtiquetas.Size = new System.Drawing.Size(128, 64);
+            this.CLBEtiquetas.TabIndex = 5;
+            // 
             // FormRegistrarPelicula
             // 
+            this.AcceptButton = this.BInsertar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.BCancelar;
             this.ClientSize = new System.Drawing.Size(514, 322);
+            this.Controls.Add(this.CLBEtiquetas);
             this.Controls.Add(this.DTPHasta);
             this.Controls.Add(this.DTPDesde);
             this.Controls.Add(this.RTBSinopsis);
@@ -195,7 +193,6 @@
             this.Controls.Add(this.LHasta);
             this.Controls.Add(this.LAñadir);
             this.Controls.Add(this.LEtiqueta);
-            this.Controls.Add(this.CBEtiqueta);
             this.Controls.Add(this.BCancelar);
             this.Controls.Add(this.BInsertar);
             this.Controls.Add(this.LDesde);
@@ -221,12 +218,12 @@
         private System.Windows.Forms.Button BCancelar;
         private System.Windows.Forms.Button BInsertar;
         private System.Windows.Forms.Label LEtiqueta;
-        private System.Windows.Forms.ComboBox CBEtiqueta;
         private System.Windows.Forms.Label LAñadir;
         private System.Windows.Forms.Label LHasta;
         private System.Windows.Forms.Label LSinopsis;
         private System.Windows.Forms.RichTextBox RTBSinopsis;
         private System.Windows.Forms.DateTimePicker DTPDesde;
         private System.Windows.Forms.DateTimePicker DTPHasta;
+        private System.Windows.Forms.CheckedListBox CLBEtiquetas;
     }
 }

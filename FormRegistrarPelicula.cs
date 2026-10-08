@@ -7,50 +7,74 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace CinemaCtes
 {
     public partial class FormRegistrarPelicula : Form
     {
-        // Propiedades públicas para exponer los datos al formulario principal
         public string Titulo => TTitulo.Text.Trim();
         public int Duracion => int.TryParse(TDuracion.Text.Trim(), out int dur) ? dur : 0;
-
-        // Exponemos los valores de los DateTimePicker
         public DateTime Desde => DTPDesde.Value;
         public DateTime Hasta => DTPHasta.Value;
-
         public string Sinopsis => RTBSinopsis.Text.Trim();
-        public string EtiquetaSeleccionada => CBEtiqueta.SelectedItem?.ToString() ?? "";
 
         public FormRegistrarPelicula()
         {
             InitializeComponent();
-            CargarEtiquetasMaqueta();
-
-            // Configuramos fechas iniciales por defecto lógicas
             DTPDesde.Value = DateTime.Now;
             DTPHasta.Value = DateTime.Now.AddDays(30);
         }
 
-        // Método para cargar etiquetas de ejemplo en el ComboBox (Modo Maqueta)
-        private void CargarEtiquetasMaqueta()
+        private void FormRegistrarPelicula_Load(object sender, EventArgs e)
         {
-            // Opciones de etiquetas de ejemplo (Modo Maqueta)
-            // Cuando conectes a la BD, harás un SELECT id_etiqueta, descripcion FROM etiqueta
-            CBEtiqueta.Items.Clear();
-            CBEtiqueta.Items.Add("Acción");
-            CBEtiqueta.Items.Add("Comedia");
-            CBEtiqueta.Items.Add("Drama");
-            CBEtiqueta.Items.Add("Terror");
-            CBEtiqueta.Items.Add("Ciencia Ficción");
-            CBEtiqueta.Items.Add("Animación");
-
-            if (CBEtiqueta.Items.Count > 0)
-                CBEtiqueta.SelectedIndex = 0;
+            CargarCheckedListBoxEtiquetasBD();
         }
 
-        // Validación para permitir solo números en el campo de duración
+        // Exponemos una lista con los IDs de las etiquetas tildadas en el CheckedListBox
+        public List<int> ObtenerEtiquetasSeleccionadas()
+        {
+            List<int> idsEtiquetas = new List<int>();
+
+            foreach (DataRowView item in CLBEtiquetas.CheckedItems)
+            {
+                idsEtiquetas.ConvertAll(x => x);
+                idsEtiquetas.Add(Convert.ToInt32(item["id_etiqueta"]));
+            }
+
+            return idsEtiquetas;
+        }
+
+        // Método para cargar el CheckedListBox usando el SP de etiquetas
+        private void CargarCheckedListBoxEtiquetasBD()
+        {
+            ConexionBD conexionBD = new ConexionBD();
+            try
+            {
+                using (SqlConnection conexion = conexionBD.ObtenerConexión())
+                {
+                    using (SqlCommand comando = new SqlCommand("SP_ListarEtiquetas", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+
+                        using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                        {
+                            DataTable dt = new DataTable();
+                            adaptador.Fill(dt);
+
+                            CLBEtiquetas.DataSource = dt;
+                            CLBEtiquetas.DisplayMember = "descripcion";
+                            CLBEtiquetas.ValueMember = "id_etiqueta";
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar las etiquetas: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void TDuracion_TextChanged(object sender, EventArgs e)
         {
             if (sender is TextBox txtBox)
@@ -66,76 +90,56 @@ namespace CinemaCtes
             }
         }
 
-        // Botón Insertar: Validación de campos y cierre del formulario con DialogResult
         private void BInsertar_Click(object sender, EventArgs e)
         {
-            // Validación de campos obligatorios
             if (!ClassValidacionesHelper.ValidarCampoVacio(TTitulo, "título")) return;
             if (!ClassValidacionesHelper.ValidarCampoVacio(TDuracion, "duracion")) return;
             if (!ClassValidacionesHelper.ValidarCampoVacio(RTBSinopsis, "sinopsis")) return;
 
-            // Validación de duración mínima (mayor a 0)
-            if (Duracion <= 0) 
+            if (Duracion <= 0 || Duracion > 400)
             {
-                MessageBox.Show("La duración en minutos debe ser mayor a 0.", "Valor inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                TDuracion.Focus();
-                TDuracion.SelectAll();
+                MessageBox.Show("La duración debe ser mayor a 0 y menor a 400 minutos.", "Valor inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Validación de duración máxima (hasta 400 minutos)
-            if (Duracion > 400)
+            if (DTPDesde.Value.Date < DateTime.Now.Date || DTPHasta.Value < DTPDesde.Value)
             {
-                MessageBox.Show("La duración no puede superar los 400 minutos.", "Valor inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                TDuracion.Focus();
-                TDuracion.SelectAll();
+                MessageBox.Show("Verifique que las fechas sean correctas.", "Fechas inválidas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Validación: La fecha 'Desde' no puede ser menor a hoy
-            if (DTPDesde.Value.Date < DateTime.Now.Date)
+            // Validación del límite de etiquetas (mínimo 1, máximo 3)
+            int cantidadSeleccionadas = CLBEtiquetas.CheckedItems.Count;
+            if (cantidadSeleccionadas == 0)
             {
-                MessageBox.Show("La fecha 'Desde' no puede ser anterior a la fecha actual.", "Fechas inválidas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Debes seleccionar al menos una etiqueta.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            // Validación: La fecha 'Hasta' no puede ser menor a la fecha 'Desde'
-            if (DTPHasta.Value < DTPDesde.Value)
+            if (cantidadSeleccionadas > 3)
             {
-                MessageBox.Show("La fecha 'Hasta' no puede ser anterior a la fecha 'Desde'.", "Fechas inválidas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Solo puedes seleccionar un máximo de 3 etiquetas por película.", "Límite excedido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            // Validar que se haya seleccionado una etiqueta en el ComboBox
-            if (!ClassValidacionesHelper.ValidarComboBox(CBEtiqueta, "una etiqueta")) return;
 
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
-        // Botón Cancelar: Cierra el formulario sin guardar cambios
         private void BCancelar_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
-        // Método para cargar datos al modificar una película existente
-        public void CargarDatos(string titulo, int duracion, DateTime desde, DateTime hasta, string sinopsis, string etiqueta)
+        public void CargarDatos(string titulo, int duracion, DateTime desde, DateTime hasta, string sinopsis)
         {
             TTitulo.Text = titulo;
             TDuracion.Text = duracion.ToString();
+            TDuracion.Enabled = false; 
             DTPDesde.Value = desde;
             DTPHasta.Value = hasta;
             RTBSinopsis.Text = sinopsis;
-            CBEtiqueta.SelectedItem = etiqueta;
-
             this.Text = "Modificar Película";
-        }
-
-        private void FormRegistrarPelicula_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -49,7 +49,7 @@ namespace CinemaCtes
                             CBTipo.DataSource = dt;
                             CBTipo.DisplayMember = "descripcion";     // Lo que ve el usuario
                             CBTipo.ValueMember = "id_tipo_beneficio"; // El ID oculto que se usará para la FK
-                            CBTipo.SelectedIndex = -1;                // Opcional: Para que comience sin selección por defecto
+                            CBTipo.SelectedIndex = -1; 
                         }
                     }
                 }
