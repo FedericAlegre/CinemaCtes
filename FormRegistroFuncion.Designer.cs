@@ -33,23 +33,27 @@
             this.BInsertar = new System.Windows.Forms.Button();
             this.LPelicula = new System.Windows.Forms.Label();
             this.CBPelicula = new System.Windows.Forms.ComboBox();
-            this.LFecha = new System.Windows.Forms.Label();
             this.LSala = new System.Windows.Forms.Label();
             this.CBSala = new System.Windows.Forms.ComboBox();
             this.Linicio = new System.Windows.Forms.Label();
-            this.DTPFecha = new System.Windows.Forms.DateTimePicker();
             this.DTPInicio = new System.Windows.Forms.DateTimePicker();
+            this.BAñadir = new System.Windows.Forms.Button();
+            this.LBHorarios = new System.Windows.Forms.ListBox();
+            this.BBorrar = new System.Windows.Forms.Button();
+            this.LFecha = new System.Windows.Forms.Label();
+            this.DTPFecha = new System.Windows.Forms.DateTimePicker();
+            this.LblRangoCalculado = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // LAñadir
             // 
             this.LAñadir.AutoSize = true;
             this.LAñadir.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-            this.LAñadir.Location = new System.Drawing.Point(136, 44);
+            this.LAñadir.Location = new System.Drawing.Point(174, 41);
             this.LAñadir.Name = "LAñadir";
-            this.LAñadir.Size = new System.Drawing.Size(208, 22);
+            this.LAñadir.Size = new System.Drawing.Size(131, 22);
             this.LAñadir.TabIndex = 15;
-            this.LAñadir.Text = "Añadir/Modificar Funcion";
+            this.LAñadir.Text = "Añadir Funcion";
             // 
             // BCancelar
             // 
@@ -75,7 +79,7 @@
             // LPelicula
             // 
             this.LPelicula.AutoSize = true;
-            this.LPelicula.Location = new System.Drawing.Point(36, 118);
+            this.LPelicula.Location = new System.Drawing.Point(36, 115);
             this.LPelicula.Name = "LPelicula";
             this.LPelicula.Size = new System.Drawing.Size(44, 13);
             this.LPelicula.TabIndex = 0;
@@ -89,24 +93,15 @@
             "Administrador",
             "Supervisor",
             "Vendedor"});
-            this.CBPelicula.Location = new System.Drawing.Point(95, 115);
+            this.CBPelicula.Location = new System.Drawing.Point(95, 112);
             this.CBPelicula.Name = "CBPelicula";
             this.CBPelicula.Size = new System.Drawing.Size(128, 21);
             this.CBPelicula.TabIndex = 0;
             // 
-            // LFecha
-            // 
-            this.LFecha.AutoSize = true;
-            this.LFecha.Location = new System.Drawing.Point(266, 118);
-            this.LFecha.Name = "LFecha";
-            this.LFecha.Size = new System.Drawing.Size(43, 13);
-            this.LFecha.TabIndex = 23;
-            this.LFecha.Text = "Fecha2";
-            // 
             // LSala
             // 
             this.LSala.AutoSize = true;
-            this.LSala.Location = new System.Drawing.Point(36, 177);
+            this.LSala.Location = new System.Drawing.Point(36, 153);
             this.LSala.Name = "LSala";
             this.LSala.Size = new System.Drawing.Size(28, 13);
             this.LSala.TabIndex = 25;
@@ -120,7 +115,7 @@
             "Administrador",
             "Supervisor",
             "Vendedor"});
-            this.CBSala.Location = new System.Drawing.Point(95, 174);
+            this.CBSala.Location = new System.Drawing.Point(95, 150);
             this.CBSala.Name = "CBSala";
             this.CBSala.Size = new System.Drawing.Size(128, 21);
             this.CBSala.TabIndex = 1;
@@ -128,39 +123,91 @@
             // Linicio
             // 
             this.Linicio.AutoSize = true;
-            this.Linicio.Location = new System.Drawing.Point(266, 180);
+            this.Linicio.Location = new System.Drawing.Point(283, 96);
             this.Linicio.Name = "Linicio";
-            this.Linicio.Size = new System.Drawing.Size(32, 13);
+            this.Linicio.Size = new System.Drawing.Size(68, 13);
             this.Linicio.TabIndex = 20;
-            this.Linicio.Text = "Inicio";
-            // 
-            // DTPFecha
-            // 
-            this.DTPFecha.Location = new System.Drawing.Point(318, 115);
-            this.DTPFecha.Name = "DTPFecha";
-            this.DTPFecha.Size = new System.Drawing.Size(128, 20);
-            this.DTPFecha.TabIndex = 3;
+            this.Linicio.Text = "Horario inicio";
             // 
             // DTPInicio
             // 
             this.DTPInicio.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.DTPInicio.Location = new System.Drawing.Point(318, 175);
+            this.DTPInicio.Location = new System.Drawing.Point(256, 112);
             this.DTPInicio.Name = "DTPInicio";
             this.DTPInicio.ShowUpDown = true;
             this.DTPInicio.Size = new System.Drawing.Size(128, 20);
-            this.DTPInicio.TabIndex = 26;
+            this.DTPInicio.TabIndex = 2;
+            // 
+            // BAñadir
+            // 
+            this.BAñadir.Location = new System.Drawing.Point(400, 111);
+            this.BAñadir.Name = "BAñadir";
+            this.BAñadir.Size = new System.Drawing.Size(46, 20);
+            this.BAñadir.TabIndex = 26;
+            this.BAñadir.Text = "Añadir";
+            this.BAñadir.UseVisualStyleBackColor = true;
+            this.BAñadir.Click += new System.EventHandler(this.BAñadir_Click);
+            // 
+            // LBHorarios
+            // 
+            this.LBHorarios.FormattingEnabled = true;
+            this.LBHorarios.Location = new System.Drawing.Point(256, 150);
+            this.LBHorarios.Name = "LBHorarios";
+            this.LBHorarios.Size = new System.Drawing.Size(128, 56);
+            this.LBHorarios.TabIndex = 27;
+            // 
+            // BBorrar
+            // 
+            this.BBorrar.Location = new System.Drawing.Point(400, 166);
+            this.BBorrar.Name = "BBorrar";
+            this.BBorrar.Size = new System.Drawing.Size(46, 20);
+            this.BBorrar.TabIndex = 28;
+            this.BBorrar.Text = "Borrar";
+            this.BBorrar.UseVisualStyleBackColor = true;
+            this.BBorrar.Click += new System.EventHandler(this.BBorrar_Click);
+            // 
+            // LFecha
+            // 
+            this.LFecha.AutoSize = true;
+            this.LFecha.Location = new System.Drawing.Point(36, 188);
+            this.LFecha.Name = "LFecha";
+            this.LFecha.Size = new System.Drawing.Size(37, 13);
+            this.LFecha.TabIndex = 30;
+            this.LFecha.Text = "Fecha";
+            // 
+            // DTPFecha
+            // 
+            this.DTPFecha.Location = new System.Drawing.Point(95, 186);
+            this.DTPFecha.Name = "DTPFecha";
+            this.DTPFecha.Size = new System.Drawing.Size(128, 20);
+            this.DTPFecha.TabIndex = 31;
+            this.DTPFecha.ValueChanged += new System.EventHandler(this.DTPFecha_ValueChanged);
+            // 
+            // LblRangoCalculado
+            // 
+            this.LblRangoCalculado.AutoSize = true;
+            this.LblRangoCalculado.Location = new System.Drawing.Point(92, 218);
+            this.LblRangoCalculado.Name = "LblRangoCalculado";
+            this.LblRangoCalculado.Size = new System.Drawing.Size(0, 13);
+            this.LblRangoCalculado.TabIndex = 32;
             // 
             // FormRegistroFuncion
             // 
+            this.AcceptButton = this.BInsertar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.BCancelar;
             this.ClientSize = new System.Drawing.Size(469, 325);
-            this.Controls.Add(this.DTPInicio);
+            this.Controls.Add(this.LblRangoCalculado);
             this.Controls.Add(this.DTPFecha);
+            this.Controls.Add(this.LFecha);
+            this.Controls.Add(this.BBorrar);
+            this.Controls.Add(this.LBHorarios);
+            this.Controls.Add(this.BAñadir);
+            this.Controls.Add(this.DTPInicio);
             this.Controls.Add(this.Linicio);
             this.Controls.Add(this.LSala);
             this.Controls.Add(this.CBSala);
-            this.Controls.Add(this.LFecha);
             this.Controls.Add(this.LPelicula);
             this.Controls.Add(this.CBPelicula);
             this.Controls.Add(this.BCancelar);
@@ -181,11 +228,15 @@
         private System.Windows.Forms.Button BInsertar;
         private System.Windows.Forms.Label LPelicula;
         private System.Windows.Forms.ComboBox CBPelicula;
-        private System.Windows.Forms.Label LFecha;
         private System.Windows.Forms.Label LSala;
         private System.Windows.Forms.ComboBox CBSala;
         private System.Windows.Forms.Label Linicio;
-        private System.Windows.Forms.DateTimePicker DTPFecha;
         private System.Windows.Forms.DateTimePicker DTPInicio;
+        private System.Windows.Forms.Button BAñadir;
+        private System.Windows.Forms.ListBox LBHorarios;
+        private System.Windows.Forms.Button BBorrar;
+        private System.Windows.Forms.Label LFecha;
+        private System.Windows.Forms.DateTimePicker DTPFecha;
+        private System.Windows.Forms.Label LblRangoCalculado;
     }
 }

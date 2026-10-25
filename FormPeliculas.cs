@@ -33,14 +33,10 @@ namespace CinemaCtes
         // Método para cargar los combos de filtros
         private void CargarCombosFiltros()
         {
-            // 1. Filtro de Estado
-            CBEstado.Items.Clear();
-            CBEstado.Items.Add("Todos");
-            CBEstado.Items.Add("Activo");
-            CBEstado.Items.Add("Inactivo");
-            CBEstado.SelectedIndex = 0;
+            // Filtro de Estado
+            ClassEstilosHelper.CargarComboEstados(CBEstado);
 
-            // 2. Filtro de Etiquetas desde la BD
+            // Filtro de Etiquetas desde la BD
             CBEtiqueta.Items.Clear();
             CBEtiqueta.Items.Add("Todas");
 
@@ -346,12 +342,21 @@ namespace CinemaCtes
             string etiquetaFiltro = CBEtiqueta?.SelectedItem?.ToString() ?? "Todas";
             string estadoFiltro = CBEstado?.SelectedItem?.ToString() ?? "Todos";
 
+            // Obtenemos las fechas seleccionadas en los controles de la interfaz
+            DateTime fechaFiltroDesde = DTPDesde.Value.Date;
+            DateTime fechaFiltroHasta = DTPHasta.Value.Date;
+
             foreach (DataGridViewRow row in DGVPeliculas.Rows)
             {
                 if (row.IsNewRow) continue;
 
                 string titulo = row.Cells[0].Value?.ToString().ToLower() ?? "";
-                string etiquetasFila = row.Cells[5].Value?.ToString().ToLower() ?? ""; // Contiene las etiquetas separadas por comas
+                // Asumiendo que la columna de fecha 'desde' está en el índice X y 'hasta' en el Y, 
+                // o podés evaluar directamente las celdas correspondientes a las fechas de la película:
+                DateTime fechaPeliDesde = Convert.ToDateTime(row.Cells[3].Value).Date; // Ajustá el índice según tu grilla
+                DateTime fechaPeliHasta = Convert.ToDateTime(row.Cells[4].Value).Date; // Ajustá el índice según tu grilla
+
+                string etiquetasFila = row.Cells[5].Value?.ToString().ToLower() ?? "";
                 string estado = row.Cells[6].Value?.ToString().Trim() ?? "";
 
                 bool cumpleTexto = string.IsNullOrEmpty(textoBusqueda) || titulo.Contains(textoBusqueda);
@@ -362,12 +367,51 @@ namespace CinemaCtes
                 bool cumpleEstado = estadoFiltro.Equals("Todos", StringComparison.OrdinalIgnoreCase) ||
                                     estado.Equals(estadoFiltro, StringComparison.OrdinalIgnoreCase);
 
-                row.Visible = cumpleTexto && cumpleEtiqueta && cumpleEstado;
+                // Lógica de superposición de fechas (la película coincide con el rango buscado)
+                bool cumpleFechas = (fechaPeliDesde <= fechaFiltroHasta) && (fechaPeliHasta >= fechaFiltroDesde);
+
+                row.Visible = cumpleTexto && cumpleEtiqueta && cumpleEstado && cumpleFechas;
             }
         }
 
         private void TBuscar_TextChanged(object sender, EventArgs e) => AplicarFiltros();
         private void CBEtiqueta_SelectedIndexChanged(object sender, EventArgs e) => AplicarFiltros();
         private void CBEstado_SelectedIndexChanged(object sender, EventArgs e) => AplicarFiltros();
+
+
+        // Eventos de cambio en los DateTimePickers de rango
+        private void DTPDesde_ValueChanged(object sender, EventArgs e)
+        {
+            ValidarRangoFechas();
+            AplicarFiltros();
+        }
+
+        private void DTPHasta_ValueChanged(object sender, EventArgs e)
+        {
+            ValidarRangoFechas();
+            AplicarFiltros();
+        }
+
+        private bool ValidarRangoFechas()
+        {
+            DateTime desde = DTPDesde.Value.Date;
+            DateTime hasta = DTPHasta.Value.Date;
+
+            if (desde > hasta)
+            {
+                MessageBox.Show(
+                    "La fecha 'Desde' no puede ser posterior a la fecha 'Hasta'. Por favor, corrija el rango seleccionado.",
+                    "Rango de fechas inválido",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+
+                // Opcional: devolvemos el DateTimePicker "Hasta" al mismo valor que "Desde" para corregirlo automáticamente
+                DTPHasta.Value = desde;
+                return false;
+            }
+
+            return true;
+        }
     }
 }

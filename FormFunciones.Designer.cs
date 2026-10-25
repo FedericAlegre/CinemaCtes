@@ -28,18 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.PHeader = new System.Windows.Forms.Panel();
+            this.BAnularRango = new System.Windows.Forms.Button();
             this.BAñadir = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.DTPFecha = new System.Windows.Forms.DateTimePicker();
+            this.LHasta = new System.Windows.Forms.Label();
+            this.DTPHasta = new System.Windows.Forms.DateTimePicker();
+            this.DTPDesde = new System.Windows.Forms.DateTimePicker();
             this.LSala = new System.Windows.Forms.Label();
             this.CBSala = new System.Windows.Forms.ComboBox();
             this.LBuscar = new System.Windows.Forms.Label();
             this.LEstado = new System.Windows.Forms.Label();
-            this.LFecha = new System.Windows.Forms.Label();
+            this.LDesde = new System.Windows.Forms.Label();
             this.CBEstado = new System.Windows.Forms.ComboBox();
             this.TBuscar = new System.Windows.Forms.TextBox();
             this.DGVFunciones = new System.Windows.Forms.DataGridView();
@@ -58,6 +61,7 @@
             // PHeader
             // 
             this.PHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(60)))));
+            this.PHeader.Controls.Add(this.BAnularRango);
             this.PHeader.Controls.Add(this.BAñadir);
             this.PHeader.Controls.Add(this.label2);
             this.PHeader.Controls.Add(this.label1);
@@ -66,7 +70,17 @@
             this.PHeader.Name = "PHeader";
             this.PHeader.Size = new System.Drawing.Size(734, 65);
             this.PHeader.TabIndex = 3;
-            this.PHeader.Enter += new System.EventHandler(this.BAnadirFuncion_Click);
+            // 
+            // BAnularRango
+            // 
+            this.BAnularRango.BackColor = System.Drawing.Color.AliceBlue;
+            this.BAnularRango.Location = new System.Drawing.Point(484, 22);
+            this.BAnularRango.Name = "BAnularRango";
+            this.BAnularRango.Size = new System.Drawing.Size(113, 27);
+            this.BAnularRango.TabIndex = 1;
+            this.BAnularRango.Text = "Anular funciones";
+            this.BAnularRango.UseVisualStyleBackColor = false;
+            this.BAnularRango.Click += new System.EventHandler(this.BAnularMasivo_Click);
             // 
             // BAñadir
             // 
@@ -103,12 +117,14 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(18)))), ((int)(((byte)(38)))));
-            this.panel3.Controls.Add(this.DTPFecha);
+            this.panel3.Controls.Add(this.LHasta);
+            this.panel3.Controls.Add(this.DTPHasta);
+            this.panel3.Controls.Add(this.DTPDesde);
             this.panel3.Controls.Add(this.LSala);
             this.panel3.Controls.Add(this.CBSala);
             this.panel3.Controls.Add(this.LBuscar);
             this.panel3.Controls.Add(this.LEstado);
-            this.panel3.Controls.Add(this.LFecha);
+            this.panel3.Controls.Add(this.LDesde);
             this.panel3.Controls.Add(this.CBEstado);
             this.panel3.Controls.Add(this.TBuscar);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
@@ -117,13 +133,31 @@
             this.panel3.Size = new System.Drawing.Size(734, 51);
             this.panel3.TabIndex = 4;
             // 
-            // DTPFecha
+            // LHasta
             // 
-            this.DTPFecha.Location = new System.Drawing.Point(284, 22);
-            this.DTPFecha.Name = "DTPFecha";
-            this.DTPFecha.Size = new System.Drawing.Size(135, 20);
-            this.DTPFecha.TabIndex = 8;
-            this.DTPFecha.ValueChanged += new System.EventHandler(this.DTPFecha_ValueChanged);
+            this.LHasta.AutoSize = true;
+            this.LHasta.ForeColor = System.Drawing.Color.White;
+            this.LHasta.Location = new System.Drawing.Point(382, 6);
+            this.LHasta.Name = "LHasta";
+            this.LHasta.Size = new System.Drawing.Size(35, 13);
+            this.LHasta.TabIndex = 10;
+            this.LHasta.Text = "Hasta";
+            // 
+            // DTPHasta
+            // 
+            this.DTPHasta.Location = new System.Drawing.Point(364, 22);
+            this.DTPHasta.Name = "DTPHasta";
+            this.DTPHasta.Size = new System.Drawing.Size(72, 20);
+            this.DTPHasta.TabIndex = 9;
+            this.DTPHasta.ValueChanged += new System.EventHandler(this.DTPHasta_ValueChanged);
+            // 
+            // DTPDesde
+            // 
+            this.DTPDesde.Location = new System.Drawing.Point(272, 22);
+            this.DTPDesde.Name = "DTPDesde";
+            this.DTPDesde.Size = new System.Drawing.Size(72, 20);
+            this.DTPDesde.TabIndex = 8;
+            this.DTPDesde.ValueChanged += new System.EventHandler(this.DTPDesde_ValueChanged);
             // 
             // LSala
             // 
@@ -166,15 +200,15 @@
             this.LEstado.TabIndex = 4;
             this.LEstado.Text = "Estado";
             // 
-            // LFecha
+            // LDesde
             // 
-            this.LFecha.AutoSize = true;
-            this.LFecha.ForeColor = System.Drawing.Color.White;
-            this.LFecha.Location = new System.Drawing.Point(334, 7);
-            this.LFecha.Name = "LFecha";
-            this.LFecha.Size = new System.Drawing.Size(37, 13);
-            this.LFecha.TabIndex = 3;
-            this.LFecha.Text = "Fecha";
+            this.LDesde.AutoSize = true;
+            this.LDesde.ForeColor = System.Drawing.Color.White;
+            this.LDesde.Location = new System.Drawing.Point(289, 6);
+            this.LDesde.Name = "LDesde";
+            this.LDesde.Size = new System.Drawing.Size(38, 13);
+            this.LDesde.TabIndex = 3;
+            this.LDesde.Text = "Desde";
             // 
             // CBEstado
             // 
@@ -206,14 +240,14 @@
             this.DGVFunciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVFunciones.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(18)))), ((int)(((byte)(38)))));
             this.DGVFunciones.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(27)))), ((int)(((byte)(56)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DGVFunciones.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(27)))), ((int)(((byte)(56)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVFunciones.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.DGVFunciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVFunciones.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.CFecha,
@@ -277,6 +311,7 @@
             // 
             // FormFunciones
             // 
+            this.AcceptButton = this.BAñadir;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(734, 461);
@@ -304,7 +339,7 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label LBuscar;
         private System.Windows.Forms.Label LEstado;
-        private System.Windows.Forms.Label LFecha;
+        private System.Windows.Forms.Label LDesde;
         private System.Windows.Forms.ComboBox CBEstado;
         private System.Windows.Forms.TextBox TBuscar;
         private System.Windows.Forms.DataGridView DGVFunciones;
@@ -317,6 +352,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CNroSala;
         private System.Windows.Forms.DataGridViewTextBoxColumn CEstado;
         private System.Windows.Forms.DataGridViewTextBoxColumn CIdFuncion;
-        private System.Windows.Forms.DateTimePicker DTPFecha;
+        private System.Windows.Forms.DateTimePicker DTPDesde;
+        private System.Windows.Forms.DateTimePicker DTPHasta;
+        private System.Windows.Forms.Label LHasta;
+        private System.Windows.Forms.Button BAnularRango;
     }
 }

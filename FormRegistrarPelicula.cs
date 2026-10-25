@@ -31,24 +31,39 @@ namespace CinemaCtes
             CargarCheckedListBoxEtiquetasBD();
         }
 
-        // Exponemos una lista con los IDs de las etiquetas tildadas en el CheckedListBox
-        public List<int> ObtenerEtiquetasSeleccionadas()
+        // Clase auxiliar interna para manejar el ID y el Texto de forma 100% segura en el CheckedListBox
+        private class ItemEtiqueta
         {
-            List<int> idsEtiquetas = new List<int>();
+            public int Id { get; set; }
+            public string Descripcion { get; set; }
 
-            foreach (DataRowView item in CLBEtiquetas.CheckedItems)
+            public override string ToString()
             {
-                idsEtiquetas.ConvertAll(x => x);
-                idsEtiquetas.Add(Convert.ToInt32(item["id_etiqueta"]));
+                return Descripcion; // Esto es lo que mostrará visualmente el CheckedListBox
             }
-
-            return idsEtiquetas;
         }
 
-        // Método para cargar el CheckedListBox usando el SP de etiquetas
+        // Exponemos una lista con los IDs de las etiquetas tildadas de forma totalmente segura
+        public List<int> ObtenerEtiquetasSeleccionadas()
+        {
+            List<int> listaIds = new List<int>();
+
+            foreach (var item in CLBEtiquetas.CheckedItems)
+            {
+                if (item is ItemEtiqueta etiqueta)
+                {
+                    listaIds.Add(etiqueta.Id);
+                }
+            }
+
+            return listaIds;
+        }
+
         private void CargarCheckedListBoxEtiquetasBD()
         {
+            CLBEtiquetas.Items.Clear();
             ConexionBD conexionBD = new ConexionBD();
+
             try
             {
                 using (SqlConnection conexion = conexionBD.ObtenerConexión())
@@ -57,14 +72,16 @@ namespace CinemaCtes
                     {
                         comando.CommandType = CommandType.StoredProcedure;
 
-                        using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                        using (SqlDataReader lector = comando.ExecuteReader())
                         {
-                            DataTable dt = new DataTable();
-                            adaptador.Fill(dt);
+                            while (lector.Read())
+                            {
+                                int idEtiqueta = Convert.ToInt32(lector["id_etiqueta"]);
+                                string descripcion = lector["descripcion"].ToString();
 
-                            CLBEtiquetas.DataSource = dt;
-                            CLBEtiquetas.DisplayMember = "descripcion";
-                            CLBEtiquetas.ValueMember = "id_etiqueta";
+                                // Añadimos nuestra clase auxiliar limpia
+                                CLBEtiquetas.Items.Add(new ItemEtiqueta { Id = idEtiqueta, Descripcion = descripcion });
+                            }
                         }
                     }
                 }
@@ -92,37 +109,56 @@ namespace CinemaCtes
 
         private void BInsertar_Click(object sender, EventArgs e)
         {
-            if (!ClassValidacionesHelper.ValidarCampoVacio(TTitulo, "título")) return;
-            if (!ClassValidacionesHelper.ValidarCampoVacio(TDuracion, "duracion")) return;
-            if (!ClassValidacionesHelper.ValidarCampoVacio(RTBSinopsis, "sinopsis")) return;
-
-            if (Duracion <= 0 || Duracion > 400)
+            try
             {
-                MessageBox.Show("La duración debe ser mayor a 0 y menor a 400 minutos.", "Valor inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+                if (!ClassValidacionesHelper.ValidarCampoVacio(TTitulo, "título")) return;
+                if (!ClassValidacionesHelper.ValidarCampoVacio(TDuracion, "duracion")) return;
+                if (!ClassValidacionesHelper.ValidarCampoVacio(RTBSinopsis, "sinopsis")) return;
 
-            if (DTPDesde.Value.Date < DateTime.Now.Date || DTPHasta.Value < DTPDesde.Value)
-            {
-                MessageBox.Show("Verifique que las fechas sean correctas.", "Fechas inválidas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+                if (Duracion <= 0 || Duracion > 400)
+                {
+                    MessageBox.Show("La duración debe ser mayor a 0 y menor a 400 minutos.", "Valor inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-            // Validación del límite de etiquetas (mínimo 1, máximo 3)
-            int cantidadSeleccionadas = CLBEtiquetas.CheckedItems.Count;
-            if (cantidadSeleccionadas == 0)
-            {
-                MessageBox.Show("Debes seleccionar al menos una etiqueta.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            if (cantidadSeleccionadas > 3)
-            {
-                MessageBox.Show("Solo puedes seleccionar un máximo de 3 etiquetas por película.", "Límite excedido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+                if (DTPDesde.Value.Date < DateTime.Now.Date || DTPHasta.Value < DTPDesde.Value)
+                {
+                    MessageBox.Show("Verifique que las fechas sean correctas.", "Fechas inválidas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+                // Conteo manual y seguro de etiquetas tildadas
+                int cantidadSeleccionadas = 0;
+                for (int i = 0; i < CLBEtiquetas.Items.Count; i++)
+                {
+                    if (CLBEtiquetas.GetItemChecked(i))
+                    {
+                        cantidadSeleccionadas++;
+                    }
+                }
+
+                // Validaciones estrictas
+                if (cantidadSeleccionadas == 0)
+                {
+                    MessageBox.Show("Debes seleccionar al menos una etiqueta.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return; // Frena aquí y NO se cierra
+                }
+
+                if (cantidadSeleccionadas > 3)
+                {
+                    MessageBox.Show("Solo puedes seleccionar un máximo de 3 etiquetas por película. (Seleccionaste: " + cantidadSeleccionadas + ")", "Límite excedido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return; // Frena aquí y NO se cierra
+                }
+
+                // Si pasó las validaciones, recién aquí cerramos con OK
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                // Esto atrapará cualquier error oculto y te dirá exactamente qué línea o qué falló sin cerrar la ventana
+                MessageBox.Show("Error interno en el formulario: " + ex.Message, "Excepción no controlada", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void BCancelar_Click(object sender, EventArgs e)
@@ -135,7 +171,7 @@ namespace CinemaCtes
         {
             TTitulo.Text = titulo;
             TDuracion.Text = duracion.ToString();
-            TDuracion.Enabled = false; 
+            TDuracion.Enabled = false;
             DTPDesde.Value = desde;
             DTPHasta.Value = hasta;
             RTBSinopsis.Text = sinopsis;

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Drawing;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace CinemaCtes
 {
@@ -68,6 +70,19 @@ namespace CinemaCtes
             }
         }
 
+        public static void AgregarBotonesAccion2(DataGridView dgv)
+        {
+            if (!dgv.Columns.Contains("CEliminar"))
+            {
+                DataGridViewButtonColumn CEliminar = new DataGridViewButtonColumn();
+                CEliminar.Name = "CEliminar";
+                CEliminar.HeaderText = "Acción 2";
+                CEliminar.Text = "Desactivar";
+                CEliminar.UseColumnTextForButtonValue = true;
+                dgv.Columns.Add(CEliminar);
+            }
+        }
+
         // Método para configurar el Placeholder de un TextBox
         public static void ConfigurarPlaceholder(TextBox txt, string placeholderTexto)
         {
@@ -84,7 +99,7 @@ namespace CinemaCtes
                 if (txt.Text == placeholderTexto)
                 {
                     txt.Text = "";
-                    txt.ForeColor = Color.White; // O Color.Black según el tema oscuro que uses
+                    txt.ForeColor = Color.Black; 
                 }
             };
 
@@ -97,6 +112,18 @@ namespace CinemaCtes
                     txt.ForeColor = Color.Gray;
                 }
             };
+        }
+
+        public static void CargarComboEstados(ComboBox comboBox)
+        {
+            comboBox.Items.Clear();
+            comboBox.Items.Add("Todos");
+            comboBox.Items.Add("Activo");
+            comboBox.Items.Add("Inactivo");
+            comboBox.Items.Add("Finalizado");
+
+            if (comboBox.Items.Count > 0)
+                comboBox.SelectedIndex = 0; // Selecciona "Todos" por defecto
         }
     }
 }
