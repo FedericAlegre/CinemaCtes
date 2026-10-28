@@ -31,23 +31,24 @@
             this.CBPelicula = new System.Windows.Forms.ComboBox();
             this.CLBButaca = new System.Windows.Forms.CheckedListBox();
             this.PHeader = new System.Windows.Forms.Panel();
-            this.BAñadir = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.BAñadir = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.DGVVentas = new System.Windows.Forms.DataGridView();
-            this.CBHorario = new System.Windows.Forms.ComboBox();
-            this.LPelicula = new System.Windows.Forms.Label();
-            this.LDni = new System.Windows.Forms.Label();
-            this.LHorario = new System.Windows.Forms.Label();
-            this.DTPFecha = new System.Windows.Forms.DateTimePicker();
-            this.LFecha = new System.Windows.Forms.Label();
-            this.LButaca = new System.Windows.Forms.Label();
+            this.TDni = new System.Windows.Forms.TextBox();
             this.LMetodoPago = new System.Windows.Forms.Label();
             this.LBeneficio = new System.Windows.Forms.Label();
             this.CBBeneficio = new System.Windows.Forms.ComboBox();
             this.CBMetodoPago = new System.Windows.Forms.ComboBox();
-            this.TDni = new System.Windows.Forms.TextBox();
+            this.LButaca = new System.Windows.Forms.Label();
+            this.LFecha = new System.Windows.Forms.Label();
+            this.DTPFecha = new System.Windows.Forms.DateTimePicker();
+            this.LHorario = new System.Windows.Forms.Label();
+            this.LDni = new System.Windows.Forms.Label();
+            this.LPelicula = new System.Windows.Forms.Label();
+            this.CBHorario = new System.Windows.Forms.ComboBox();
+            this.DGVVentas = new System.Windows.Forms.DataGridView();
+            this.BRegistrarCliente = new System.Windows.Forms.Button();
             this.PHeader.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVVentas)).BeginInit();
@@ -71,7 +72,7 @@
             "A4",
             "A5",
             "A6"});
-            this.CLBButaca.Location = new System.Drawing.Point(354, 43);
+            this.CLBButaca.Location = new System.Drawing.Point(378, 47);
             this.CLBButaca.Name = "CLBButaca";
             this.CLBButaca.Size = new System.Drawing.Size(120, 94);
             this.CLBButaca.TabIndex = 2;
@@ -86,17 +87,6 @@
             this.PHeader.Name = "PHeader";
             this.PHeader.Size = new System.Drawing.Size(734, 65);
             this.PHeader.TabIndex = 3;
-            // 
-            // BAñadir
-            // 
-            this.BAñadir.BackColor = System.Drawing.Color.AliceBlue;
-            this.BAñadir.Location = new System.Drawing.Point(559, 77);
-            this.BAñadir.Name = "BAñadir";
-            this.BAñadir.Size = new System.Drawing.Size(113, 27);
-            this.BAñadir.TabIndex = 1;
-            this.BAñadir.Text = "Añadir beneficio";
-            this.BAñadir.UseVisualStyleBackColor = false;
-            this.BAñadir.Click += new System.EventHandler(this.BConfirmarVenta_Click);
             // 
             // label2
             // 
@@ -119,9 +109,21 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Registro de Ventas";
             // 
+            // BAñadir
+            // 
+            this.BAñadir.BackColor = System.Drawing.Color.AliceBlue;
+            this.BAñadir.Location = new System.Drawing.Point(561, 77);
+            this.BAñadir.Name = "BAñadir";
+            this.BAñadir.Size = new System.Drawing.Size(113, 27);
+            this.BAñadir.TabIndex = 1;
+            this.BAñadir.Text = "Registrar venta";
+            this.BAñadir.UseVisualStyleBackColor = false;
+            this.BAñadir.Click += new System.EventHandler(this.BConfirmarVenta_Click);
+            // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(18)))), ((int)(((byte)(38)))));
+            this.panel3.Controls.Add(this.BRegistrarCliente);
             this.panel3.Controls.Add(this.TDni);
             this.panel3.Controls.Add(this.LMetodoPago);
             this.panel3.Controls.Add(this.LBeneficio);
@@ -143,82 +145,14 @@
             this.panel3.Size = new System.Drawing.Size(734, 206);
             this.panel3.TabIndex = 5;
             // 
-            // DGVVentas
+            // TDni
             // 
-            this.DGVVentas.AllowUserToAddRows = false;
-            this.DGVVentas.AllowUserToDeleteRows = false;
-            this.DGVVentas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.DGVVentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGVVentas.Location = new System.Drawing.Point(0, 277);
-            this.DGVVentas.Name = "DGVVentas";
-            this.DGVVentas.ReadOnly = true;
-            this.DGVVentas.Size = new System.Drawing.Size(734, 188);
-            this.DGVVentas.TabIndex = 9;
-            // 
-            // CBHorario
-            // 
-            this.CBHorario.FormattingEnabled = true;
-            this.CBHorario.Location = new System.Drawing.Point(52, 83);
-            this.CBHorario.Name = "CBHorario";
-            this.CBHorario.Size = new System.Drawing.Size(121, 21);
-            this.CBHorario.TabIndex = 3;
-            // 
-            // LPelicula
-            // 
-            this.LPelicula.AutoSize = true;
-            this.LPelicula.ForeColor = System.Drawing.Color.White;
-            this.LPelicula.Location = new System.Drawing.Point(90, 16);
-            this.LPelicula.Name = "LPelicula";
-            this.LPelicula.Size = new System.Drawing.Size(44, 13);
-            this.LPelicula.TabIndex = 6;
-            this.LPelicula.Text = "Pelicula";
-            // 
-            // LDni
-            // 
-            this.LDni.AutoSize = true;
-            this.LDni.ForeColor = System.Drawing.Color.White;
-            this.LDni.Location = new System.Drawing.Point(240, 67);
-            this.LDni.Name = "LDni";
-            this.LDni.Size = new System.Drawing.Size(26, 13);
-            this.LDni.TabIndex = 7;
-            this.LDni.Text = "DNI";
-            // 
-            // LHorario
-            // 
-            this.LHorario.AutoSize = true;
-            this.LHorario.ForeColor = System.Drawing.Color.White;
-            this.LHorario.Location = new System.Drawing.Point(91, 67);
-            this.LHorario.Name = "LHorario";
-            this.LHorario.Size = new System.Drawing.Size(41, 13);
-            this.LHorario.TabIndex = 8;
-            this.LHorario.Text = "Horario";
-            // 
-            // DTPFecha
-            // 
-            this.DTPFecha.Location = new System.Drawing.Point(195, 33);
-            this.DTPFecha.Name = "DTPFecha";
-            this.DTPFecha.Size = new System.Drawing.Size(121, 20);
-            this.DTPFecha.TabIndex = 9;
-            // 
-            // LFecha
-            // 
-            this.LFecha.AutoSize = true;
-            this.LFecha.ForeColor = System.Drawing.Color.White;
-            this.LFecha.Location = new System.Drawing.Point(234, 16);
-            this.LFecha.Name = "LFecha";
-            this.LFecha.Size = new System.Drawing.Size(37, 13);
-            this.LFecha.TabIndex = 10;
-            this.LFecha.Text = "Fecha";
-            // 
-            // LButaca
-            // 
-            this.LButaca.AutoSize = true;
-            this.LButaca.ForeColor = System.Drawing.Color.White;
-            this.LButaca.Location = new System.Drawing.Point(365, 27);
-            this.LButaca.Name = "LButaca";
-            this.LButaca.Size = new System.Drawing.Size(96, 13);
-            this.LButaca.TabIndex = 11;
-            this.LButaca.Text = "Butaca disponibles";
+            this.TDni.Location = new System.Drawing.Point(195, 83);
+            this.TDni.Name = "TDni";
+            this.TDni.Size = new System.Drawing.Size(121, 20);
+            this.TDni.TabIndex = 16;
+            this.TDni.TextChanged += new System.EventHandler(this.TDni_TextChanged);
+            this.TDni.Leave += new System.EventHandler(this.TDni_Leave);
             // 
             // LMetodoPago
             // 
@@ -256,13 +190,95 @@
             this.CBMetodoPago.Size = new System.Drawing.Size(121, 21);
             this.CBMetodoPago.TabIndex = 12;
             // 
-            // TDni
+            // LButaca
             // 
-            this.TDni.Location = new System.Drawing.Point(195, 83);
-            this.TDni.Name = "TDni";
-            this.TDni.Size = new System.Drawing.Size(121, 20);
-            this.TDni.TabIndex = 16;
-            this.TDni.TextChanged += new System.EventHandler(this.TDni_TextChanged);
+            this.LButaca.AutoSize = true;
+            this.LButaca.ForeColor = System.Drawing.Color.White;
+            this.LButaca.Location = new System.Drawing.Point(389, 31);
+            this.LButaca.Name = "LButaca";
+            this.LButaca.Size = new System.Drawing.Size(96, 13);
+            this.LButaca.TabIndex = 11;
+            this.LButaca.Text = "Butaca disponibles";
+            // 
+            // LFecha
+            // 
+            this.LFecha.AutoSize = true;
+            this.LFecha.ForeColor = System.Drawing.Color.White;
+            this.LFecha.Location = new System.Drawing.Point(234, 16);
+            this.LFecha.Name = "LFecha";
+            this.LFecha.Size = new System.Drawing.Size(37, 13);
+            this.LFecha.TabIndex = 10;
+            this.LFecha.Text = "Fecha";
+            // 
+            // DTPFecha
+            // 
+            this.DTPFecha.Location = new System.Drawing.Point(195, 33);
+            this.DTPFecha.Name = "DTPFecha";
+            this.DTPFecha.Size = new System.Drawing.Size(121, 20);
+            this.DTPFecha.TabIndex = 9;
+            // 
+            // LHorario
+            // 
+            this.LHorario.AutoSize = true;
+            this.LHorario.ForeColor = System.Drawing.Color.White;
+            this.LHorario.Location = new System.Drawing.Point(91, 67);
+            this.LHorario.Name = "LHorario";
+            this.LHorario.Size = new System.Drawing.Size(41, 13);
+            this.LHorario.TabIndex = 8;
+            this.LHorario.Text = "Horario";
+            // 
+            // LDni
+            // 
+            this.LDni.AutoSize = true;
+            this.LDni.ForeColor = System.Drawing.Color.White;
+            this.LDni.Location = new System.Drawing.Point(240, 67);
+            this.LDni.Name = "LDni";
+            this.LDni.Size = new System.Drawing.Size(26, 13);
+            this.LDni.TabIndex = 7;
+            this.LDni.Text = "DNI";
+            // 
+            // LPelicula
+            // 
+            this.LPelicula.AutoSize = true;
+            this.LPelicula.ForeColor = System.Drawing.Color.White;
+            this.LPelicula.Location = new System.Drawing.Point(90, 16);
+            this.LPelicula.Name = "LPelicula";
+            this.LPelicula.Size = new System.Drawing.Size(44, 13);
+            this.LPelicula.TabIndex = 6;
+            this.LPelicula.Text = "Pelicula";
+            // 
+            // CBHorario
+            // 
+            this.CBHorario.FormattingEnabled = true;
+            this.CBHorario.Location = new System.Drawing.Point(52, 83);
+            this.CBHorario.Name = "CBHorario";
+            this.CBHorario.Size = new System.Drawing.Size(121, 21);
+            this.CBHorario.TabIndex = 3;
+            // 
+            // DGVVentas
+            // 
+            this.DGVVentas.AllowUserToAddRows = false;
+            this.DGVVentas.AllowUserToDeleteRows = false;
+            this.DGVVentas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.DGVVentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVVentas.Location = new System.Drawing.Point(0, 277);
+            this.DGVVentas.Name = "DGVVentas";
+            this.DGVVentas.ReadOnly = true;
+            this.DGVVentas.Size = new System.Drawing.Size(734, 188);
+            this.DGVVentas.TabIndex = 9;
+            // 
+            // BRegistrarCliente
+            // 
+            this.BRegistrarCliente.BackColor = System.Drawing.Color.AliceBlue;
+            this.BRegistrarCliente.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.BRegistrarCliente.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BRegistrarCliente.Location = new System.Drawing.Point(331, 83);
+            this.BRegistrarCliente.Name = "BRegistrarCliente";
+            this.BRegistrarCliente.Size = new System.Drawing.Size(23, 21);
+            this.BRegistrarCliente.TabIndex = 7;
+            this.BRegistrarCliente.Text = "+";
+            this.BRegistrarCliente.UseVisualStyleBackColor = false;
+            this.BRegistrarCliente.Click += new System.EventHandler(this.BRegistrarCliente_Click);
             // 
             // FormRegistrarVenta
             // 
@@ -306,5 +322,6 @@
         private System.Windows.Forms.ComboBox CBMetodoPago;
         private System.Windows.Forms.Label LButaca;
         private System.Windows.Forms.TextBox TDni;
+        private System.Windows.Forms.Button BRegistrarCliente;
     }
 }

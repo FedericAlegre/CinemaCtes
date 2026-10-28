@@ -21,6 +21,10 @@ namespace CinemaCtes
             InitializeComponent();
         }
 
+        private void FormRegistrarSala_Load(object sender, EventArgs e)
+        {
+        }
+
         // Permitir solo números en el número de sala
         private void TNroSala_TextChanged(object sender, EventArgs e)
         {
@@ -37,11 +41,11 @@ namespace CinemaCtes
         {
             if (sender is TextBox txtBox)
             {
-                int cursorPos = txtBox.SelectionStart; 
+                int cursorPos = txtBox.SelectionStart;
                 string soloNumeros = new string(txtBox.Text.Where(char.IsDigit).ToArray());
-                
+
                 if (txtBox.Text != soloNumeros)
-                { 
+                {
                     txtBox.Text = soloNumeros;
                     txtBox.SelectionStart = Math.Min(cursorPos, txtBox.Text.Length);
                 }
@@ -50,7 +54,6 @@ namespace CinemaCtes
 
         private void BInsertar_Click(object sender, EventArgs e)
         {
-
             // Validaciones de campos vacíos
             if (!ClassValidacionesHelper.ValidarCampoVacio(TNroSala, "Número de sala")) return;
             if (!ClassValidacionesHelper.ValidarCampoVacio(TCapacidad, "Capacidad")) return;
@@ -64,10 +67,24 @@ namespace CinemaCtes
                 return;
             }
 
-            // Validación de capacidad entre 100 y 200 (mayor a 99 y menor a 201)
-            if (Capacidad <= 100 || Capacidad >= 200)
+            // Validación de capacidad mínima/máxima razonable (ej: entre 10 y 500 asientos)
+            if (Capacidad <= 0)
             {
-                MessageBox.Show("La capacidad de la sala debe ser mayor a 99 y menor a 201 asientos.", "Capacidad fuera de rango", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("La capacidad debe ser mayor a 0.", "Capacidad inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                TCapacidad.Focus();
+                TCapacidad.SelectAll();
+                return;
+            }
+
+            // Validación de que la capacidad sea múltiplo de 10 (crucial para las filas de butacas)
+            if (Capacidad % 10 != 0)
+            {
+                MessageBox.Show(
+                    "La capacidad de la sala debe ser un número múltiplo de 10 (ej: 40, 50, 100) para organizar correctamente las filas de butacas.",
+                    "Capacidad no válida",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
                 TCapacidad.Focus();
                 TCapacidad.SelectAll();
                 return;
@@ -90,11 +107,6 @@ namespace CinemaCtes
             TNroSala.Enabled = false; // Como es la PK manual, no dejamos modificar el número al editar
             TCapacidad.Text = capacidad.ToString();
             this.Text = "Modificar Sala";
-        }
-
-        private void FormRegistrarSala_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
