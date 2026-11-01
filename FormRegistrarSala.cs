@@ -104,7 +104,7 @@ namespace CinemaCtes
         public void CargarDatos(int nroSala, int capacidad)
         {
             TNroSala.Text = nroSala.ToString();
-            TNroSala.Enabled = false; // Como es la PK manual, no dejamos modificar el número al editar
+            TNroSala.Enabled = false; // Como es la PK manual, no dejamos modificar el número al edita
             TCapacidad.Text = capacidad.ToString();
             this.Text = "Modificar Sala";
         }
