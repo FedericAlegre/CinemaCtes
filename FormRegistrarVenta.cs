@@ -37,6 +37,8 @@ namespace CinemaCtes
             // Suscribimos los eventos de cambio para refrescar los horarios en tiempo real
             CBPelicula.SelectedIndexChanged += CBPelicula_SelectedIndexChanged;
             DTPFecha.ValueChanged += DTPFecha_ValueChanged;
+
+            CalcularMontoTotal();
         }
 
         // Cargar películas activas desde la Base de Datos
@@ -309,7 +311,7 @@ namespace CinemaCtes
             decimal precioBasePorButaca = 0.00m;
             ConexionBD conexionBD = new ConexionBD();
 
-            // Obtenemos el precio base desde la tabla tarifa (Obligatorio, sin fallback hardcodeado)
+            // Obtenemos el precio base desde la tabla tarifa
             try
             {
                 using (SqlConnection conexion = conexionBD.ObtenerConexión())
@@ -352,6 +354,7 @@ namespace CinemaCtes
                 return;
             }
 
+            // Cálculo inicial estándar (Cantidad * Precio Base)
             decimal montoFinal = cantidadButacasSeleccionadas * precioBasePorButaca;
             string textoDescuento = "";
 
@@ -379,10 +382,10 @@ namespace CinemaCtes
                     MessageBox.Show("Error al obtener el beneficio: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
-                // Aplicamos la lógica según el tipo de descuento ("2x1" o porcentaje "XX%")
+                // Aplicamos la lógica según el tipo de descuento
                 if (textoDescuento == "2x1")
                 {
-                    // Lógica 2x1: Cada 2 entradas, se paga 1. 
+                    // Lógica 2x1: Cada 2 entradas, se paga 1.
                     int entradasAPagar = (cantidadButacasSeleccionadas / 2) + (cantidadButacasSeleccionadas % 2);
                     montoFinal = entradasAPagar * precioBasePorButaca;
                 }
@@ -398,7 +401,7 @@ namespace CinemaCtes
                 }
             }
 
-            // Mostramos el resultado formateado como moneda en tu Label
+            // Mostramos el resultado final formateado como moneda en tu Label
             LMonto.Text = montoFinal.ToString("C2");
         }
 
@@ -411,5 +414,6 @@ namespace CinemaCtes
         {
             CalcularMontoTotal();
         }
+
     }
 }
