@@ -405,12 +405,12 @@ namespace CinemaCtes
             LMonto.Text = montoFinal.ToString("C2");
         }
 
-        private void CLBButaca_SelectedIndexChanged(object sender, EventArgs e)
+        
+        private void CBBeneficio_SelectedIndexChanged(object sender, EventArgs e)
         {
             CalcularMontoTotal();
         }
-
-        private void CBBeneficio_SelectedIndexChanged(object sender, EventArgs e)
+        private void CLBButaca_SelectedIndexChanged(object sender, EventArgs e)
         {
             CalcularMontoTotal();
         }
