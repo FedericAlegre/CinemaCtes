@@ -230,6 +230,7 @@ namespace CinemaCtes
             if (string.IsNullOrEmpty(dniTexto))
             {
                 BloquearBeneficios(true); // Bloqueamos beneficios porque requiere cliente registrado
+                CalcularMontoTotal();
                 return;
             }
 
@@ -301,6 +302,114 @@ namespace CinemaCtes
                     TDni_Leave(TDni, EventArgs.Empty);
                 }
             }
+        }
+
+        private void CalcularMontoTotal()
+        {
+            decimal precioBasePorButaca = 0.00m;
+            ConexionBD conexionBD = new ConexionBD();
+
+            // Obtenemos el precio base desde la tabla tarifa (Obligatorio, sin fallback hardcodeado)
+            try
+            {
+                using (SqlConnection conexion = conexionBD.ObtenerConexión())
+                {
+                    string query = "SELECT TOP 1 precio_base FROM tarifa";
+                    using (SqlCommand comando = new SqlCommand(query, conexion))
+                    {
+                        object resultado = comando.ExecuteScalar();
+                        if (resultado != null && resultado != DBNull.Value)
+                        {
+                            precioBasePorButaca = Convert.ToDecimal(resultado);
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se encontró ninguna tarifa configurada en el sistema.", "Error de Configuración", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            LMonto.Text = "$0,00";
+                            return;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al conectar con la base de datos para obtener el precio: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                LMonto.Text = "$0,00";
+                return;
+            }
+
+            // Contamos cuántas butacas hay seleccionadas en el CheckedListBox
+            int cantidadButacasSeleccionadas = 0;
+            foreach (var item in CLBButaca.CheckedItems)
+            {
+                cantidadButacasSeleccionadas++;
+            }
+
+            // Si no hay butacas, el total es 0 directamente
+            if (cantidadButacasSeleccionadas == 0)
+            {
+                LMonto.Text = "$0,00";
+                return;
+            }
+
+            decimal montoFinal = cantidadButacasSeleccionadas * precioBasePorButaca;
+            string textoDescuento = "";
+
+            // Si hay un beneficio seleccionado, consultamos su regla de descuento en la BD
+            if (CBBeneficio.SelectedValue != null && int.TryParse(CBBeneficio.SelectedValue.ToString(), out int idBeneficio))
+            {
+                try
+                {
+                    using (SqlConnection conexion = conexionBD.ObtenerConexión())
+                    {
+                        string queryBeneficio = "SELECT descuento FROM beneficio WHERE id_beneficio = @IdBeneficio";
+                        using (SqlCommand comando = new SqlCommand(queryBeneficio, conexion))
+                        {
+                            comando.Parameters.AddWithValue("@IdBeneficio", idBeneficio);
+                            object resDesc = comando.ExecuteScalar();
+                            if (resDesc != null && resDesc != DBNull.Value)
+                            {
+                                textoDescuento = resDesc.ToString().Trim().ToLower();
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al obtener el beneficio: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                // Aplicamos la lógica según el tipo de descuento ("2x1" o porcentaje "XX%")
+                if (textoDescuento == "2x1")
+                {
+                    // Lógica 2x1: Cada 2 entradas, se paga 1. 
+                    int entradasAPagar = (cantidadButacasSeleccionadas / 2) + (cantidadButacasSeleccionadas % 2);
+                    montoFinal = entradasAPagar * precioBasePorButaca;
+                }
+                else if (textoDescuento.EndsWith("%"))
+                {
+                    // Lógica Porcentual (ej: "20%")
+                    string valorNumericoStr = textoDescuento.Replace("%", "").Trim();
+                    if (decimal.TryParse(valorNumericoStr, out decimal porcentaje))
+                    {
+                        decimal subtotal = cantidadButacasSeleccionadas * precioBasePorButaca;
+                        montoFinal = subtotal - (subtotal * (porcentaje / 100m));
+                    }
+                }
+            }
+
+            // Mostramos el resultado formateado como moneda en tu Label
+            LMonto.Text = montoFinal.ToString("C2");
+        }
+
+        private void CLBButaca_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CalcularMontoTotal();
+        }
+
+        private void CBBeneficio_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CalcularMontoTotal();
         }
     }
 }

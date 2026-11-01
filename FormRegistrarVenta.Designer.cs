@@ -35,6 +35,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.BAñadir = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.LMonto = new System.Windows.Forms.Label();
+            this.BRegistrarCliente = new System.Windows.Forms.Button();
             this.TDni = new System.Windows.Forms.TextBox();
             this.LMetodoPago = new System.Windows.Forms.Label();
             this.LBeneficio = new System.Windows.Forms.Label();
@@ -48,7 +50,6 @@
             this.LPelicula = new System.Windows.Forms.Label();
             this.CBHorario = new System.Windows.Forms.ComboBox();
             this.DGVVentas = new System.Windows.Forms.DataGridView();
-            this.BRegistrarCliente = new System.Windows.Forms.Button();
             this.PHeader.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVVentas)).BeginInit();
@@ -76,6 +77,7 @@
             this.CLBButaca.Name = "CLBButaca";
             this.CLBButaca.Size = new System.Drawing.Size(120, 94);
             this.CLBButaca.TabIndex = 2;
+            this.CLBButaca.SelectedIndexChanged += new System.EventHandler(this.CLBButaca_SelectedIndexChanged);
             // 
             // PHeader
             // 
@@ -123,6 +125,7 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(18)))), ((int)(((byte)(38)))));
+            this.panel3.Controls.Add(this.LMonto);
             this.panel3.Controls.Add(this.BRegistrarCliente);
             this.panel3.Controls.Add(this.TDni);
             this.panel3.Controls.Add(this.LMetodoPago);
@@ -144,6 +147,28 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(734, 206);
             this.panel3.TabIndex = 5;
+            // 
+            // LMonto
+            // 
+            this.LMonto.AutoSize = true;
+            this.LMonto.ForeColor = System.Drawing.Color.White;
+            this.LMonto.Location = new System.Drawing.Point(389, 153);
+            this.LMonto.Name = "LMonto";
+            this.LMonto.Size = new System.Drawing.Size(0, 13);
+            this.LMonto.TabIndex = 17;
+            // 
+            // BRegistrarCliente
+            // 
+            this.BRegistrarCliente.BackColor = System.Drawing.Color.AliceBlue;
+            this.BRegistrarCliente.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.BRegistrarCliente.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BRegistrarCliente.Location = new System.Drawing.Point(331, 83);
+            this.BRegistrarCliente.Name = "BRegistrarCliente";
+            this.BRegistrarCliente.Size = new System.Drawing.Size(23, 21);
+            this.BRegistrarCliente.TabIndex = 7;
+            this.BRegistrarCliente.Text = "+";
+            this.BRegistrarCliente.UseVisualStyleBackColor = false;
+            this.BRegistrarCliente.Click += new System.EventHandler(this.BRegistrarCliente_Click);
             // 
             // TDni
             // 
@@ -181,6 +206,7 @@
             this.CBBeneficio.Name = "CBBeneficio";
             this.CBBeneficio.Size = new System.Drawing.Size(121, 21);
             this.CBBeneficio.TabIndex = 13;
+            this.CBBeneficio.SelectedIndexChanged += new System.EventHandler(this.CBBeneficio_SelectedIndexChanged);
             // 
             // CBMetodoPago
             // 
@@ -267,19 +293,6 @@
             this.DGVVentas.Size = new System.Drawing.Size(734, 188);
             this.DGVVentas.TabIndex = 9;
             // 
-            // BRegistrarCliente
-            // 
-            this.BRegistrarCliente.BackColor = System.Drawing.Color.AliceBlue;
-            this.BRegistrarCliente.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.BRegistrarCliente.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BRegistrarCliente.Location = new System.Drawing.Point(331, 83);
-            this.BRegistrarCliente.Name = "BRegistrarCliente";
-            this.BRegistrarCliente.Size = new System.Drawing.Size(23, 21);
-            this.BRegistrarCliente.TabIndex = 7;
-            this.BRegistrarCliente.Text = "+";
-            this.BRegistrarCliente.UseVisualStyleBackColor = false;
-            this.BRegistrarCliente.Click += new System.EventHandler(this.BRegistrarCliente_Click);
-            // 
             // FormRegistrarVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -323,5 +336,6 @@
         private System.Windows.Forms.Label LButaca;
         private System.Windows.Forms.TextBox TDni;
         private System.Windows.Forms.Button BRegistrarCliente;
+        private System.Windows.Forms.Label LMonto;
     }
 }
