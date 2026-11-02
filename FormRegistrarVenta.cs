@@ -161,7 +161,6 @@ namespace CinemaCtes
                             DataTable dt = new DataTable();
                             adaptador.Fill(dt);
 
-                            // Opcional: Agregar una fila por defecto para cuando no aplica beneficio
                             DataRow row = dt.NewRow();
                             row["id_beneficio"] = DBNull.Value;
                             row["descripcion"] = "Ninguno";

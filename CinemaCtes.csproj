@@ -212,6 +212,12 @@
     <Compile Include="FormModificarCorreo.Designer.cs">
       <DependentUpon>FormModificarCorreo.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormModificarMetodoPago.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormModificarMetodoPago.Designer.cs">
+      <DependentUpon>FormModificarMetodoPago.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormModificarPrecio.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -318,6 +324,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormModificarCorreo.resx">
       <DependentUpon>FormModificarCorreo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormModificarMetodoPago.resx">
+      <DependentUpon>FormModificarMetodoPago.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormModificarPrecio.resx">
       <DependentUpon>FormModificarPrecio.cs</DependentUpon>

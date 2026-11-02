@@ -40,23 +40,16 @@ namespace CinemaCtes
             DGVProximas.Rows.Add("21:30", "23:45", "Dune: Parte Dos", "Sala 3");
         }
 
-        // Botón Acceso Rápido: Programar Función
-        private void BProgramarFuncion_Click(object sender, EventArgs e)
+        private void BModMetodoPago_Click(object sender, EventArgs e)
         {
-            using (FormRegistroFuncion formRegistro = new FormRegistroFuncion())
-            {
-                formRegistro.ShowDialog();
-            }
+            FormModificarMetodoPago formModificar = new FormModificarMetodoPago();
+            formModificar.ShowDialog(); // O .Show() si preferís que no sea modal
         }
 
-        // Botón Acceso Rápido: Registrar Película
-        private void BRegistrarPelicula_Click(object sender, EventArgs e)
+        private void BModPrecioBoleto_Click(object sender, EventArgs e)
         {
-            using (FormRegistrarPelicula formPelicula = new FormRegistrarPelicula())
-            {
-                formPelicula.ShowDialog();
-            }
+            FormModificarPrecio formModificar = new FormModificarPrecio();
+            formModificar.ShowDialog(); // O .Show() si preferís que no sea modal
         }
-
     }
 }

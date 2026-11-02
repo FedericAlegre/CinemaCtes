@@ -351,10 +351,9 @@ namespace CinemaCtes
                 if (row.IsNewRow) continue;
 
                 string titulo = row.Cells[0].Value?.ToString().ToLower() ?? "";
-                // Asumiendo que la columna de fecha 'desde' está en el índice X y 'hasta' en el Y, 
-                // o podés evaluar directamente las celdas correspondientes a las fechas de la película:
-                DateTime fechaPeliDesde = Convert.ToDateTime(row.Cells[3].Value).Date; // Ajustá el índice según tu grilla
-                DateTime fechaPeliHasta = Convert.ToDateTime(row.Cells[4].Value).Date; // Ajustá el índice según tu grilla
+
+                DateTime fechaPeliDesde = Convert.ToDateTime(row.Cells[3].Value).Date; 
+                DateTime fechaPeliHasta = Convert.ToDateTime(row.Cells[4].Value).Date; 
 
                 string etiquetasFila = row.Cells[5].Value?.ToString().ToLower() ?? "";
                 string estado = row.Cells[6].Value?.ToString().Trim() ?? "";

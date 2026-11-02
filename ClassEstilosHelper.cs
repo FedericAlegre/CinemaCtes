@@ -125,5 +125,16 @@ namespace CinemaCtes
             if (comboBox.Items.Count > 0)
                 comboBox.SelectedIndex = 0; // Selecciona "Todos" por defecto
         }
+
+        public static void CargarComboEstados2(ComboBox comboBox)
+        {
+            comboBox.Items.Clear();
+            comboBox.Items.Add("Todos");
+            comboBox.Items.Add("Activo");
+            comboBox.Items.Add("Inactivo");
+
+            if (comboBox.Items.Count > 0)
+                comboBox.SelectedIndex = 0; // Selecciona "Todos" por defecto
+        }
     }
 }

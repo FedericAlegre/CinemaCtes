@@ -41,8 +41,8 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.BProgramarFuncion = new System.Windows.Forms.Button();
-            this.BRegistrarPelicula = new System.Windows.Forms.Button();
+            this.BModMetodoPago = new System.Windows.Forms.Button();
+            this.BModPrecioBoleto = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.DGVProximas = new System.Windows.Forms.DataGridView();
             this.CHoraInicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -200,25 +200,25 @@
             this.label7.TabIndex = 0;
             this.label7.Text = "SALAS OPERATIVAS";
             // 
-            // BProgramarFuncion
+            // BModMetodoPago
             // 
-            this.BProgramarFuncion.Location = new System.Drawing.Point(38, 209);
-            this.BProgramarFuncion.Name = "BProgramarFuncion";
-            this.BProgramarFuncion.Size = new System.Drawing.Size(119, 23);
-            this.BProgramarFuncion.TabIndex = 5;
-            this.BProgramarFuncion.Text = "Programar Funcion";
-            this.BProgramarFuncion.UseVisualStyleBackColor = true;
-            this.BProgramarFuncion.Click += new System.EventHandler(this.BProgramarFuncion_Click);
+            this.BModMetodoPago.Location = new System.Drawing.Point(38, 209);
+            this.BModMetodoPago.Name = "BModMetodoPago";
+            this.BModMetodoPago.Size = new System.Drawing.Size(144, 23);
+            this.BModMetodoPago.TabIndex = 5;
+            this.BModMetodoPago.Text = "Modificar metodos de pago";
+            this.BModMetodoPago.UseVisualStyleBackColor = true;
+            this.BModMetodoPago.Click += new System.EventHandler(this.BModMetodoPago_Click);
             // 
-            // BRegistrarPelicula
+            // BModPrecioBoleto
             // 
-            this.BRegistrarPelicula.Location = new System.Drawing.Point(199, 209);
-            this.BRegistrarPelicula.Name = "BRegistrarPelicula";
-            this.BRegistrarPelicula.Size = new System.Drawing.Size(119, 23);
-            this.BRegistrarPelicula.TabIndex = 6;
-            this.BRegistrarPelicula.Text = "Registrar Pelicula";
-            this.BRegistrarPelicula.UseVisualStyleBackColor = true;
-            this.BRegistrarPelicula.Click += new System.EventHandler(this.BRegistrarPelicula_Click);
+            this.BModPrecioBoleto.Location = new System.Drawing.Point(199, 209);
+            this.BModPrecioBoleto.Name = "BModPrecioBoleto";
+            this.BModPrecioBoleto.Size = new System.Drawing.Size(145, 23);
+            this.BModPrecioBoleto.TabIndex = 6;
+            this.BModPrecioBoleto.Text = "Modificar precio de boletos";
+            this.BModPrecioBoleto.UseVisualStyleBackColor = true;
+            this.BModPrecioBoleto.Click += new System.EventHandler(this.BModPrecioBoleto_Click);
             // 
             // label8
             // 
@@ -227,9 +227,9 @@
             this.label8.ForeColor = System.Drawing.Color.White;
             this.label8.Location = new System.Drawing.Point(38, 187);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(96, 15);
+            this.label8.Size = new System.Drawing.Size(89, 15);
             this.label8.TabIndex = 7;
-            this.label8.Text = "Accesos rapidos";
+            this.label8.Text = "Accesos Varios";
             // 
             // DGVProximas
             // 
@@ -320,8 +320,8 @@
             this.Controls.Add(this.LProximasFunciones);
             this.Controls.Add(this.DGVProximas);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.BRegistrarPelicula);
-            this.Controls.Add(this.BProgramarFuncion);
+            this.Controls.Add(this.BModPrecioBoleto);
+            this.Controls.Add(this.BModMetodoPago);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.PHeader);
@@ -360,8 +360,8 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button BProgramarFuncion;
-        private System.Windows.Forms.Button BRegistrarPelicula;
+        private System.Windows.Forms.Button BModMetodoPago;
+        private System.Windows.Forms.Button BModPrecioBoleto;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.DataGridView DGVProximas;
         private System.Windows.Forms.DataGridViewTextBoxColumn CHoraInicio;
