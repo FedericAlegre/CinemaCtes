@@ -37,7 +37,10 @@ namespace CinemaCtes
             // Suscribimos los eventos de cambio para refrescar los horarios en tiempo real
             CBPelicula.SelectedIndexChanged += CBPelicula_SelectedIndexChanged;
             DTPFecha.ValueChanged += DTPFecha_ValueChanged;
+            DTPFecha.MinDate = DateTime.Now.Date;
 
+            // Bloqueamos el boton de confirmar compra
+            BAñadir.Enabled = false;
             CalcularMontoTotal();
         }
 
@@ -70,14 +73,69 @@ namespace CinemaCtes
             }
         }
 
+        //Cargar butacas disponibles por función
+        private void CargarButacasDisponibles()
+        {
+            CLBButaca.Items.Clear();
+
+            if (CBPelicula.SelectedValue == null || CBHorario.SelectedValue == null)
+                return;
+
+            int idFuncion = 0;
+            if (CBHorario.SelectedItem is DataRowView filaSeleccionada)
+            {
+                idFuncion = Convert.ToInt32(filaSeleccionada["id_funcion"]);
+            }
+            else if (!int.TryParse(CBHorario.SelectedValue.ToString(), out idFuncion))
+            {
+                return;
+            }
+
+            ConexionBD conexionBD = new ConexionBD();
+            try
+            {
+                using (SqlConnection conexion = conexionBD.ObtenerConexión())
+                {
+                    using (SqlCommand comando = new SqlCommand("SP_ObtenerButacasDisponibles", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        comando.Parameters.AddWithValue("@id_funcion", idFuncion);
+
+                        using (SqlDataReader lector = comando.ExecuteReader())
+                        {
+                            while (lector.Read())
+                            {
+                                int idButaca = Convert.ToInt32(lector["id_butaca"]);
+                                string codigoButaca = lector["codigo_butaca"].ToString();
+
+                                // Creamos el ítem corto para las disponibles
+                                ItemButacaDisp itemDisp = new ItemButacaDisp()
+                                {
+                                    IdButaca = idButaca,
+                                    IdFuncion = idFuncion,
+                                    Codigo = codigoButaca
+                                };
+
+                                CLBButaca.Items.Add(itemDisp);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar las butacas: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         // Cargar horarios según la película y la fecha seleccionadas usando el SP
         private void CargarHorariosBD()
         {
-            CBHorario.Items.Clear();
-
             // Validamos que haya una película seleccionada y que el valor sea un entero válido
             if (CBPelicula.SelectedValue == null || !int.TryParse(CBPelicula.SelectedValue.ToString(), out int idPelicula))
             {
+                CBHorario.DataSource = null;
+                CBHorario.Items.Clear();
                 return;
             }
 
@@ -94,13 +152,19 @@ namespace CinemaCtes
                         comando.Parameters.AddWithValue("@IdPelicula", idPelicula);
                         comando.Parameters.AddWithValue("@Fecha", fechaSeleccionada);
 
-                        using (SqlDataReader lector = comando.ExecuteReader())
+                        using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
                         {
-                            while (lector.Read())
-                            {
-                                // Agregamos el horario formateado (ej: "18:30")
-                                CBHorario.Items.Add(lector["horario"].ToString());
-                            }
+                            DataTable dtHorarios = new DataTable();
+                            adaptador.Fill(dtHorarios);
+
+                            CBHorario.DataSource = dtHorarios;
+                            CBHorario.DisplayMember = "horario";    // Lo que ve el usuario en pantalla
+                            CBHorario.ValueMember = "id_funcion";   // El id_funcion oculto vital para el SP de butacas
+
+                            if (CBHorario.Items.Count > 0)
+                                CBHorario.SelectedIndex = 0;
+                            else
+                                CBHorario.SelectedIndex = -1;
                         }
                     }
                 }
@@ -109,9 +173,6 @@ namespace CinemaCtes
             {
                 MessageBox.Show("Error al cargar los horarios: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            if (CBHorario.Items.Count > 0)
-                CBHorario.SelectedIndex = 0;
         }
 
         // Cargar Métodos de Pago activos desde la Base de Datos
@@ -339,14 +400,14 @@ namespace CinemaCtes
                 return;
             }
 
-            // Contamos cuántas butacas hay seleccionadas en el CheckedListBox
+            // Contamos cuántasbutacas hay tildadas en el CARRITO en lugar de las disponibles
             int cantidadButacasSeleccionadas = 0;
-            foreach (var item in CLBButaca.CheckedItems)
+            foreach (var item in CLBCarrito.CheckedItems)
             {
                 cantidadButacasSeleccionadas++;
             }
 
-            // Si no hay butacas, el total es 0 directamente
+            // Si no hay butacas en el carrito, el total es 0 directamente
             if (cantidadButacasSeleccionadas == 0)
             {
                 LMonto.Text = "$0,00";
@@ -400,9 +461,10 @@ namespace CinemaCtes
                 }
             }
 
-            // Mostramos el resultado final formateado como moneda en tu Label
+            // Mostramos el resultado final formateado como moneda
             LMonto.Text = montoFinal.ToString("C2");
         }
+
         private void CLBButaca_SelectedIndexChanged(object sender, EventArgs e)
         {
             CalcularMontoTotal();
@@ -411,7 +473,132 @@ namespace CinemaCtes
         {
             CalcularMontoTotal();
         }
-       
 
+        private void BAgregar_Click(object sender, EventArgs e)
+        {
+            if (CLBButaca.CheckedItems.Count == 0)
+            {
+                MessageBox.Show("Por favor, selecciona al menos una butaca disponible.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string nombrePelicula = CBPelicula.Text;
+            string horaFuncion = CBHorario.Text;
+
+            foreach (var item in CLBButaca.CheckedItems.Cast<object>().ToList())
+            {
+                ItemButacaDisp itemDisp = (ItemButacaDisp)item;
+
+                // Verificamos si ya existe en el carrito
+                bool yaExiste = false;
+                foreach (var itemEnCarrito in CLBCarrito.Items)
+                {
+                    ItemCarritoBoleto carritoItem = (ItemCarritoBoleto)itemEnCarrito;
+                    if (carritoItem.IdButaca == itemDisp.IdButaca && carritoItem.IdFuncion == itemDisp.IdFuncion)
+                    {
+                        yaExiste = true;
+                        break;
+                    }
+                }
+
+                if (!yaExiste)
+                {
+                    // Creamos el ítem con la información completa para el carrito
+                    ItemCarritoBoleto itemCarrito = new ItemCarritoBoleto()
+                    {
+                        IdButaca = itemDisp.IdButaca,
+                        IdFuncion = itemDisp.IdFuncion,
+                        TextoCompleto = $"{itemDisp.Codigo} - {nombrePelicula} ({horaFuncion})"
+                    };
+
+                    int index = CLBCarrito.Items.Add(itemCarrito);
+                    CLBCarrito.SetItemChecked(index, true);
+                }
+            }
+
+            // Desmarcamos las disponibles
+            for (int i = 0; i < CLBButaca.Items.Count; i++)
+            {
+                CLBButaca.SetItemChecked(i, false);
+            }
+
+            ActualizarEstadoYTotal();
+        }
+
+        private void ActualizarEstadoYTotal()
+        {
+            // Contamos solo los elementos que tienen el tilde puesto en el carrito
+            int itemsTildadosEnCarrito = CLBCarrito.CheckedItems.Count;
+
+            // Bloquea o desbloquea el botón de registrar venta según corresponda
+            BAñadir.Enabled = (itemsTildadosEnCarrito > 0);
+
+            // Llamamos a tu método de cálculo de monto, asegurándonos de que 
+            CalcularMontoTotal();
+        }
+
+        private void CLBCarrito_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+
+            this.BeginInvoke((MethodInvoker)delegate {
+                ActualizarEstadoYTotal();
+            });
+        }
+
+        private void CLBCarrito_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ActualizarEstadoYTotal();
+        }
+
+        private void CBHorario_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CargarButacasDisponibles();
+        }
+
+        private void CBPelicula_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            // Limpiamos los horarios y butacas actuales antes de buscar los nuevos
+            CBHorario.DataSource = null;
+            CBHorario.Items.Clear();
+            CLBButaca.Items.Clear();
+
+            CargarHorariosBD();
+        }
+
+        private void DTPFecha_ValueChanged_1(object sender, EventArgs e)
+        {
+            // Limpiamos los horarios y butacas actuales al cambiar la fecha
+            CBHorario.DataSource = null;
+            CBHorario.Items.Clear();
+            CLBButaca.Items.Clear();
+
+            CargarHorariosBD();
+        }
+    }
+
+    // Clase simple solo para mostrar la butaca limpia en el selector
+    public class ItemButacaDisp
+    {
+        public int IdButaca { get; set; }
+        public int IdFuncion { get; set; }
+        public string Codigo { get; set; }
+
+        public override string ToString()
+        {
+            return Codigo; // Muestra solo "A1", "A2", etc.
+        }
+    }
+
+    // Clase para el carrito, que muestra la información completa
+    public class ItemCarritoBoleto
+    {
+        public int IdButaca { get; set; }
+        public int IdFuncion { get; set; }
+        public string TextoCompleto { get; set; } // Ej: "A1 - Película (18:30)"
+
+        public override string ToString()
+        {
+            return TextoCompleto;
+        }
     }
 }

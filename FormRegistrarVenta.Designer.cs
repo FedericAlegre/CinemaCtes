@@ -35,6 +35,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.BAñadir = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.CLBCarrito = new System.Windows.Forms.CheckedListBox();
+            this.BAgregar = new System.Windows.Forms.Button();
+            this.LCarrito = new System.Windows.Forms.Label();
             this.LMonto = new System.Windows.Forms.Label();
             this.BRegistrarCliente = new System.Windows.Forms.Button();
             this.TDni = new System.Windows.Forms.TextBox();
@@ -58,22 +61,16 @@
             // CBPelicula
             // 
             this.CBPelicula.FormattingEnabled = true;
-            this.CBPelicula.Location = new System.Drawing.Point(52, 32);
+            this.CBPelicula.Location = new System.Drawing.Point(11, 33);
             this.CBPelicula.Name = "CBPelicula";
             this.CBPelicula.Size = new System.Drawing.Size(121, 21);
             this.CBPelicula.TabIndex = 0;
+            this.CBPelicula.SelectedIndexChanged += new System.EventHandler(this.CBPelicula_SelectedIndexChanged_1);
             // 
             // CLBButaca
             // 
             this.CLBButaca.FormattingEnabled = true;
-            this.CLBButaca.Items.AddRange(new object[] {
-            "A1",
-            "A2",
-            "A3",
-            "A4",
-            "A5",
-            "A6"});
-            this.CLBButaca.Location = new System.Drawing.Point(378, 47);
+            this.CLBButaca.Location = new System.Drawing.Point(328, 48);
             this.CLBButaca.Name = "CLBButaca";
             this.CLBButaca.Size = new System.Drawing.Size(120, 94);
             this.CLBButaca.TabIndex = 2;
@@ -114,7 +111,7 @@
             // BAñadir
             // 
             this.BAñadir.BackColor = System.Drawing.Color.AliceBlue;
-            this.BAñadir.Location = new System.Drawing.Point(561, 77);
+            this.BAñadir.Location = new System.Drawing.Point(609, 115);
             this.BAñadir.Name = "BAñadir";
             this.BAñadir.Size = new System.Drawing.Size(113, 27);
             this.BAñadir.TabIndex = 1;
@@ -125,6 +122,9 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(18)))), ((int)(((byte)(38)))));
+            this.panel3.Controls.Add(this.CLBCarrito);
+            this.panel3.Controls.Add(this.BAgregar);
+            this.panel3.Controls.Add(this.LCarrito);
             this.panel3.Controls.Add(this.LMonto);
             this.panel3.Controls.Add(this.BRegistrarCliente);
             this.panel3.Controls.Add(this.TDni);
@@ -148,11 +148,42 @@
             this.panel3.Size = new System.Drawing.Size(734, 206);
             this.panel3.TabIndex = 5;
             // 
+            // CLBCarrito
+            // 
+            this.CLBCarrito.FormattingEnabled = true;
+            this.CLBCarrito.Location = new System.Drawing.Point(469, 49);
+            this.CLBCarrito.Name = "CLBCarrito";
+            this.CLBCarrito.Size = new System.Drawing.Size(120, 94);
+            this.CLBCarrito.TabIndex = 22;
+            this.CLBCarrito.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.CLBCarrito_ItemCheck);
+            this.CLBCarrito.SelectedIndexChanged += new System.EventHandler(this.CLBCarrito_SelectedIndexChanged);
+            // 
+            // BAgregar
+            // 
+            this.BAgregar.BackColor = System.Drawing.Color.AliceBlue;
+            this.BAgregar.Location = new System.Drawing.Point(609, 48);
+            this.BAgregar.Name = "BAgregar";
+            this.BAgregar.Size = new System.Drawing.Size(113, 27);
+            this.BAgregar.TabIndex = 21;
+            this.BAgregar.Text = "Agregar al carro";
+            this.BAgregar.UseVisualStyleBackColor = false;
+            this.BAgregar.Click += new System.EventHandler(this.BAgregar_Click);
+            // 
+            // LCarrito
+            // 
+            this.LCarrito.AutoSize = true;
+            this.LCarrito.ForeColor = System.Drawing.Color.White;
+            this.LCarrito.Location = new System.Drawing.Point(509, 33);
+            this.LCarrito.Name = "LCarrito";
+            this.LCarrito.Size = new System.Drawing.Size(37, 13);
+            this.LCarrito.TabIndex = 19;
+            this.LCarrito.Text = "Carrito";
+            // 
             // LMonto
             // 
             this.LMonto.AutoSize = true;
             this.LMonto.ForeColor = System.Drawing.Color.White;
-            this.LMonto.Location = new System.Drawing.Point(389, 153);
+            this.LMonto.Location = new System.Drawing.Point(478, 150);
             this.LMonto.Name = "LMonto";
             this.LMonto.Size = new System.Drawing.Size(0, 13);
             this.LMonto.TabIndex = 17;
@@ -162,7 +193,7 @@
             this.BRegistrarCliente.BackColor = System.Drawing.Color.AliceBlue;
             this.BRegistrarCliente.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.BRegistrarCliente.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BRegistrarCliente.Location = new System.Drawing.Point(331, 83);
+            this.BRegistrarCliente.Location = new System.Drawing.Point(290, 84);
             this.BRegistrarCliente.Name = "BRegistrarCliente";
             this.BRegistrarCliente.Size = new System.Drawing.Size(23, 21);
             this.BRegistrarCliente.TabIndex = 7;
@@ -172,7 +203,7 @@
             // 
             // TDni
             // 
-            this.TDni.Location = new System.Drawing.Point(195, 83);
+            this.TDni.Location = new System.Drawing.Point(154, 84);
             this.TDni.Name = "TDni";
             this.TDni.Size = new System.Drawing.Size(121, 20);
             this.TDni.TabIndex = 16;
@@ -183,7 +214,7 @@
             // 
             this.LMetodoPago.AutoSize = true;
             this.LMetodoPago.ForeColor = System.Drawing.Color.White;
-            this.LMetodoPago.Location = new System.Drawing.Point(69, 118);
+            this.LMetodoPago.Location = new System.Drawing.Point(28, 119);
             this.LMetodoPago.Name = "LMetodoPago";
             this.LMetodoPago.Size = new System.Drawing.Size(86, 13);
             this.LMetodoPago.TabIndex = 15;
@@ -193,7 +224,7 @@
             // 
             this.LBeneficio.AutoSize = true;
             this.LBeneficio.ForeColor = System.Drawing.Color.White;
-            this.LBeneficio.Location = new System.Drawing.Point(230, 118);
+            this.LBeneficio.Location = new System.Drawing.Point(189, 119);
             this.LBeneficio.Name = "LBeneficio";
             this.LBeneficio.Size = new System.Drawing.Size(51, 13);
             this.LBeneficio.TabIndex = 14;
@@ -202,7 +233,7 @@
             // CBBeneficio
             // 
             this.CBBeneficio.FormattingEnabled = true;
-            this.CBBeneficio.Location = new System.Drawing.Point(195, 134);
+            this.CBBeneficio.Location = new System.Drawing.Point(154, 135);
             this.CBBeneficio.Name = "CBBeneficio";
             this.CBBeneficio.Size = new System.Drawing.Size(121, 21);
             this.CBBeneficio.TabIndex = 13;
@@ -211,7 +242,7 @@
             // CBMetodoPago
             // 
             this.CBMetodoPago.FormattingEnabled = true;
-            this.CBMetodoPago.Location = new System.Drawing.Point(52, 134);
+            this.CBMetodoPago.Location = new System.Drawing.Point(11, 135);
             this.CBMetodoPago.Name = "CBMetodoPago";
             this.CBMetodoPago.Size = new System.Drawing.Size(121, 21);
             this.CBMetodoPago.TabIndex = 12;
@@ -220,7 +251,7 @@
             // 
             this.LButaca.AutoSize = true;
             this.LButaca.ForeColor = System.Drawing.Color.White;
-            this.LButaca.Location = new System.Drawing.Point(389, 31);
+            this.LButaca.Location = new System.Drawing.Point(343, 32);
             this.LButaca.Name = "LButaca";
             this.LButaca.Size = new System.Drawing.Size(96, 13);
             this.LButaca.TabIndex = 11;
@@ -230,7 +261,7 @@
             // 
             this.LFecha.AutoSize = true;
             this.LFecha.ForeColor = System.Drawing.Color.White;
-            this.LFecha.Location = new System.Drawing.Point(234, 16);
+            this.LFecha.Location = new System.Drawing.Point(193, 17);
             this.LFecha.Name = "LFecha";
             this.LFecha.Size = new System.Drawing.Size(37, 13);
             this.LFecha.TabIndex = 10;
@@ -238,16 +269,17 @@
             // 
             // DTPFecha
             // 
-            this.DTPFecha.Location = new System.Drawing.Point(195, 33);
+            this.DTPFecha.Location = new System.Drawing.Point(154, 34);
             this.DTPFecha.Name = "DTPFecha";
             this.DTPFecha.Size = new System.Drawing.Size(121, 20);
             this.DTPFecha.TabIndex = 9;
+            this.DTPFecha.ValueChanged += new System.EventHandler(this.DTPFecha_ValueChanged_1);
             // 
             // LHorario
             // 
             this.LHorario.AutoSize = true;
             this.LHorario.ForeColor = System.Drawing.Color.White;
-            this.LHorario.Location = new System.Drawing.Point(91, 67);
+            this.LHorario.Location = new System.Drawing.Point(50, 68);
             this.LHorario.Name = "LHorario";
             this.LHorario.Size = new System.Drawing.Size(41, 13);
             this.LHorario.TabIndex = 8;
@@ -257,7 +289,7 @@
             // 
             this.LDni.AutoSize = true;
             this.LDni.ForeColor = System.Drawing.Color.White;
-            this.LDni.Location = new System.Drawing.Point(240, 67);
+            this.LDni.Location = new System.Drawing.Point(199, 68);
             this.LDni.Name = "LDni";
             this.LDni.Size = new System.Drawing.Size(26, 13);
             this.LDni.TabIndex = 7;
@@ -267,7 +299,7 @@
             // 
             this.LPelicula.AutoSize = true;
             this.LPelicula.ForeColor = System.Drawing.Color.White;
-            this.LPelicula.Location = new System.Drawing.Point(90, 16);
+            this.LPelicula.Location = new System.Drawing.Point(49, 17);
             this.LPelicula.Name = "LPelicula";
             this.LPelicula.Size = new System.Drawing.Size(44, 13);
             this.LPelicula.TabIndex = 6;
@@ -276,10 +308,11 @@
             // CBHorario
             // 
             this.CBHorario.FormattingEnabled = true;
-            this.CBHorario.Location = new System.Drawing.Point(52, 83);
+            this.CBHorario.Location = new System.Drawing.Point(11, 84);
             this.CBHorario.Name = "CBHorario";
             this.CBHorario.Size = new System.Drawing.Size(121, 21);
             this.CBHorario.TabIndex = 3;
+            this.CBHorario.SelectedIndexChanged += new System.EventHandler(this.CBHorario_SelectedIndexChanged);
             // 
             // DGVVentas
             // 
@@ -337,5 +370,8 @@
         private System.Windows.Forms.TextBox TDni;
         private System.Windows.Forms.Button BRegistrarCliente;
         private System.Windows.Forms.Label LMonto;
+        private System.Windows.Forms.Label LCarrito;
+        private System.Windows.Forms.CheckedListBox CLBCarrito;
+        private System.Windows.Forms.Button BAgregar;
     }
 }
