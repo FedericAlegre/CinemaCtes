@@ -14,13 +14,16 @@ namespace CinemaCtes
     public partial class FormMenuPrincipal : Form
     {
         private string rolUsuario; // Variable para almacenar el rol recibido
+        private int idUsuarioActual; // Variable para almacenar el ID del cajero logueado
 
         private Form formularioActivo = null;
 
-        public FormMenuPrincipal(string rol)
+        // Actualizamos el constructor para que reciba también el id_usuario
+        public FormMenuPrincipal(string rol, int idUsuario)
         {
             InitializeComponent();
             rolUsuario = rol;
+            idUsuarioActual = idUsuario;
         }
 
         private void FormMenuPrincipal_Load(object sender, EventArgs e)
@@ -29,7 +32,8 @@ namespace CinemaCtes
             {
                 AbrirFormularioHijo(new FormInicio());
 
-            } else if (rolUsuario == "2") // Supervisor
+            }
+            else if (rolUsuario == "2") // Supervisor
             {
                 AbrirFormularioHijo(new FormInicio2());
 
@@ -41,15 +45,10 @@ namespace CinemaCtes
             ConfigurarPermisosMenu();
         }
 
-
-            private void ConfigurarPermisosMenu()
+        private void ConfigurarPermisosMenu()
         {
-            // Por defecto, asumimos que todos los botones están visibles (True) desde el diseñador.
-            // Aquí solo declaramos explícitamente qué se OCULTA (False) según el rol que inició sesión.
-
             if (rolUsuario == "3") // Vendedor (Solo ve 2 botones)
             {
-                // Ocultamos todos los botones excepto los que el vendedor debe ver
                 BInicio2.Visible = false;
                 BClientes.Visible = false;
                 BVentas.Visible = false;
@@ -83,7 +82,6 @@ namespace CinemaCtes
 
         private void AbrirFormularioHijo(Form formHijo)
         {
-            // Si ya hay un formulario abierto, lo cerramos
             if (formularioActivo != null)
             {
                 formularioActivo.Close();
@@ -91,12 +89,10 @@ namespace CinemaCtes
 
             formularioActivo = formHijo;
 
-            // Configuración para incrustar el Formulario dentro del Panel
             formHijo.TopLevel = false;
             formHijo.FormBorderStyle = FormBorderStyle.None;
             formHijo.Dock = DockStyle.Fill;
 
-            // Agregamos el formulario a la lista de controles del panel y lo mostramos
             PContenido.Controls.Add(formHijo);
             PContenido.Tag = formHijo;
             formHijo.BringToFront();
@@ -105,12 +101,10 @@ namespace CinemaCtes
 
         private void FormMenuPrincipal_FormClosed(object sender, FormClosedEventArgs e)
         {
-            // Asegura que al cerrar la ventana principal se finalice toda la aplicación
             Application.Exit();
         }
 
-
-        //Botones del menu lateral para el administrador
+        // Botones del menú lateral para el Administrador
         private void BUsuarios_Click(object sender, EventArgs e)
         {
             AbrirFormularioHijo(new FormUsuarios());
@@ -136,8 +130,7 @@ namespace CinemaCtes
             AbrirFormularioHijo(new FormInicio());
         }
 
-
-        //Botones del menu lateral para el supervisor
+        // Botones del menú lateral para el Supervisor
         private void BInicio2_Click(object sender, EventArgs e)
         {
             AbrirFormularioHijo(new FormInicio2());
@@ -151,15 +144,16 @@ namespace CinemaCtes
             AbrirFormularioHijo(new FormClientes());
         }
 
-
-        //Botones del menu lateral para el vendedor
+        // Botones del menú lateral para el Vendedor
         private void BInicio3_Click(object sender, EventArgs e)
         {
             AbrirFormularioHijo(new FormInicio3());
         }
+
+        // AQUÍ PASAMOS EL idUsuarioActual AL FORMULARIO DE VENTAS
         private void BRegistrarVenta_Click(object sender, EventArgs e)
         {
-            AbrirFormularioHijo(new FormRegistrarVenta());
+            AbrirFormularioHijo(new FormRegistrarVenta(idUsuarioActual));
         }
 
         private Button botonActivo = null;
@@ -168,32 +162,25 @@ namespace CinemaCtes
         {
             if (btn == null) return;
 
-            // Desactivar el botón anterior
             if (botonActivo != null)
             {
                 botonActivo.BackColor = Color.Transparent;
                 botonActivo.ForeColor = Color.FromArgb(200, 200, 200);
             }
 
-            // Activar el botón presionado
             botonActivo = btn;
-            botonActivo.BackColor = Color.FromArgb(42, 22, 59); // Morado oscuro de selección
+            botonActivo.BackColor = Color.FromArgb(42, 22, 59);
             botonActivo.ForeColor = Color.White;
         }
-
-       
 
         private void btnBoletos_Click(object sender, EventArgs e)
         {
             ActivarBoton((Button)sender);
-            // AbrirFormularioHijo(new FormBoletos());
         }
-        
 
         private void RedondearBoton(Button btn, PaintEventArgs e, int radio, Color colorFondo)
         {
             Graphics g = e.Graphics;
-            // Activa el suavizado de bordes (Anti-aliasing)
             g.SmoothingMode = SmoothingMode.AntiAlias;
 
             Rectangle rect = new Rectangle(0, 0, btn.Width - 1, btn.Height - 1);
@@ -206,7 +193,6 @@ namespace CinemaCtes
                 path.AddArc(rect.X, rect.Height - radio, radio, radio, 90, 90);
                 path.CloseAllFigures();
 
-                // Rellena el fondo con esquinas suaves
                 using (SolidBrush brush = new SolidBrush(colorFondo))
                 {
                     g.FillPath(brush, path);
@@ -217,7 +203,6 @@ namespace CinemaCtes
         private void Button_Paint(object sender, PaintEventArgs e)
         {
             Button btn = (Button)sender;
-            // Si el botón está seleccionado usá el morado, si no, el transparente/oscuro
             Color fondo = (btn == botonActivo) ? Color.FromArgb(42, 22, 59) : Color.Transparent;
 
             RedondearBoton(btn, e, 15, fondo);
@@ -225,23 +210,18 @@ namespace CinemaCtes
 
         private void BCerrar_sesion_Click(object sender, EventArgs e)
         {
-            // Mostrar un mensaje de consulta para confirmar
             DialogResult ask = MessageBox.Show(
                 "¿Está seguro que desea cerrar sesión?",
                 "Cerrar Sesión",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button2 // Foco en "No" por seguridad
+                MessageBoxDefaultButton.Button2
             );
 
-            // Si el usuario confirma que "Sí"
             if (ask == DialogResult.Yes)
             {
-                // Instanciar y mostrar el formulario de Login
                 LoginForm login = new LoginForm();
                 login.Show();
-
-                // Cerrar el formulario principal actual
                 this.Close();
             }
         }

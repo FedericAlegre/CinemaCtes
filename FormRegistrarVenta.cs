@@ -13,9 +13,15 @@ namespace CinemaCtes
 {
     public partial class FormRegistrarVenta : Form
     {
-        public FormRegistrarVenta()
+
+        private int? idClienteSeleccionado = null;
+
+        private int idUsuarioActual;
+
+        public FormRegistrarVenta(int idUsuario)
         {
             InitializeComponent();
+            idUsuarioActual = idUsuario;
         }
 
         private void FormRegistrarVenta_Load(object sender, EventArgs e)
@@ -267,9 +273,107 @@ namespace CinemaCtes
             CargarHorariosBD();
         }
 
+        // Boton para registrar ventas
         private void BConfirmarVenta_Click(object sender, EventArgs e)
         {
-            // (La lógica de confirmación de venta la dejamos intacta por ahora como pediste)
+            // Validaciones previas
+            if (CLBCarrito.CheckedItems.Count == 0)
+            {
+                MessageBox.Show("El carrito está vacío o no hay elementos seleccionados.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (CBMetodoPago.SelectedValue == null)
+            {
+                MessageBox.Show("Por favor, selecciona un método de pago.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Preparamos el DataTable que simula el TipoDetalleBoleto de SQL
+            DataTable dtDetalle = new DataTable();
+            dtDetalle.Columns.Add("id_funcion", typeof(int));
+            dtDetalle.Columns.Add("id_butaca", typeof(int));
+
+            foreach (var item in CLBCarrito.CheckedItems)
+            {
+                if (item is ItemCarritoBoleto boletoItem)
+                {
+                    dtDetalle.Rows.Add(boletoItem.IdFuncion, boletoItem.IdButaca);
+                }
+            }
+
+            int cantidadBoletos = dtDetalle.Rows.Count;
+
+            // Obtenemos los valores de los controles del formulario
+            int idMetodoPago = Convert.ToInt32(CBMetodoPago.SelectedValue);
+
+            int? idBeneficio = null;
+            if (CBBeneficio.SelectedValue != null && int.TryParse(CBBeneficio.SelectedValue.ToString(), out int beneficioVal))
+            {
+                idBeneficio = beneficioVal;
+            }
+
+            // Usamos el id_cliente real que capturamos cuando se validó el DNI (o null si es anónimo)
+            int? idCliente = idClienteSeleccionado;
+
+            // Usamos el id_usuario dinámico que vino por el constructor 
+            int idUsuarioLogueado = idUsuarioActual;
+
+            // Limpiamos el texto del label de monto para pasarlo a decimal (ej: "$ 9.000,00" -> 9000.00)
+            string montoLimpio = LMonto.Text.Replace("$", "").Replace(".", "").Replace(",", ".").Trim();
+            if (!decimal.TryParse(montoLimpio, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out decimal montoTotal))
+            {
+                montoTotal = 0.00m;
+            }
+
+            // Ejecución en la Base de Datos usando SqlClient
+            ConexionBD conexionBD = new ConexionBD();
+            try
+            {
+                using (SqlConnection conexion = conexionBD.ObtenerConexión())
+                {
+                    using (SqlCommand comando = new SqlCommand("SP_RegistrarVentaCompleta", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+
+                        // Pasamos los parámetros requeridos
+                        comando.Parameters.AddWithValue("@id_usuario", idUsuarioLogueado);
+                        comando.Parameters.AddWithValue("@id_cliente", (object)idCliente ?? DBNull.Value);
+                        comando.Parameters.AddWithValue("@id_metodo_pago", idMetodoPago);
+                        comando.Parameters.AddWithValue("@id_beneficio", (object)idBeneficio ?? DBNull.Value);
+                        comando.Parameters.AddWithValue("@monto_total", montoTotal);
+                        comando.Parameters.AddWithValue("@cantidad", cantidadBoletos);
+
+                        // Pasamos el DataTable como parámetro estructurado
+                        SqlParameter paramDetalle = comando.Parameters.AddWithValue("@detalles", dtDetalle);
+                        paramDetalle.SqlDbType = SqlDbType.Structured;
+                        paramDetalle.TypeName = "TipoDetalleBoleto";
+
+                        // Ejecutamos y obtenemos el ID de venta generado
+                        object resultado = comando.ExecuteScalar();
+
+                        if (resultado != null && resultado != DBNull.Value)
+                        {
+                            int idVentaGenerada = Convert.ToInt32(resultado);
+                            MessageBox.Show($"¡Venta registrada con éxito!\nNro de Venta: {idVentaGenerada}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            // Limpieza de la interfaz tras la venta exitosa
+                            CLBCarrito.Items.Clear();
+                            LMonto.Text = "$0,00";
+                            TDni.Clear();
+                            idClienteSeleccionado = null; // Reseteamos el cliente para la siguiente venta
+                            BloquearBeneficios(true);
+
+                            // Refrescamos las butacas disponibles de la función actual para que se oculten las recién vendidas
+                            CargarButacasDisponibles();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al registrar la venta: " + ex.Message, "Error crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void TDni_TextChanged(object sender, EventArgs e)
@@ -291,6 +395,7 @@ namespace CinemaCtes
             // Si el campo está vacío, es un Consumidor Final anónimo
             if (string.IsNullOrEmpty(dniTexto))
             {
+                idClienteSeleccionado = null; // Limpiamos el ID por si antes tenía uno cargado
                 BloquearBeneficios(true); // Bloqueamos beneficios porque requiere cliente registrado
                 CalcularMontoTotal();
                 return;
@@ -316,6 +421,9 @@ namespace CinemaCtes
                         {
                             if (lector.Read())
                             {
+                                // Capturamos el id_cliente real de la tabla cliente
+                                idClienteSeleccionado = Convert.ToInt32(lector["id_cliente"]);
+
                                 // Cliente encontrado con éxito
                                 string nombreCompleto = $"{lector["nombre"]} {lector["apellido"]}";
                                 MessageBox.Show($"Cliente identificado: {nombreCompleto}", "Cliente Encontrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -324,8 +432,11 @@ namespace CinemaCtes
                             }
                             else
                             {
-                                // El usuario no existe -> Advertencia y bloqueo de beneficios
-                                MessageBox.Show("No existe ningún usuario registrado con ese DNI.", "Cliente no encontrado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                // Si no existe, reseteamos el ID a null
+                                idClienteSeleccionado = null;
+
+                                // El cliente no existe -> Advertencia y bloqueo de beneficios
+                                MessageBox.Show("No existe ningún cliente registrado con ese DNI.", "Cliente no encontrado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 BloquearBeneficios(true);
                                 TDni.Focus(); // devuelve el foco para corregir o limpiar
                             }
@@ -601,4 +712,6 @@ namespace CinemaCtes
             return TextoCompleto;
         }
     }
+
+
 }

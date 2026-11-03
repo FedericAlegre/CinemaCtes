@@ -31,6 +31,7 @@ namespace CinemaCtes
             // Validar formato de correo electrónico
             if (!ClassValidacionesHelper.ValidarEmail(TCorreo)) return;
 
+            int idUsuarioLogueado = 0;
             string nombreUsuario = "";
             string rolUsuario = "";
             bool loginExitoso = false;
@@ -56,7 +57,8 @@ namespace CinemaCtes
                         {
                             if (lector.Read())
                             {
-                                // Si encuentra al usuario, extraemos sus datos
+                                // Si encuentra al usuario, extraemos sus datos incluyendo el ID real
+                                idUsuarioLogueado = Convert.ToInt32(lector["id_usuario"]);
                                 nombreUsuario = lector["nombre"].ToString();
                                 rolUsuario = lector["id_tipo_usuario"].ToString();
                                 loginExitoso = true;
@@ -74,9 +76,8 @@ namespace CinemaCtes
             // Validamos si la autenticación fue exitosa
             if (loginExitoso)
             {
-
-                // Instanciamos el menú principal pasándole el rol obtenido de la BD
-                FormMenuPrincipal formPrincipal = new FormMenuPrincipal(rolUsuario);
+                // Instanciamos el menú principal pasándole el rol Y el id_usuario
+                FormMenuPrincipal formPrincipal = new FormMenuPrincipal(rolUsuario, idUsuarioLogueado);
                 formPrincipal.Show();
 
                 // Ocultar el formulario de Login
@@ -105,7 +106,6 @@ namespace CinemaCtes
 
         private void BSalir_Click(object sender, EventArgs e)
         {
-            // Confirmación antes de salir
             DialogResult ask = MessageBox.Show(
                 "¿Está seguro que desea salir del sistema?",
                 "Confirmar Salida",
