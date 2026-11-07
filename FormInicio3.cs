@@ -74,9 +74,7 @@ namespace CinemaCtes
 
                             // Asignamos el DataTable directamente al DataGridView
                             dgvFunciones.DataSource = dtFunciones;
-
-                            // Opcional: Si querés agregarle texto personalizado a la columna de butacas en el grid (ej: " butacas libres")
-                            // podés formatearlo visualmente o dejar que muestre el número directo que devuelve el SP.
+ 
                         }
                     }
                 }
