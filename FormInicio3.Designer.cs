@@ -30,22 +30,21 @@
         {
             this.lblSaludo = new System.Windows.Forms.Label();
             this.pnlTotal = new System.Windows.Forms.Panel();
-            this.lblTotalMonto = new System.Windows.Forms.Label();
+            this.LTotalRecaudado = new System.Windows.Forms.Label();
             this.lblTotalTitulo = new System.Windows.Forms.Label();
-            this.btnNuevaVenta = new System.Windows.Forms.Button();
             this.lCartelera = new System.Windows.Forms.Label();
             this.dgvFunciones = new System.Windows.Forms.DataGridView();
-            this.colPelicula = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSala = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colHorario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colButacas = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PHeader = new System.Windows.Forms.Panel();
             this.LFecha = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblCantidadVentas = new System.Windows.Forms.Label();
+            this.LVentasRealizadas = new System.Windows.Forms.Label();
             this.pnlTotal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFunciones)).BeginInit();
             this.PHeader.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblSaludo
@@ -63,7 +62,7 @@
             // pnlTotal
             // 
             this.pnlTotal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
-            this.pnlTotal.Controls.Add(this.lblTotalMonto);
+            this.pnlTotal.Controls.Add(this.LTotalRecaudado);
             this.pnlTotal.Controls.Add(this.lblTotalTitulo);
             this.pnlTotal.Location = new System.Drawing.Point(44, 125);
             this.pnlTotal.Margin = new System.Windows.Forms.Padding(2);
@@ -71,17 +70,17 @@
             this.pnlTotal.Size = new System.Drawing.Size(165, 57);
             this.pnlTotal.TabIndex = 2;
             // 
-            // lblTotalMonto
+            // LTotalRecaudado
             // 
-            this.lblTotalMonto.AutoSize = true;
-            this.lblTotalMonto.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalMonto.ForeColor = System.Drawing.Color.White;
-            this.lblTotalMonto.Location = new System.Drawing.Point(34, 21);
-            this.lblTotalMonto.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblTotalMonto.Name = "lblTotalMonto";
-            this.lblTotalMonto.Size = new System.Drawing.Size(129, 30);
-            this.lblTotalMonto.TabIndex = 3;
-            this.lblTotalMonto.Text = "$ 10000,00";
+            this.LTotalRecaudado.AutoSize = true;
+            this.LTotalRecaudado.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LTotalRecaudado.ForeColor = System.Drawing.Color.White;
+            this.LTotalRecaudado.Location = new System.Drawing.Point(18, 21);
+            this.LTotalRecaudado.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.LTotalRecaudado.Name = "LTotalRecaudado";
+            this.LTotalRecaudado.Size = new System.Drawing.Size(129, 30);
+            this.LTotalRecaudado.TabIndex = 3;
+            this.LTotalRecaudado.Text = "$ 10000,00";
             // 
             // lblTotalTitulo
             // 
@@ -95,23 +94,10 @@
             this.lblTotalTitulo.TabIndex = 3;
             this.lblTotalTitulo.Text = "TOTAL RECAUDADO HOY";
             // 
-            // btnNuevaVenta
-            // 
-            this.btnNuevaVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNuevaVenta.Font = new System.Drawing.Font("Segoe UI", 13.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNuevaVenta.ForeColor = System.Drawing.Color.White;
-            this.btnNuevaVenta.Location = new System.Drawing.Point(486, 132);
-            this.btnNuevaVenta.Margin = new System.Windows.Forms.Padding(2);
-            this.btnNuevaVenta.Name = "btnNuevaVenta";
-            this.btnNuevaVenta.Size = new System.Drawing.Size(182, 47);
-            this.btnNuevaVenta.TabIndex = 3;
-            this.btnNuevaVenta.Text = "🎬 NUEVA VENTA ";
-            this.btnNuevaVenta.UseVisualStyleBackColor = true;
-            // 
             // lCartelera
             // 
-            this.lCartelera.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.lCartelera.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lCartelera.AutoSize = true;
             this.lCartelera.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -127,11 +113,6 @@
             // 
             this.dgvFunciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvFunciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvFunciones.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colPelicula,
-            this.colSala,
-            this.colHorario,
-            this.colButacas});
             this.dgvFunciones.Location = new System.Drawing.Point(0, 235);
             this.dgvFunciones.Margin = new System.Windows.Forms.Padding(2);
             this.dgvFunciones.Name = "dgvFunciones";
@@ -142,34 +123,6 @@
             this.dgvFunciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvFunciones.Size = new System.Drawing.Size(734, 226);
             this.dgvFunciones.TabIndex = 5;
-            // 
-            // colPelicula
-            // 
-            this.colPelicula.HeaderText = "Pelicula";
-            this.colPelicula.MinimumWidth = 6;
-            this.colPelicula.Name = "colPelicula";
-            this.colPelicula.ReadOnly = true;
-            // 
-            // colSala
-            // 
-            this.colSala.HeaderText = "Sala";
-            this.colSala.MinimumWidth = 6;
-            this.colSala.Name = "colSala";
-            this.colSala.ReadOnly = true;
-            // 
-            // colHorario
-            // 
-            this.colHorario.HeaderText = "Horario";
-            this.colHorario.MinimumWidth = 6;
-            this.colHorario.Name = "colHorario";
-            this.colHorario.ReadOnly = true;
-            // 
-            // colButacas
-            // 
-            this.colButacas.HeaderText = "Butacas";
-            this.colButacas.MinimumWidth = 6;
-            this.colButacas.Name = "colButacas";
-            this.colButacas.ReadOnly = true;
             // 
             // PHeader
             // 
@@ -215,16 +168,51 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "CinemaCtes - Panel Principal";
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
+            this.panel1.Controls.Add(this.lblCantidadVentas);
+            this.panel1.Controls.Add(this.LVentasRealizadas);
+            this.panel1.Location = new System.Drawing.Point(504, 125);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(165, 57);
+            this.panel1.TabIndex = 4;
+            // 
+            // lblCantidadVentas
+            // 
+            this.lblCantidadVentas.AutoSize = true;
+            this.lblCantidadVentas.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCantidadVentas.ForeColor = System.Drawing.Color.White;
+            this.lblCantidadVentas.Location = new System.Drawing.Point(64, 22);
+            this.lblCantidadVentas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCantidadVentas.Name = "lblCantidadVentas";
+            this.lblCantidadVentas.Size = new System.Drawing.Size(39, 30);
+            this.lblCantidadVentas.TabIndex = 3;
+            this.lblCantidadVentas.Text = "10";
+            // 
+            // LVentasRealizadas
+            // 
+            this.LVentasRealizadas.AutoSize = true;
+            this.LVentasRealizadas.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LVentasRealizadas.ForeColor = System.Drawing.Color.White;
+            this.LVentasRealizadas.Location = new System.Drawing.Point(10, 7);
+            this.LVentasRealizadas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.LVentasRealizadas.Name = "LVentasRealizadas";
+            this.LVentasRealizadas.Size = new System.Drawing.Size(144, 13);
+            this.LVentasRealizadas.TabIndex = 3;
+            this.LVentasRealizadas.Text = "VENTAS REALIZADAS HOY";
+            // 
             // FormInicio3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(18)))), ((int)(((byte)(38)))));
             this.ClientSize = new System.Drawing.Size(734, 461);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.PHeader);
             this.Controls.Add(this.dgvFunciones);
             this.Controls.Add(this.lCartelera);
-            this.Controls.Add(this.btnNuevaVenta);
             this.Controls.Add(this.pnlTotal);
             this.Controls.Add(this.lblSaludo);
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -236,6 +224,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvFunciones)).EndInit();
             this.PHeader.ResumeLayout(false);
             this.PHeader.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -245,18 +235,16 @@
         private System.Windows.Forms.Label lblSaludo;
         private System.Windows.Forms.Panel pnlTotal;
         private System.Windows.Forms.Label lblTotalTitulo;
-        private System.Windows.Forms.Label lblTotalMonto;
-        private System.Windows.Forms.Button btnNuevaVenta;
+        private System.Windows.Forms.Label LTotalRecaudado;
         private System.Windows.Forms.Label lCartelera;
         private System.Windows.Forms.DataGridView dgvFunciones;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colPelicula;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colSala;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colHorario;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colButacas;
         private System.Windows.Forms.Panel PHeader;
         private System.Windows.Forms.Label LFecha;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lblCantidadVentas;
+        private System.Windows.Forms.Label LVentasRealizadas;
     }
 }
 

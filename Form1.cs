@@ -40,7 +40,7 @@ namespace CinemaCtes
             }
             else // Vendedor
             {
-                AbrirFormularioHijo(new FormInicio3());
+                AbrirFormularioHijo(new FormInicio3(idUsuarioActual));
             }
             ConfigurarPermisosMenu();
         }
@@ -147,7 +147,7 @@ namespace CinemaCtes
         // Botones del menú lateral para el Vendedor
         private void BInicio3_Click(object sender, EventArgs e)
         {
-            AbrirFormularioHijo(new FormInicio3());
+            AbrirFormularioHijo(new FormInicio3(idUsuarioActual));
         }
 
         // AQUÍ PASAMOS EL idUsuarioActual AL FORMULARIO DE VENTAS

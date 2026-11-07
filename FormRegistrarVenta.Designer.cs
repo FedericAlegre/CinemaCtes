@@ -320,10 +320,10 @@
             this.DGVVentas.AllowUserToDeleteRows = false;
             this.DGVVentas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVVentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGVVentas.Location = new System.Drawing.Point(0, 277);
+            this.DGVVentas.Location = new System.Drawing.Point(0, 266);
             this.DGVVentas.Name = "DGVVentas";
             this.DGVVentas.ReadOnly = true;
-            this.DGVVentas.Size = new System.Drawing.Size(734, 188);
+            this.DGVVentas.Size = new System.Drawing.Size(734, 199);
             this.DGVVentas.TabIndex = 9;
             // 
             // FormRegistrarVenta

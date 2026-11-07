@@ -48,6 +48,9 @@ namespace CinemaCtes
             // Bloqueamos el boton de confirmar compra
             BAñadir.Enabled = false;
             CalcularMontoTotal();
+
+            // Cargar ventas del dia
+            CargarVentasDelDia();
         }
 
         // Cargar películas activas desde la Base de Datos
@@ -357,15 +360,29 @@ namespace CinemaCtes
                             int idVentaGenerada = Convert.ToInt32(resultado);
                             MessageBox.Show($"¡Venta registrada con éxito!\nNro de Venta: {idVentaGenerada}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                            // Abrimos el formulario de vista previa del ticket 
+                            FormVistaPreviaTicket formTicket = new FormVistaPreviaTicket(idVentaGenerada);
+                            formTicket.ShowDialog();
+
                             // Limpieza de la interfaz tras la venta exitosa
                             CLBCarrito.Items.Clear();
                             LMonto.Text = "$0,00";
                             TDni.Clear();
                             idClienteSeleccionado = null; // Reseteamos el cliente para la siguiente venta
+                            if (CBPelicula.Items.Count > 0) CBPelicula.SelectedIndex = -1;
+                            if (CBHorario.Items.Count > 0) CBHorario.DataSource = null; // Limpia el combo de horarios
+                            if (CBMetodoPago.Items.Count > 0) CBMetodoPago.SelectedIndex = -1;
+                            if (CBBeneficio.Items.Count > 0) CBBeneficio.SelectedIndex = -1;
                             BloquearBeneficios(true);
 
                             // Refrescamos las butacas disponibles de la función actual para que se oculten las recién vendidas
                             CargarButacasDisponibles();
+
+                            // Refrescamos la lista de ventas registradas
+                            CargarVentasDelDia();
+
+                            // Bloqueamos el boton de confirmar compra
+                            BAñadir.Enabled = false;
                         }
                     }
                 }
@@ -685,6 +702,43 @@ namespace CinemaCtes
 
             CargarHorariosBD();
         }
+
+        private void CargarVentasDelDia()
+        {
+            ConexionBD conexionBD = new ConexionBD();
+            try
+            {
+                using (SqlConnection conexion = conexionBD.ObtenerConexión())
+                {
+                    using (SqlCommand comando = new SqlCommand("SP_ListarVentasDelDiaPorUsuario", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        // Le pasamos el ID del cajero logueado actualmente
+                        comando.Parameters.AddWithValue("@id_usuario", idUsuarioActual);
+
+                        using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                        {
+                            DataTable dtVentas = new DataTable();
+                            adaptador.Fill(dtVentas);
+
+                            // Asignamos el resultado al DataGridView de la interfaz
+                            DGVVentas.DataSource = dtVentas;
+
+                            // Ajustar formato de columnas
+                            if (DGVVentas.Columns["Monto Total"] != null)
+                            {
+                                DGVVentas.Columns["Monto Total"].DefaultCellStyle.Format = "C2"; // Formato moneda
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar las ventas del día: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
     }
 
     // Clase simple solo para mostrar la butaca limpia en el selector
