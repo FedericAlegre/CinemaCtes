@@ -97,27 +97,56 @@ namespace CinemaCtes
                 int idCliente = Convert.ToInt32(fila.Tag);
                 string dniCliente = fila.Cells[0].Value?.ToString() ?? ""; // Columna 0: DNI
 
-                int idCliente = Convert.ToInt32(fila.Cells["id_cliente"].Value);
-                string dniCliente = (DGVClientes.Columns.Contains("CDni") ? fila.Cells["CDni"].Value : fila.Cells[0].Value)?.ToString() ?? "";
-                string correoActual = (DGVClientes.Columns.Contains("CCorreo") ? fila.Cells["CCorreo"].Value : fila.Cells[3].Value)?.ToString() ?? "";
-
-                // Instanciamos el formulario pasándole el ID real y el correo actual
-                using (FormModificarCorreo formCorreo = new FormModificarCorreo(idCliente, correoActual))
+                // Botón Modificar Correo
+                if (nombreColumna == "CModificar")
                 {
-                    if (formCorreo.ShowDialog() == DialogResult.OK)
+                    string correoActual = fila.Cells[3].Value?.ToString() ?? ""; // Columna 3: Correo
+
+                    using (FormModificarCorreo formCorreo = new FormModificarCorreo(idCliente, correoActual))
                     {
-                        string nuevoCorreo = formCorreo.NuevoCorreoIngresado;
+                        if (formCorreo.ShowDialog() == DialogResult.OK)
+                        {
+                            string nuevoCorreo = formCorreo.NuevoCorreoIngresado;
+                            fila.Cells[3].Value = nuevoCorreo; // Actualizar celda visualmente
 
-                        // Actualizar la celda en la grilla visualmente
-                        if (DGVClientes.Columns.Contains("CCorreo"))
-                            fila.Cells["CCorreo"].Value = nuevoCorreo;
-                        else
-                            fila.Cells[3].Value = nuevoCorreo;
+                            MessageBox.Show($"El correo del cliente DNI {dniCliente} fue actualizado con éxito.",
+                                "Actualización Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+                // Botón Alternar Estado (Activo/Inactivo)
+                else if (nombreColumna == "CEliminar")
+                {
+                    try
+                    {
+                        string nuevoEstado = "";
+                        ConexionBD conexionBD = new ConexionBD();
 
-                        MessageBox.Show($"El correo del cliente DNI {dniCliente} fue actualizado con éxito.",
-                            "Actualización Exitosa",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
+                        using (SqlConnection conexion = conexionBD.ObtenerConexión())
+                        {
+                            using (SqlCommand cmd = new SqlCommand("SP_AlternarEstadoCliente", conexion))
+                            {
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                cmd.Parameters.AddWithValue("@id_cliente", idCliente);
+
+                                // Ejecutamos y obtenemos el nuevo estado retornado por el SP
+                                object resultado = cmd.ExecuteScalar();
+                                if (resultado != null)
+                                {
+                                    nuevoEstado = resultado.ToString();
+                                }
+                            }
+                        }
+
+                        // Actualizamos la celda de Estado visualmente en la grilla
+                        fila.Cells[5].Value = nuevoEstado;
+
+                        MessageBox.Show($"El estado del cliente DNI {dniCliente} ha cambiado a: {nuevoEstado}",
+                            "Estado Actualizado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al cambiar el estado del cliente: " + ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
