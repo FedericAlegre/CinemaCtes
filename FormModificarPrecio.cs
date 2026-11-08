@@ -7,21 +7,55 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace CinemaCtes
 {
     public partial class FormModificarPrecio : Form
     {
+        // Supongamos que tienes un Label en el formulario llamado lblPrecioActual o similar para mostrar el texto de la imagen
+        // (Si el texto "Precio actual: 1300" es un Label, puedes nombrarlo lblPrecioActual)
+
         public FormModificarPrecio()
         {
             InitializeComponent();
         }
 
+        private void FormModificarPrecio_Load(object sender, EventArgs e)
+        {
+            CargarPrecioActual();
+        }
+
+        private void CargarPrecioActual()
+        {
+            ConexionBD conexionBD = new ConexionBD();
+            try
+            {
+                using (SqlConnection conexion = conexionBD.ObtenerConexión())
+                {
+                    // Puedes usar un SP o una consulta directa rápida para traer el precio actual
+                    using (SqlCommand comando = new SqlCommand("SELECT TOP 1 precio FROM tarifa", conexion))
+                    {
+                        object resultado = comando.ExecuteScalar();
+                        if (resultado != null && resultado != DBNull.Value)
+                        {
+                            decimal precioActual = Convert.ToDecimal(resultado);
+                            // Asumiendo que tienes un Label que muestra el precio actual (ej: lblPrecioActual)
+                            // lblPrecioActual.Text = $"Precio actual: ${precioActual:N0}";
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar el precio actual: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void BConfirmar_Click(object sender, EventArgs e)
         {
-
-            // Validamos que no esté vacío y que sea un número válido
-            if (!ClassValidacionesHelper.ValidarCampoVacio(TPrecio, "DNI")) return;
+            // Corregido: el mensaje decía "DNI" por error en la validación original
+            if (!ClassValidacionesHelper.ValidarCampoVacio(TPrecio, "precio nuevo")) return;
 
             // Validamos que el precio sea un número decimal válido y mayor a cero
             if (decimal.TryParse(TPrecio.Text.Trim(), out decimal nuevoPrecio))
@@ -41,13 +75,29 @@ namespace CinemaCtes
 
                 if (resultado == DialogResult.Yes)
                 {
-                    // Aquí agregarías la lógica para guardar en la base de datos (ej: UPDATE Tarifas SET Precio = ...)
+                    ConexionBD conexionBD = new ConexionBD();
+                    try
+                    {
+                        using (SqlConnection conexion = conexionBD.ObtenerConexión())
+                        {
+                            using (SqlCommand comando = new SqlCommand("SP_ActualizarPrecioBoleto", conexion))
+                            {
+                                comando.CommandType = CommandType.StoredProcedure;
+                                comando.Parameters.AddWithValue("@nuevo_precio", nuevoPrecio);
+                                comando.ExecuteNonQuery();
+                            }
+                        }
 
-                    MessageBox.Show("Precio actualizado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Precio actualizado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    // Cerramos el formulario devolviendo un resultado OK
-                    this.DialogResult = DialogResult.OK;
-                    this.Close();
+                        // Cerramos el formulario devolviendo un resultado OK
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al actualizar el precio en la base de datos: " + ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
             else
@@ -66,25 +116,14 @@ namespace CinemaCtes
 
         private void TPrecio_TextChanged(object sender, EventArgs e)
         {
-            // Guardamos la posición actual del cursor para que no salte al final al limpiar
             int seleccionInicio = TPrecio.SelectionStart;
-
-            // Filtramos el texto actual para conservar únicamente los dígitos numéricos
             string textoFiltrado = new string(TPrecio.Text.Where(char.IsDigit).ToArray());
 
-            // Si el texto contenía letras o espacios, actualizamos el TextBox sin ellos
             if (TPrecio.Text != textoFiltrado)
             {
                 TPrecio.Text = textoFiltrado;
-
-                // Restauramos la posición del cursor de manera segura
                 TPrecio.SelectionStart = Math.Min(seleccionInicio, TPrecio.Text.Length);
             }
-        }
-
-        private void FormModificarPrecio_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
