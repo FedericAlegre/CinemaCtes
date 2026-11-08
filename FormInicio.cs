@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace CinemaCtes
 {
@@ -22,34 +23,82 @@ namespace CinemaCtes
             // Cargamos la fecha actual en la esquina superior derecha de forma dinámica
             LFecha.Text = DateTime.Now.ToString("dddd, dd 'de' MMMM 'de' yyyy");
 
-            // Llamamos a los métodos el estilo y configuracion de la tabla al iniciar la pantalla
+            // Aplicamos estilo y configuración de la tabla
             ClassEstilosHelper.AplicarEstiloTabla(DGVProximas);
 
-            // Cargamos registros ficticios de prueba (Modo Maqueta)
-            CargarTablaProximasFunciones();
+            // Cargamos los datos reales desde la Base de Datos
+            CargarDashboardAdministrador();
         }
 
-        private void CargarTablaProximasFunciones()
+        private void CargarDashboardAdministrador()
         {
-            DGVProximas.Rows.Clear();
+            ConexionBD conexionBD = new ConexionBD();
+            try
+            {
+                using (SqlConnection conexion = conexionBD.ObtenerConexión())
+                {
+                    // COMANDO SQL DIRECTO: Contar Películas Activas
+                    using (SqlCommand cmdPeliculas = new SqlCommand("SELECT COUNT(*) FROM pelicula WHERE estado = 'Activo'", conexion))
+                    {
+                        object resultadoPeliculas = cmdPeliculas.ExecuteScalar();
+                        int cantPeliculas = resultadoPeliculas != DBNull.Value ? Convert.ToInt32(resultadoPeliculas) : 0;
+                        lblPeliculasActivas.Text = $"({cantPeliculas})";
+                    }
 
-            // Asegurate de que tu DataGridView tenga las 4 columnas en este orden: 
-            // Hora Inicio, Hora Fin, Película, Sala
-            DGVProximas.Rows.Add("16:00", "18:15", "Intensamente 2", "Sala 2");
-            DGVProximas.Rows.Add("18:30", "21:15", "Avengers: Endgame", "Sala 1");
-            DGVProximas.Rows.Add("21:30", "23:45", "Dune: Parte Dos", "Sala 3");
+                    // COMANDO SQL DIRECTO: Contar Salas Operativas
+                    using (SqlCommand cmdSalas = new SqlCommand("SELECT COUNT(*) FROM sala WHERE estado = 'Activo'", conexion))
+                    {
+                        object resultadoSalas = cmdSalas.ExecuteScalar();
+                        int cantSalas = resultadoSalas != DBNull.Value ? Convert.ToInt32(resultadoSalas) : 0;
+                        lblSalasOperativas.Text = $"({cantSalas})"; 
+                    }
+
+                    // STORED PROCEDURE: Contar Funciones de Hoy
+                    using (SqlCommand cmdFuncionesHoy = new SqlCommand("SP_ContarFuncionesHoy", conexion))
+                    {
+                        cmdFuncionesHoy.CommandType = CommandType.StoredProcedure;
+                        object resultadoFunciones = cmdFuncionesHoy.ExecuteScalar();
+                        int cantFunciones = resultadoFunciones != DBNull.Value ? Convert.ToInt32(resultadoFunciones) : 0;
+                        lblFuncionesHoy.Text = $"({cantFunciones})";
+                    }
+
+                    // STORED PROCEDURE: Cargar el DataGridView con las funciones de hoy
+                    using (SqlCommand cmdTabla = new SqlCommand("SP_ListarFuncionesHoyDGV", conexion))
+                    {
+                        cmdTabla.CommandType = CommandType.StoredProcedure;
+                        using (SqlDataAdapter adaptador = new SqlDataAdapter(cmdTabla))
+                        {
+                            DataTable dtFunciones = new DataTable();
+                            adaptador.Fill(dtFunciones);
+
+                            // Asignamos el resultado al DataGridView
+                            DGVProximas.DataSource = dtFunciones;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar el panel principal: " + ex.Message, "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void BModMetodoPago_Click(object sender, EventArgs e)
         {
             FormModificarMetodoPago formModificar = new FormModificarMetodoPago();
-            formModificar.ShowDialog(); // O .Show() si preferís que no sea modal
+            formModificar.ShowDialog();
         }
 
         private void BModPrecioBoleto_Click(object sender, EventArgs e)
         {
             FormModificarPrecio formModificar = new FormModificarPrecio();
-            formModificar.ShowDialog(); // O .Show() si preferís que no sea modal
+            formModificar.ShowDialog();
+        }
+
+        private void BBackup_Click(object sender, EventArgs e)
+        {
+            FormBackup formBackup = new FormBackup();
+            formBackup.ShowDialog(); // Abre el formulario de forma modal
         }
     }
 }
