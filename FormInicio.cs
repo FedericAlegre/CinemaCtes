@@ -94,5 +94,11 @@ namespace CinemaCtes
             FormModificarPrecio formModificar = new FormModificarPrecio();
             formModificar.ShowDialog();
         }
+
+        private void BBackup_Click(object sender, EventArgs e)
+        {
+            FormBackup formBackup = new FormBackup();
+            formBackup.ShowDialog(); // Abre el formulario de forma modal
+        }
     }
 }

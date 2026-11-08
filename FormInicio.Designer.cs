@@ -49,6 +49,7 @@
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.LProximasFunciones = new System.Windows.Forms.Label();
+            this.BBackup = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.PHeader.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -233,7 +234,8 @@
             this.DGVProximas.AllowUserToDeleteRows = false;
             this.DGVProximas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVProximas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGVProximas.Location = new System.Drawing.Point(0, 271);
+            this.DGVProximas.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.DGVProximas.Location = new System.Drawing.Point(0, 273);
             this.DGVProximas.Name = "DGVProximas";
             this.DGVProximas.ReadOnly = true;
             this.DGVProximas.Size = new System.Drawing.Size(734, 188);
@@ -278,14 +280,25 @@
             this.LProximasFunciones.TabIndex = 10;
             this.LProximasFunciones.Text = "Proximas funciones en cartelera para hoy:";
             // 
+            // BBackup
+            // 
+            this.BBackup.Location = new System.Drawing.Point(360, 209);
+            this.BBackup.Name = "BBackup";
+            this.BBackup.Size = new System.Drawing.Size(145, 23);
+            this.BBackup.TabIndex = 11;
+            this.BBackup.Text = "Menú backup";
+            this.BBackup.UseVisualStyleBackColor = true;
+            this.BBackup.Click += new System.EventHandler(this.BBackup_Click);
+            // 
             // FormInicio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(18)))), ((int)(((byte)(38)))));
             this.ClientSize = new System.Drawing.Size(734, 461);
-            this.Controls.Add(this.LProximasFunciones);
             this.Controls.Add(this.DGVProximas);
+            this.Controls.Add(this.LProximasFunciones);
+            this.Controls.Add(this.BBackup);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.BModPrecioBoleto);
             this.Controls.Add(this.BModMetodoPago);
@@ -336,5 +349,6 @@
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Label LProximasFunciones;
+        private System.Windows.Forms.Button BBackup;
     }
 }
