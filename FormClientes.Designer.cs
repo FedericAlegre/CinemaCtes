@@ -44,6 +44,7 @@
             this.CCorreo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CCompras = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CEstado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IdCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PHeader.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVClientes)).BeginInit();
@@ -56,19 +57,17 @@
             this.PHeader.Controls.Add(this.label1);
             this.PHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.PHeader.Location = new System.Drawing.Point(0, 0);
-            this.PHeader.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.PHeader.Name = "PHeader";
-            this.PHeader.Size = new System.Drawing.Size(1138, 80);
+            this.PHeader.Size = new System.Drawing.Size(734, 65);
             this.PHeader.TabIndex = 3;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(16, 44);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(12, 36);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(238, 16);
+            this.label2.Size = new System.Drawing.Size(189, 13);
             this.label2.TabIndex = 0;
             this.label2.Text = "Administra y consulta datos de clientes";
             // 
@@ -77,10 +76,9 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(16, 20);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(12, 16);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(155, 25);
+            this.label1.Size = new System.Drawing.Size(126, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "Gestión Clientes";
             // 
@@ -92,28 +90,25 @@
             this.panel3.Controls.Add(this.CBEstado);
             this.panel3.Controls.Add(this.TBuscar);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel3.Location = new System.Drawing.Point(0, 80);
-            this.panel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel3.Location = new System.Drawing.Point(0, 65);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1138, 63);
+            this.panel3.Size = new System.Drawing.Size(734, 51);
             this.panel3.TabIndex = 4;
             // 
             // LBuscar
             // 
-            this.LBuscar.Location = new System.Drawing.Point(-4, 0);
-            this.LBuscar.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LBuscar.Location = new System.Drawing.Point(-3, 0);
             this.LBuscar.Name = "LBuscar";
-            this.LBuscar.Size = new System.Drawing.Size(133, 28);
+            this.LBuscar.Size = new System.Drawing.Size(100, 23);
             this.LBuscar.TabIndex = 0;
             // 
             // LEstado
             // 
             this.LEstado.AutoSize = true;
             this.LEstado.ForeColor = System.Drawing.Color.White;
-            this.LEstado.Location = new System.Drawing.Point(853, 9);
-            this.LEstado.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LEstado.Location = new System.Drawing.Point(640, 7);
             this.LEstado.Name = "LEstado";
-            this.LEstado.Size = new System.Drawing.Size(50, 16);
+            this.LEstado.Size = new System.Drawing.Size(40, 13);
             this.LEstado.TabIndex = 4;
             this.LEstado.Text = "Estado";
             // 
@@ -125,20 +120,18 @@
             "Todos",
             "Activo",
             "Inactivo"});
-            this.CBEstado.Location = new System.Drawing.Point(801, 28);
-            this.CBEstado.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CBEstado.Location = new System.Drawing.Point(601, 23);
             this.CBEstado.Name = "CBEstado";
-            this.CBEstado.Size = new System.Drawing.Size(160, 24);
+            this.CBEstado.Size = new System.Drawing.Size(121, 21);
             this.CBEstado.TabIndex = 1;
             this.CBEstado.SelectedIndexChanged += new System.EventHandler(this.CBEstado_SelectedIndexChanged);
             // 
             // TBuscar
             // 
             this.TBuscar.ForeColor = System.Drawing.Color.Black;
-            this.TBuscar.Location = new System.Drawing.Point(55, 30);
-            this.TBuscar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TBuscar.Location = new System.Drawing.Point(41, 24);
             this.TBuscar.Name = "TBuscar";
-            this.TBuscar.Size = new System.Drawing.Size(465, 22);
+            this.TBuscar.Size = new System.Drawing.Size(350, 20);
             this.TBuscar.TabIndex = 0;
             this.TBuscar.TextChanged += new System.EventHandler(this.TBuscar_TextChanged);
             // 
@@ -164,15 +157,15 @@
             this.CApellido,
             this.CCorreo,
             this.CCompras,
-            this.CEstado});
+            this.CEstado,
+            this.IdCliente});
             this.DGVClientes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DGVClientes.EnableHeadersVisualStyles = false;
-            this.DGVClientes.Location = new System.Drawing.Point(0, 143);
-            this.DGVClientes.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.DGVClientes.Location = new System.Drawing.Point(0, 116);
             this.DGVClientes.Name = "DGVClientes";
             this.DGVClientes.ReadOnly = true;
             this.DGVClientes.RowHeadersWidth = 51;
-            this.DGVClientes.Size = new System.Drawing.Size(1138, 206);
+            this.DGVClientes.Size = new System.Drawing.Size(734, 345);
             this.DGVClientes.TabIndex = 5;
             this.DGVClientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVClientes_CellClick);
             // 
@@ -218,15 +211,21 @@
             this.CEstado.Name = "CEstado";
             this.CEstado.ReadOnly = true;
             // 
+            // IdCliente
+            // 
+            this.IdCliente.HeaderText = "CIdCliente";
+            this.IdCliente.Name = "IdCliente";
+            this.IdCliente.ReadOnly = true;
+            this.IdCliente.Visible = false;
+            // 
             // FormClientes
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1138, 349);
+            this.ClientSize = new System.Drawing.Size(734, 461);
             this.Controls.Add(this.DGVClientes);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.PHeader);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FormClientes";
             this.Text = "FormClientes";
             this.Load += new System.EventHandler(this.FormClientes_Load);
@@ -256,5 +255,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CCorreo;
         private System.Windows.Forms.DataGridViewTextBoxColumn CCompras;
         private System.Windows.Forms.DataGridViewTextBoxColumn CEstado;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IdCliente;
     }
 }

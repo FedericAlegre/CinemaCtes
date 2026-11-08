@@ -31,7 +31,7 @@
             this.LAñadir = new System.Windows.Forms.Label();
             this.BCancelar = new System.Windows.Forms.Button();
             this.BConfirmar = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblPrecioActual = new System.Windows.Forms.Label();
             this.TPrecio = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -67,14 +67,14 @@
             this.BConfirmar.UseVisualStyleBackColor = true;
             this.BConfirmar.Click += new System.EventHandler(this.BConfirmar_Click);
             // 
-            // label1
+            // lblPrecioActual
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(90, 73);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(99, 13);
-            this.label1.TabIndex = 18;
-            this.label1.Text = "Precio actual: 1300";
+            this.lblPrecioActual.AutoSize = true;
+            this.lblPrecioActual.Location = new System.Drawing.Point(90, 73);
+            this.lblPrecioActual.Name = "lblPrecioActual";
+            this.lblPrecioActual.Size = new System.Drawing.Size(99, 13);
+            this.lblPrecioActual.TabIndex = 18;
+            this.lblPrecioActual.Text = "Precio actual: 1300";
             // 
             // TPrecio
             // 
@@ -100,7 +100,7 @@
             this.ClientSize = new System.Drawing.Size(280, 237);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.TPrecio);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblPrecioActual);
             this.Controls.Add(this.BCancelar);
             this.Controls.Add(this.BConfirmar);
             this.Controls.Add(this.LAñadir);
@@ -117,7 +117,7 @@
         private System.Windows.Forms.Label LAñadir;
         private System.Windows.Forms.Button BCancelar;
         private System.Windows.Forms.Button BConfirmar;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblPrecioActual;
         private System.Windows.Forms.TextBox TPrecio;
         private System.Windows.Forms.Label label2;
     }

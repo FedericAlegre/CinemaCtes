@@ -13,8 +13,6 @@ namespace CinemaCtes
 {
     public partial class FormModificarPrecio : Form
     {
-        // Supongamos que tienes un Label en el formulario llamado lblPrecioActual o similar para mostrar el texto de la imagen
-        // (Si el texto "Precio actual: 1300" es un Label, puedes nombrarlo lblPrecioActual)
 
         public FormModificarPrecio()
         {
@@ -34,14 +32,14 @@ namespace CinemaCtes
                 using (SqlConnection conexion = conexionBD.ObtenerConexión())
                 {
                     // Puedes usar un SP o una consulta directa rápida para traer el precio actual
-                    using (SqlCommand comando = new SqlCommand("SELECT TOP 1 precio FROM tarifa", conexion))
+                    using (SqlCommand comando = new SqlCommand("SELECT TOP 1 precio_base FROM tarifa", conexion))
                     {
                         object resultado = comando.ExecuteScalar();
                         if (resultado != null && resultado != DBNull.Value)
                         {
                             decimal precioActual = Convert.ToDecimal(resultado);
-                            // Asumiendo que tienes un Label que muestra el precio actual (ej: lblPrecioActual)
-                            // lblPrecioActual.Text = $"Precio actual: ${precioActual:N0}";
+
+                            lblPrecioActual.Text = $"Precio actual: ${precioActual:N0}";
                         }
                     }
                 }
@@ -54,7 +52,6 @@ namespace CinemaCtes
 
         private void BConfirmar_Click(object sender, EventArgs e)
         {
-            // Corregido: el mensaje decía "DNI" por error en la validación original
             if (!ClassValidacionesHelper.ValidarCampoVacio(TPrecio, "precio nuevo")) return;
 
             // Validamos que el precio sea un número decimal válido y mayor a cero

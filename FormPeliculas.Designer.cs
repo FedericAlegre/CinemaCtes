@@ -28,12 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.PHeader = new System.Windows.Forms.Panel();
             this.BAñadir = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.LHasta = new System.Windows.Forms.Label();
+            this.DTPHasta = new System.Windows.Forms.DateTimePicker();
+            this.DTPDesde = new System.Windows.Forms.DateTimePicker();
+            this.LDesde = new System.Windows.Forms.Label();
             this.LBuscar = new System.Windows.Forms.Label();
             this.LEstado = new System.Windows.Forms.Label();
             this.LEtiqueta = new System.Windows.Forms.Label();
@@ -49,10 +53,6 @@
             this.CEtiqueta = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CEstado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CIdPelicula = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LHasta = new System.Windows.Forms.Label();
-            this.DTPHasta = new System.Windows.Forms.DateTimePicker();
-            this.DTPDesde = new System.Windows.Forms.DateTimePicker();
-            this.LDesde = new System.Windows.Forms.Label();
             this.PHeader.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVPeliculas)).BeginInit();
@@ -69,6 +69,7 @@
             this.PHeader.Name = "PHeader";
             this.PHeader.Size = new System.Drawing.Size(734, 65);
             this.PHeader.TabIndex = 3;
+            this.PHeader.Paint += new System.Windows.Forms.PaintEventHandler(this.PHeader_Paint);
             // 
             // BAñadir
             // 
@@ -120,6 +121,42 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(734, 51);
             this.panel3.TabIndex = 4;
+            // 
+            // LHasta
+            // 
+            this.LHasta.AutoSize = true;
+            this.LHasta.ForeColor = System.Drawing.Color.White;
+            this.LHasta.Location = new System.Drawing.Point(395, 7);
+            this.LHasta.Name = "LHasta";
+            this.LHasta.Size = new System.Drawing.Size(35, 13);
+            this.LHasta.TabIndex = 14;
+            this.LHasta.Text = "Hasta";
+            // 
+            // DTPHasta
+            // 
+            this.DTPHasta.Location = new System.Drawing.Point(377, 23);
+            this.DTPHasta.Name = "DTPHasta";
+            this.DTPHasta.Size = new System.Drawing.Size(72, 20);
+            this.DTPHasta.TabIndex = 13;
+            this.DTPHasta.ValueChanged += new System.EventHandler(this.DTPHasta_ValueChanged);
+            // 
+            // DTPDesde
+            // 
+            this.DTPDesde.Location = new System.Drawing.Point(285, 23);
+            this.DTPDesde.Name = "DTPDesde";
+            this.DTPDesde.Size = new System.Drawing.Size(72, 20);
+            this.DTPDesde.TabIndex = 12;
+            this.DTPDesde.ValueChanged += new System.EventHandler(this.DTPDesde_ValueChanged);
+            // 
+            // LDesde
+            // 
+            this.LDesde.AutoSize = true;
+            this.LDesde.ForeColor = System.Drawing.Color.White;
+            this.LDesde.Location = new System.Drawing.Point(302, 7);
+            this.LDesde.Name = "LDesde";
+            this.LDesde.Size = new System.Drawing.Size(38, 13);
+            this.LDesde.TabIndex = 11;
+            this.LDesde.Text = "Desde";
             // 
             // LBuscar
             // 
@@ -192,14 +229,14 @@
             this.DGVPeliculas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVPeliculas.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(18)))), ((int)(((byte)(38)))));
             this.DGVPeliculas.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(27)))), ((int)(((byte)(56)))));
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DGVPeliculas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(27)))), ((int)(((byte)(56)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVPeliculas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.DGVPeliculas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVPeliculas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.CTitulo,
@@ -267,42 +304,6 @@
             this.CIdPelicula.Name = "CIdPelicula";
             this.CIdPelicula.ReadOnly = true;
             this.CIdPelicula.Visible = false;
-            // 
-            // LHasta
-            // 
-            this.LHasta.AutoSize = true;
-            this.LHasta.ForeColor = System.Drawing.Color.White;
-            this.LHasta.Location = new System.Drawing.Point(395, 7);
-            this.LHasta.Name = "LHasta";
-            this.LHasta.Size = new System.Drawing.Size(35, 13);
-            this.LHasta.TabIndex = 14;
-            this.LHasta.Text = "Hasta";
-            // 
-            // DTPHasta
-            // 
-            this.DTPHasta.Location = new System.Drawing.Point(377, 23);
-            this.DTPHasta.Name = "DTPHasta";
-            this.DTPHasta.Size = new System.Drawing.Size(72, 20);
-            this.DTPHasta.TabIndex = 13;
-            this.DTPHasta.ValueChanged += new System.EventHandler(this.DTPHasta_ValueChanged);
-            // 
-            // DTPDesde
-            // 
-            this.DTPDesde.Location = new System.Drawing.Point(285, 23);
-            this.DTPDesde.Name = "DTPDesde";
-            this.DTPDesde.Size = new System.Drawing.Size(72, 20);
-            this.DTPDesde.TabIndex = 12;
-            this.DTPDesde.ValueChanged += new System.EventHandler(this.DTPDesde_ValueChanged);
-            // 
-            // LDesde
-            // 
-            this.LDesde.AutoSize = true;
-            this.LDesde.ForeColor = System.Drawing.Color.White;
-            this.LDesde.Location = new System.Drawing.Point(302, 7);
-            this.LDesde.Name = "LDesde";
-            this.LDesde.Size = new System.Drawing.Size(38, 13);
-            this.LDesde.TabIndex = 11;
-            this.LDesde.Text = "Desde";
             // 
             // FormPeliculas
             // 

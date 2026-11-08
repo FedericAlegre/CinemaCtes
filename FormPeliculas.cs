@@ -412,5 +412,10 @@ namespace CinemaCtes
 
             return true;
         }
+
+        private void PHeader_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

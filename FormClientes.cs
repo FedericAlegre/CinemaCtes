@@ -25,16 +25,8 @@ namespace CinemaCtes
             // Configurar placeholder en el TextBox de búsqueda
             ClassEstilosHelper.ConfigurarPlaceholder(TBuscar, placeholderTexto);
 
-            // Agregar la columna de botón para Modificar Correo si no existe
-            if (!DGVClientes.Columns.Contains("CModificar"))
-            {
-                DataGridViewButtonColumn ctnModificar = new DataGridViewButtonColumn();
-                ctnModificar.Name = "CModificar";
-                ctnModificar.HeaderText = "Acción";
-                ctnModificar.Text = "Modificar Correo";
-                ctnModificar.UseColumnTextForButtonValue = true;
-                DGVClientes.Columns.Add(ctnModificar);
-            }
+            // Agregar la columna de botón para Modificar y descativar Correo si no existe
+            ClassEstilosHelper.AgregarBotonesAccion(DGVClientes);
 
             // Inicializar el ComboBox de Estado
             CBEstado.Items.Clear();
@@ -43,7 +35,7 @@ namespace CinemaCtes
             CBEstado.Items.Add("Inactivo");
             CBEstado.SelectedIndex = 0;
 
-            // Cargar la lista real de clientes desde la tabla dbo.cliente
+            // Cargar la lista real de clientes llamando al SP
             CargarClientesDesdeBD();
 
             cargandoFormulario = false;
@@ -53,24 +45,19 @@ namespace CinemaCtes
         {
             DGVClientes.Rows.Clear();
 
-            // Consulta que calcula la cantidad de compras realizadas por cada cliente mediante la tabla 'venta'
-            string query = @"SELECT c.dni, c.nombre, c.apellido, c.correo, 
-                            COUNT(v.id_venta) AS compras, 
-                            c.estado 
-                     FROM cliente c
-                     LEFT JOIN venta v ON c.id_cliente = v.id_cliente
-                     GROUP BY c.dni, c.nombre, c.apellido, c.correo, c.estado";
-
             try
             {
                 using (SqlConnection conexion = conexionBD.ObtenerConexión())
                 {
-                    using (SqlCommand cmd = new SqlCommand(query, conexion))
+                    using (SqlCommand cmd = new SqlCommand("SP_ListarClientesConCompras", conexion))
                     {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
                             {
+                                int idCliente = Convert.ToInt32(reader["id_cliente"]);
                                 string dni = reader["dni"]?.ToString() ?? "";
                                 string nombre = reader["nombre"]?.ToString() ?? "";
                                 string apellido = reader["apellido"]?.ToString() ?? "";
@@ -78,7 +65,10 @@ namespace CinemaCtes
                                 string compras = reader["compras"]?.ToString() ?? "0";
                                 string estado = reader["estado"]?.ToString() ?? "Activo";
 
-                                DGVClientes.Rows.Add(dni, nombre, apellido, correo, compras, estado);
+                                int rowIndex = DGVClientes.Rows.Add(dni, nombre, apellido, correo, compras, estado);
+
+                                // Guardamos el id_cliente internamente en la propiedad Tag de la fila
+                                DGVClientes.Rows[rowIndex].Tag = idCliente;
                             }
                         }
                     }
@@ -89,33 +79,74 @@ namespace CinemaCtes
                 MessageBox.Show("Error al listar los clientes: " + ex.Message, "Error de Base de Datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void DGVClientes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && DGVClientes.Columns[e.ColumnIndex].Name == "CModificar")
+            if (e.RowIndex >= 0)
             {
                 DataGridViewRow fila = DGVClientes.Rows[e.RowIndex];
+                string nombreColumna = DGVClientes.Columns[e.ColumnIndex].Name;
 
-                int idCliente = Convert.ToInt32(fila.Cells["id_cliente"].Value);
-                string dniCliente = (DGVClientes.Columns.Contains("CDni") ? fila.Cells["CDni"].Value : fila.Cells[0].Value)?.ToString() ?? "";
-                string correoActual = (DGVClientes.Columns.Contains("CCorreo") ? fila.Cells["CCorreo"].Value : fila.Cells[3].Value)?.ToString() ?? "";
-
-                // Instanciamos el formulario pasándole el ID real y el correo actual
-                using (FormModificarCorreo formCorreo = new FormModificarCorreo(idCliente, correoActual))
+                // Verificamos que la fila tenga asignado su ID en el Tag
+                if (fila.Tag == null)
                 {
-                    if (formCorreo.ShowDialog() == DialogResult.OK)
+                    MessageBox.Show("No se pudo identificar el ID del cliente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                int idCliente = Convert.ToInt32(fila.Tag);
+                string dniCliente = fila.Cells[0].Value?.ToString() ?? ""; // Columna 0: DNI
+
+                // Botón Modificar Correo
+                if (nombreColumna == "CModificar")
+                {
+                    string correoActual = fila.Cells[3].Value?.ToString() ?? ""; // Columna 3: Correo
+
+                    using (FormModificarCorreo formCorreo = new FormModificarCorreo(idCliente, correoActual))
                     {
-                        string nuevoCorreo = formCorreo.NuevoCorreoIngresado;
+                        if (formCorreo.ShowDialog() == DialogResult.OK)
+                        {
+                            string nuevoCorreo = formCorreo.NuevoCorreoIngresado;
+                            fila.Cells[3].Value = nuevoCorreo; // Actualizar celda visualmente
 
-                        // Actualizar la celda en la grilla visualmente
-                        if (DGVClientes.Columns.Contains("CCorreo"))
-                            fila.Cells["CCorreo"].Value = nuevoCorreo;
-                        else
-                            fila.Cells[3].Value = nuevoCorreo;
+                            MessageBox.Show($"El correo del cliente DNI {dniCliente} fue actualizado con éxito.",
+                                "Actualización Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+                // Botón Alternar Estado (Activo/Inactivo)
+                else if (nombreColumna == "CEliminar")
+                {
+                    try
+                    {
+                        string nuevoEstado = "";
+                        ConexionBD conexionBD = new ConexionBD();
 
-                        MessageBox.Show($"El correo del cliente DNI {dniCliente} fue actualizado con éxito.",
-                            "Actualización Exitosa",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
+                        using (SqlConnection conexion = conexionBD.ObtenerConexión())
+                        {
+                            using (SqlCommand cmd = new SqlCommand("SP_AlternarEstadoCliente", conexion))
+                            {
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                cmd.Parameters.AddWithValue("@id_cliente", idCliente);
+
+                                // Ejecutamos y obtenemos el nuevo estado retornado por el SP
+                                object resultado = cmd.ExecuteScalar();
+                                if (resultado != null)
+                                {
+                                    nuevoEstado = resultado.ToString();
+                                }
+                            }
+                        }
+
+                        // Actualizamos la celda de Estado visualmente en la grilla
+                        fila.Cells[5].Value = nuevoEstado;
+
+                        MessageBox.Show($"El estado del cliente DNI {dniCliente} ha cambiado a: {nuevoEstado}",
+                            "Estado Actualizado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al cambiar el estado del cliente: " + ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -137,11 +168,11 @@ namespace CinemaCtes
             {
                 if (fila.IsNewRow) continue;
 
-                string dniFila = (DGVClientes.Columns.Contains("CDni") ? fila.Cells["CDni"].Value : fila.Cells[0].Value)?.ToString().ToLower() ?? "";
-                string nombreFila = (DGVClientes.Columns.Contains("CNombre") ? fila.Cells["CNombre"].Value : fila.Cells[1].Value)?.ToString().ToLower() ?? "";
-                string apellidoFila = (DGVClientes.Columns.Contains("CApellido") ? fila.Cells["CApellido"].Value : fila.Cells[2].Value)?.ToString().ToLower() ?? "";
-                string correoFila = (DGVClientes.Columns.Contains("CCorreo") ? fila.Cells["CCorreo"].Value : fila.Cells[3].Value)?.ToString().ToLower() ?? "";
-                string estadoFila = (DGVClientes.Columns.Contains("CEstado") ? fila.Cells["CEstado"].Value : fila.Cells[5].Value)?.ToString() ?? "";
+                string dniFila = fila.Cells[0].Value?.ToString().ToLower() ?? "";
+                string nombreFila = fila.Cells[1].Value?.ToString().ToLower() ?? "";
+                string apellidoFila = fila.Cells[2].Value?.ToString().ToLower() ?? "";
+                string correoFila = fila.Cells[3].Value?.ToString().ToLower() ?? "";
+                string estadoFila = fila.Cells[5].Value?.ToString() ?? "";
 
                 bool cumpleBusqueda = string.IsNullOrEmpty(filtroBusqueda) ||
                                       dniFila.Contains(filtroBusqueda) ||
