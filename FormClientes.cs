@@ -49,9 +49,6 @@ namespace CinemaCtes
             cargandoFormulario = false;
         }
 
-        /// <summary>
-        /// Consulta la tabla dbo.cliente en db_CinemaCtes y llena la grilla DGVClientes.
-        /// </summary>
         private void CargarClientesDesdeBD()
         {
             DGVClientes.Rows.Clear();
@@ -98,55 +95,29 @@ namespace CinemaCtes
             {
                 DataGridViewRow fila = DGVClientes.Rows[e.RowIndex];
 
+                int idCliente = Convert.ToInt32(fila.Cells["id_cliente"].Value);
                 string dniCliente = (DGVClientes.Columns.Contains("CDni") ? fila.Cells["CDni"].Value : fila.Cells[0].Value)?.ToString() ?? "";
                 string correoActual = (DGVClientes.Columns.Contains("CCorreo") ? fila.Cells["CCorreo"].Value : fila.Cells[3].Value)?.ToString() ?? "";
 
-                using (FormModificarCorreo formCorreo = new FormModificarCorreo(correoActual))
+                // Instanciamos el formulario pasándole el ID real y el correo actual
+                using (FormModificarCorreo formCorreo = new FormModificarCorreo(idCliente, correoActual))
                 {
                     if (formCorreo.ShowDialog() == DialogResult.OK)
                     {
                         string nuevoCorreo = formCorreo.NuevoCorreoIngresado;
 
-                        // Actualizar en la BD en la tabla cliente
-                        if (ActualizarCorreoEnBD(dniCliente, nuevoCorreo))
-                        {
-                            // Actualizar la celda en la grilla visualmente
-                            if (DGVClientes.Columns.Contains("CCorreo"))
-                                fila.Cells["CCorreo"].Value = nuevoCorreo;
-                            else
-                                fila.Cells[3].Value = nuevoCorreo;
+                        // Actualizar la celda en la grilla visualmente
+                        if (DGVClientes.Columns.Contains("CCorreo"))
+                            fila.Cells["CCorreo"].Value = nuevoCorreo;
+                        else
+                            fila.Cells[3].Value = nuevoCorreo;
 
-                            MessageBox.Show($"El correo del cliente DNI {dniCliente} fue actualizado con éxito.",
-                                "Actualización Exitosa",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information);
-                        }
+                        MessageBox.Show($"El correo del cliente DNI {dniCliente} fue actualizado con éxito.",
+                            "Actualización Exitosa",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
                     }
                 }
-            }
-        }
-
-        private bool ActualizarCorreoEnBD(string dni, string nuevoCorreo)
-        {
-            // Nombre de tabla corregido a 'cliente' (en singular)
-            string query = "UPDATE cliente SET correo = @correo WHERE dni = @dni";
-            try
-            {
-                using (SqlConnection conexion = conexionBD.ObtenerConexión())
-                {
-                    using (SqlCommand cmd = new SqlCommand(query, conexion))
-                    {
-                        cmd.Parameters.AddWithValue("@correo", nuevoCorreo);
-                        cmd.Parameters.AddWithValue("@dni", dni);
-                        cmd.ExecuteNonQuery();
-                        return true;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("No se pudo actualizar el correo en la base de datos: " + ex.Message, "Error BD", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
             }
         }
 
