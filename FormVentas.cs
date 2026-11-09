@@ -360,5 +360,13 @@ namespace CinemaCtes
         {
 
         }
+
+        private void BDashboardVentas_Click(object sender, EventArgs e)
+        {
+            FormDashboardVentas formDashboard = new FormDashboardVentas();
+
+            // Lo abrimos de forma modal
+            formDashboard.ShowDialog();
+        }
     }
 }
