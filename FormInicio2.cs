@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Data;
+using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Drawing;
-using System.Windows.Forms;
+using System;
+
+
 
 namespace CinemaCtes
 {
@@ -18,13 +21,17 @@ namespace CinemaCtes
 
         private void FormInicio2_Load(object sender, EventArgs e)
         {
-            // Cargar fecha actual
+            // 1. Configurar responsividad del formulario hijo
+            ClassEstilosHelper.AplicarFormularioResponsivo(this);
+
+            // 2. Fija la fecha y su alineación
             LFecha.Text = DateTime.Now.ToString("dddd, dd 'de' MMMM 'de' yyyy");
+            LFecha.Anchor = AnchorStyles.Top | AnchorStyles.Right;
 
-            // Aplicar estilos a la grilla inferior
-            ClassEstilosHelper.AplicarEstiloTabla(DGVRecaudacionPelis);
+            // 3. Aplicar estilo visual a la grilla SIN forzar Dock = Fill
+            ClassEstilosHelper.AplicarEstiloTabla(DGVRecaudacionPelis, false);
 
-            // Cargar las 4 tarjetas de estadísticas y la grilla
+            // 4. Cargar datos de la BD
             CargarEstadisticasTarjetas();
             CargarRecaudacionPeliculasBD();
         }
@@ -45,7 +52,6 @@ namespace CinemaCtes
                                           AND estado = 'Activo'";
                     using (SqlCommand cmd = new SqlCommand(queryRecaudacion, conexion))
                     {
-                        // AQUÍ AGREGAS EL CÓDIGO
                         decimal totalHoy = Convert.ToDecimal(cmd.ExecuteScalar());
                         lMonto.Text = $"$ {totalHoy:N0}";
                     }
@@ -144,7 +150,6 @@ namespace CinemaCtes
 
                 if (DGVRecaudacionPelis.Columns.Contains("Recaudacion"))
                 {
-                    // Forzamos el formato de moneda con la cultura argentina (signo $)
                     DGVRecaudacionPelis.Columns["Recaudacion"].DefaultCellStyle.FormatProvider = new System.Globalization.CultureInfo("es-AR");
                     DGVRecaudacionPelis.Columns["Recaudacion"].DefaultCellStyle.Format = "C2";
                 }

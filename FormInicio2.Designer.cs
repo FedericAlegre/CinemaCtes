@@ -54,6 +54,7 @@
             this.LFecha = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.pRecaudacion.SuspendLayout();
             this.pEntradas.SuspendLayout();
             this.pPelicula.SuspendLayout();
@@ -61,12 +62,13 @@
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVRecaudacionPelis)).BeginInit();
             this.PHeader.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lTitulo
             // 
             this.lTitulo.AutoSize = true;
-            this.lTitulo.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lTitulo.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold);
             this.lTitulo.ForeColor = System.Drawing.Color.White;
             this.lTitulo.Location = new System.Drawing.Point(15, 25);
             this.lTitulo.Name = "lTitulo";
@@ -200,8 +202,8 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(18)))), ((int)(((byte)(38)))));
-            this.panel2.Controls.Add(this.LPeliculasRecaudacion1);
             this.panel2.Controls.Add(this.DGVRecaudacionPelis);
+            this.panel2.Controls.Add(this.LPeliculasRecaudacion1);
             this.panel2.Controls.Add(this.LPeliculasRecaudacion);
             this.panel2.Controls.Add(this.label8);
             this.panel2.Controls.Add(this.BCambiarButaca);
@@ -209,9 +211,9 @@
             this.panel2.Controls.Add(this.pEntradas);
             this.panel2.Controls.Add(this.pRecaudacion);
             this.panel2.Controls.Add(this.pPelicula);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 80);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(979, 567);
             this.panel2.TabIndex = 13;
@@ -236,8 +238,9 @@
             this.DGVRecaudacionPelis.AllowUserToDeleteRows = false;
             this.DGVRecaudacionPelis.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVRecaudacionPelis.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVRecaudacionPelis.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.DGVRecaudacionPelis.Location = new System.Drawing.Point(0, 368);
-            this.DGVRecaudacionPelis.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.DGVRecaudacionPelis.Margin = new System.Windows.Forms.Padding(4);
             this.DGVRecaudacionPelis.Name = "DGVRecaudacionPelis";
             this.DGVRecaudacionPelis.ReadOnly = true;
             this.DGVRecaudacionPelis.RowHeadersWidth = 51;
@@ -270,7 +273,7 @@
             // BCambiarButaca
             // 
             this.BCambiarButaca.Location = new System.Drawing.Point(52, 289);
-            this.BCambiarButaca.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BCambiarButaca.Margin = new System.Windows.Forms.Padding(4);
             this.BCambiarButaca.Name = "BCambiarButaca";
             this.BCambiarButaca.Size = new System.Drawing.Size(205, 31);
             this.BCambiarButaca.TabIndex = 10;
@@ -304,13 +307,12 @@
             // PHeader
             // 
             this.PHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(60)))));
+            this.PHeader.Controls.Add(this.panel1);
             this.PHeader.Controls.Add(this.LFecha);
-            this.PHeader.Controls.Add(this.label2);
-            this.PHeader.Controls.Add(this.label1);
             this.PHeader.Controls.Add(this.lTitulo);
             this.PHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.PHeader.Location = new System.Drawing.Point(0, 0);
-            this.PHeader.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.PHeader.Margin = new System.Windows.Forms.Padding(4);
             this.PHeader.Name = "PHeader";
             this.PHeader.Size = new System.Drawing.Size(979, 80);
             this.PHeader.TabIndex = 3;
@@ -331,7 +333,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(21, 44);
+            this.label2.Location = new System.Drawing.Point(7, 35);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(164, 16);
@@ -343,20 +345,29 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(16, 20);
+            this.label1.Location = new System.Drawing.Point(4, 5);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(267, 25);
             this.label1.TabIndex = 2;
             this.label1.Text = "CinemaCtes - Panel Principal";
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Location = new System.Drawing.Point(11, 8);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(326, 65);
+            this.panel1.TabIndex = 4;
+            // 
             // FormInicio2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(979, 567);
-            this.Controls.Add(this.PHeader);
             this.Controls.Add(this.panel2);
+            this.Controls.Add(this.PHeader);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FormInicio2";
             this.Text = "Inicio";
@@ -374,6 +385,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.DGVRecaudacionPelis)).EndInit();
             this.PHeader.ResumeLayout(false);
             this.PHeader.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -406,6 +419,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label LFecha;
         private System.Windows.Forms.Label LPeliculasRecaudacion1;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 
