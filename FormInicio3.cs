@@ -15,7 +15,6 @@ namespace CinemaCtes
     {
         private int idUsuarioActual; // Variable para almacenar el ID del cajero logueado
 
-        // Constructor que recibe el id_usuario desde el menú principal
         public FormInicio3(int idUsuario)
         {
             InitializeComponent();

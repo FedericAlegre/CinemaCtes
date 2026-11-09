@@ -17,26 +17,36 @@ namespace CinemaCtes
 
         public FormDashboardVentas()
         {
+            if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
+            {
+                InitializeComponent();
+                return;
+            }
+
             InitializeComponent();
         }
 
         private void FormDashboardVentas_Load(object sender, EventArgs e)
         {
-            // 1. Configurar el DateTimePicker "Desde" para que muestre solo Mes y Año
+
+            // Doble seguridad por si acaso
+            if (this.DesignMode) return;
+
+            // Configurar el DateTimePicker "Desde" para que muestre solo Mes y Año
             DTPDesde.Format = DateTimePickerFormat.Custom;
             DTPDesde.CustomFormat = "MMMM yyyy";
             DTPDesde.ShowUpDown = true;
 
-            // 2. Configurar el DateTimePicker "Hasta"
+            // Configurar el DateTimePicker "Hasta"
             DTPHasta.Format = DateTimePickerFormat.Custom;
             DTPHasta.CustomFormat = "MMMM yyyy";
             DTPHasta.ShowUpDown = true;
 
-            // 3. Definir un rango por defecto al abrir (ej: desde enero de este año hasta el mes actual)
+            // Definir un rango por defecto al abrir
             DTPDesde.Value = new DateTime(DateTime.Now.Year, 1, 1);
             DTPHasta.Value = DateTime.Now;
 
-            // 4. Cargamos todos los gráficos por defecto al abrir la ventana
+            // Cargamos todos los gráficos por defecto al abrir la ventana
             CargarTodosLosGraficos();
         }
 
@@ -52,7 +62,7 @@ namespace CinemaCtes
                 MessageBox.Show("La fecha 'Desde' no puede ser posterior a la fecha 'Hasta'.",
                     "Rango de fechas inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
-                // Opcional: Reseteamos al valor por defecto seguro
+                // Reseteamos al valor por defecto seguro
                 DTPDesde.Value = new DateTime(DateTime.Now.Year, 1, 1);
                 DTPHasta.Value = DateTime.Now;
                 return;
@@ -75,6 +85,13 @@ namespace CinemaCtes
 
         private void CargarTodosLosGraficos()
         {
+
+            if (this.DesignMode) return;
+
+            // Verificación de seguridad por si algún chart aún no se creó
+            if (chartPeliculas == null || chartBeneficios == null || chartMetodosPago == null || chartEvolucionVentas == null)
+                return;
+
             DateTime fechaInicio = new DateTime(DTPDesde.Value.Year, DTPDesde.Value.Month, 1);
 
             // "Hasta" -> Último día exacto del mes seleccionado
@@ -86,6 +103,11 @@ namespace CinemaCtes
             CargarGraficoBeneficios(fechaInicio, fechaFin);
             CargarGraficoMetodosPago(fechaInicio, fechaFin);
             CargarGraficoVentasPorMes(fechaInicio, fechaFin);
+
+            ClassEstilosHelper.AplicarEstiloOscuroGrafico(chartPeliculas);
+            ClassEstilosHelper.AplicarEstiloOscuroGrafico(chartBeneficios);
+            ClassEstilosHelper.AplicarEstiloOscuroGrafico(chartMetodosPago);
+            ClassEstilosHelper.AplicarEstiloOscuroGrafico(chartEvolucionVentas);
         }
 
         // Gráfico de Películas Más Vendidas
@@ -149,7 +171,6 @@ namespace CinemaCtes
                             DataTable dt = new DataTable();
                             adaptador.Fill(dt);
 
-                            // Asegúrate de cambiar 'chartBeneficios' por el nombre real de tu segundo chart si es diferente
                             chartBeneficios.Series.Clear();
                             Series serie = new Series("Beneficios");
                             serie.ChartType = SeriesChartType.Pie;
@@ -257,6 +278,16 @@ namespace CinemaCtes
             {
                 MessageBox.Show("Error en gráfico de evolución: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void BCerrar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void BAgregar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

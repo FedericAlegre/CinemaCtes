@@ -28,152 +28,207 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea17 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend17 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series17 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea18 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend18 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series18 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea19 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend19 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series19 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea20 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend20 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series20 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.chartPeliculas = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chartBeneficios = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chartMetodosPago = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chartEvolucionVentas = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.DTPDesde = new System.Windows.Forms.DateTimePicker();
             this.DTPHasta = new System.Windows.Forms.DateTimePicker();
-            this.LDesde = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.BFiltrar = new System.Windows.Forms.Button();
             this.LHasta = new System.Windows.Forms.Label();
-            this.BFlitrar = new System.Windows.Forms.Button();
+            this.LDesde = new System.Windows.Forms.Label();
+            this.BCerrar = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chartPeliculas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartBeneficios)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartMetodosPago)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartEvolucionVentas)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // chartPeliculas
             // 
-            chartArea17.Name = "ChartArea1";
-            this.chartPeliculas.ChartAreas.Add(chartArea17);
-            legend17.Name = "Legend1";
-            this.chartPeliculas.Legends.Add(legend17);
-            this.chartPeliculas.Location = new System.Drawing.Point(183, 1);
+            chartArea1.Name = "ChartArea1";
+            this.chartPeliculas.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartPeliculas.Legends.Add(legend1);
+            this.chartPeliculas.Location = new System.Drawing.Point(182, 3);
             this.chartPeliculas.Name = "chartPeliculas";
-            series17.ChartArea = "ChartArea1";
-            series17.Legend = "Legend1";
-            series17.Name = "Series1";
-            this.chartPeliculas.Series.Add(series17);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartPeliculas.Series.Add(series1);
             this.chartPeliculas.Size = new System.Drawing.Size(300, 219);
             this.chartPeliculas.TabIndex = 0;
             this.chartPeliculas.Text = "chart1";
             // 
             // chartBeneficios
             // 
-            chartArea18.Name = "ChartArea1";
-            this.chartBeneficios.ChartAreas.Add(chartArea18);
-            legend18.Name = "Legend1";
-            this.chartBeneficios.Legends.Add(legend18);
-            this.chartBeneficios.Location = new System.Drawing.Point(489, 1);
+            chartArea2.Name = "ChartArea1";
+            this.chartBeneficios.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chartBeneficios.Legends.Add(legend2);
+            this.chartBeneficios.Location = new System.Drawing.Point(488, 3);
             this.chartBeneficios.Name = "chartBeneficios";
-            series18.ChartArea = "ChartArea1";
-            series18.Legend = "Legend1";
-            series18.Name = "Series1";
-            this.chartBeneficios.Series.Add(series18);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chartBeneficios.Series.Add(series2);
             this.chartBeneficios.Size = new System.Drawing.Size(300, 219);
             this.chartBeneficios.TabIndex = 1;
             // 
             // chartMetodosPago
             // 
-            chartArea19.Name = "ChartArea1";
-            this.chartMetodosPago.ChartAreas.Add(chartArea19);
-            legend19.Name = "Legend1";
-            this.chartMetodosPago.Legends.Add(legend19);
-            this.chartMetodosPago.Location = new System.Drawing.Point(183, 226);
+            chartArea3.Name = "ChartArea1";
+            this.chartMetodosPago.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chartMetodosPago.Legends.Add(legend3);
+            this.chartMetodosPago.Location = new System.Drawing.Point(182, 228);
             this.chartMetodosPago.Name = "chartMetodosPago";
-            series19.ChartArea = "ChartArea1";
-            series19.Legend = "Legend1";
-            series19.Name = "Series1";
-            this.chartMetodosPago.Series.Add(series19);
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.chartMetodosPago.Series.Add(series3);
             this.chartMetodosPago.Size = new System.Drawing.Size(300, 219);
             this.chartMetodosPago.TabIndex = 2;
             this.chartMetodosPago.Text = "chart3";
             // 
             // chartEvolucionVentas
             // 
-            chartArea20.Name = "ChartArea1";
-            this.chartEvolucionVentas.ChartAreas.Add(chartArea20);
-            legend20.Name = "Legend1";
-            this.chartEvolucionVentas.Legends.Add(legend20);
-            this.chartEvolucionVentas.Location = new System.Drawing.Point(489, 226);
+            chartArea4.Name = "ChartArea1";
+            this.chartEvolucionVentas.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.chartEvolucionVentas.Legends.Add(legend4);
+            this.chartEvolucionVentas.Location = new System.Drawing.Point(488, 228);
             this.chartEvolucionVentas.Name = "chartEvolucionVentas";
-            series20.ChartArea = "ChartArea1";
-            series20.Legend = "Legend1";
-            series20.Name = "Series1";
-            this.chartEvolucionVentas.Series.Add(series20);
+            series4.ChartArea = "ChartArea1";
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            this.chartEvolucionVentas.Series.Add(series4);
             this.chartEvolucionVentas.Size = new System.Drawing.Size(300, 219);
             this.chartEvolucionVentas.TabIndex = 3;
             this.chartEvolucionVentas.Text = "chart4";
             // 
             // DTPDesde
             // 
-            this.DTPDesde.Location = new System.Drawing.Point(20, 52);
+            this.DTPDesde.Location = new System.Drawing.Point(20, 92);
             this.DTPDesde.Name = "DTPDesde";
             this.DTPDesde.Size = new System.Drawing.Size(133, 20);
             this.DTPDesde.TabIndex = 4;
             // 
             // DTPHasta
             // 
-            this.DTPHasta.Location = new System.Drawing.Point(20, 105);
+            this.DTPHasta.Location = new System.Drawing.Point(20, 151);
             this.DTPHasta.Name = "DTPHasta";
             this.DTPHasta.Size = new System.Drawing.Size(133, 20);
             this.DTPHasta.TabIndex = 5;
             // 
-            // LDesde
+            // panel1
             // 
-            this.LDesde.AutoSize = true;
-            this.LDesde.Location = new System.Drawing.Point(66, 36);
-            this.LDesde.Name = "LDesde";
-            this.LDesde.Size = new System.Drawing.Size(38, 13);
-            this.LDesde.TabIndex = 6;
-            this.LDesde.Text = "Desde";
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(18)))), ((int)(((byte)(38)))));
+            this.panel1.Controls.Add(this.chartEvolucionVentas);
+            this.panel1.Controls.Add(this.chartMetodosPago);
+            this.panel1.Controls.Add(this.chartBeneficios);
+            this.panel1.Controls.Add(this.chartPeliculas);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(800, 450);
+            this.panel1.TabIndex = 10;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(60)))));
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.BCerrar);
+            this.panel2.Controls.Add(this.DTPDesde);
+            this.panel2.Controls.Add(this.DTPHasta);
+            this.panel2.Controls.Add(this.BFiltrar);
+            this.panel2.Controls.Add(this.LHasta);
+            this.panel2.Controls.Add(this.LDesde);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(185, 450);
+            this.panel2.TabIndex = 11;
+            // 
+            // BFiltrar
+            // 
+            this.BFiltrar.BackColor = System.Drawing.Color.AliceBlue;
+            this.BFiltrar.Location = new System.Drawing.Point(29, 210);
+            this.BFiltrar.Name = "BFiltrar";
+            this.BFiltrar.Size = new System.Drawing.Size(113, 27);
+            this.BFiltrar.TabIndex = 22;
+            this.BFiltrar.Text = "Filtrar";
+            this.BFiltrar.UseVisualStyleBackColor = false;
+            this.BFiltrar.Click += new System.EventHandler(this.BFiltrar_Click);
             // 
             // LHasta
             // 
             this.LHasta.AutoSize = true;
-            this.LHasta.Location = new System.Drawing.Point(66, 89);
+            this.LHasta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.LHasta.ForeColor = System.Drawing.Color.White;
+            this.LHasta.Location = new System.Drawing.Point(66, 133);
             this.LHasta.Name = "LHasta";
-            this.LHasta.Size = new System.Drawing.Size(35, 13);
-            this.LHasta.TabIndex = 7;
+            this.LHasta.Size = new System.Drawing.Size(39, 15);
+            this.LHasta.TabIndex = 3;
             this.LHasta.Text = "Hasta";
             // 
-            // BFlitrar
+            // LDesde
             // 
-            this.BFlitrar.Location = new System.Drawing.Point(50, 147);
-            this.BFlitrar.Name = "BFlitrar";
-            this.BFlitrar.Size = new System.Drawing.Size(75, 23);
-            this.BFlitrar.TabIndex = 8;
-            this.BFlitrar.Text = "Filtrar";
-            this.BFlitrar.UseVisualStyleBackColor = true;
-            this.BFlitrar.Click += new System.EventHandler(this.BFiltrar_Click);
+            this.LDesde.AutoSize = true;
+            this.LDesde.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.LDesde.ForeColor = System.Drawing.Color.White;
+            this.LDesde.Location = new System.Drawing.Point(66, 74);
+            this.LDesde.Name = "LDesde";
+            this.LDesde.Size = new System.Drawing.Size(43, 15);
+            this.LDesde.TabIndex = 2;
+            this.LDesde.Text = "Desde";
+            // 
+            // BCerrar
+            // 
+            this.BCerrar.BackColor = System.Drawing.Color.AliceBlue;
+            this.BCerrar.Location = new System.Drawing.Point(29, 394);
+            this.BCerrar.Name = "BCerrar";
+            this.BCerrar.Size = new System.Drawing.Size(113, 27);
+            this.BCerrar.TabIndex = 23;
+            this.BCerrar.Text = "Cerrar";
+            this.BCerrar.UseVisualStyleBackColor = false;
+            this.BCerrar.Click += new System.EventHandler(this.BCerrar_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(16, 24);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(148, 20);
+            this.label1.TabIndex = 24;
+            this.label1.Text = "Dashboard - ventas";
             // 
             // FormDashboardVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.BFlitrar);
-            this.Controls.Add(this.LHasta);
-            this.Controls.Add(this.LDesde);
-            this.Controls.Add(this.DTPHasta);
-            this.Controls.Add(this.DTPDesde);
-            this.Controls.Add(this.chartEvolucionVentas);
-            this.Controls.Add(this.chartMetodosPago);
-            this.Controls.Add(this.chartBeneficios);
-            this.Controls.Add(this.chartPeliculas);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
             this.Name = "FormDashboardVentas";
             this.Text = "FormDashboardVentas";
             this.Load += new System.EventHandler(this.FormDashboardVentas_Load);
@@ -181,8 +236,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.chartBeneficios)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartMetodosPago)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartEvolucionVentas)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -194,8 +251,12 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart chartEvolucionVentas;
         private System.Windows.Forms.DateTimePicker DTPDesde;
         private System.Windows.Forms.DateTimePicker DTPHasta;
-        private System.Windows.Forms.Label LDesde;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label LHasta;
-        private System.Windows.Forms.Button BFlitrar;
+        private System.Windows.Forms.Label LDesde;
+        private System.Windows.Forms.Button BFiltrar;
+        private System.Windows.Forms.Button BCerrar;
+        private System.Windows.Forms.Label label1;
     }
 }

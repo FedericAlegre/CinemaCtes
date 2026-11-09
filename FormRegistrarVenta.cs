@@ -167,7 +167,7 @@ namespace CinemaCtes
                             adaptador.Fill(dtHorarios);
 
                             CBHorario.DataSource = dtHorarios;
-                            CBHorario.DisplayMember = "horario";    // Lo que ve el usuario en pantalla
+                            CBHorario.DisplayMember = "horario";    // Mostrará por ejemplo: "14:00 (Sala 1)"
                             CBHorario.ValueMember = "id_funcion";   // El id_funcion oculto vital para el SP de butacas
 
                             if (CBHorario.Items.Count > 0)

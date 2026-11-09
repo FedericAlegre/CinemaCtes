@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
+using System.Windows.Forms.DataVisualization.Charting;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
 
 namespace CinemaCtes
 {
@@ -135,6 +136,58 @@ namespace CinemaCtes
 
             if (comboBox.Items.Count > 0)
                 comboBox.SelectedIndex = 0; // Selecciona "Todos" por defecto
+        }
+
+        public static void AplicarEstiloOscuroGrafico(Chart chart)
+        {
+            // Color de fondo general del control Chart (puedes ajustar el tono morado/oscuro a tu gusto)
+            Color fondoOscuro = Color.FromArgb(30, 25, 45); // Un tono morado oscuro muy elegante
+            Color textoBlanco = Color.White;
+            Color grisSuave = Color.FromArgb(80, 75, 95);   // Para las líneas de la cuadrícula
+
+            chart.BackColor = fondoOscuro;
+            chart.BackSecondaryColor = fondoOscuro;
+
+            // Fondo del área interna del gráfico (donde se dibujan las barras/torta)
+            if (chart.ChartAreas.Count > 0)
+            {
+                chart.ChartAreas[0].BackColor = fondoOscuro;
+
+                // Color de los textos y números en los ejes X e Y
+                chart.ChartAreas[0].AxisX.LabelStyle.ForeColor = textoBlanco;
+                chart.ChartAreas[0].AxisY.LabelStyle.ForeColor = textoBlanco;
+
+                // Títulos de los ejes (si los tienes)
+                chart.ChartAreas[0].AxisX.TitleForeColor = textoBlanco;
+                chart.ChartAreas[0].AxisY.TitleForeColor = textoBlanco;
+
+                // Líneas de los ejes
+                chart.ChartAreas[0].AxisX.LineColor = textoBlanco;
+                chart.ChartAreas[0].AxisY.LineColor = textoBlanco;
+
+                // Líneas de la cuadrícula (grilla) con un tono sutil para que no desentonen
+                chart.ChartAreas[0].AxisX.MajorGrid.LineColor = grisSuave;
+                chart.ChartAreas[0].AxisY.MajorGrid.LineColor = grisSuave;
+
+               // Cambiar el color de los números/etiquetas de los valores dentro del gráfico a BLANCO 
+                foreach (Series serie in chart.Series)
+                {
+                    serie.LabelForeColor = textoBlanco;
+                }
+            }
+
+            // Color del título principal del gráfico
+            foreach (Title titulo in chart.Titles)
+            {
+                titulo.ForeColor = textoBlanco;
+            }
+
+            // Color de las leyendas (el cuadro que dice "Entradas", "Beneficios", etc.)
+            foreach (Legend leyenda in chart.Legends)
+            {
+                leyenda.ForeColor = textoBlanco;
+                leyenda.BackColor = Color.Transparent;
+            }
         }
     }
 }
