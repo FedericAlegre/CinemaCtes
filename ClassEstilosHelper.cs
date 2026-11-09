@@ -13,8 +13,79 @@ namespace CinemaCtes
 {
     public static class ClassEstilosHelper
     {
+        // ==========================================
+        // MÉTODOS RESPONSIVOS Y DE CONTENEDORES
+        // ==========================================
+
+        /// <summary>
+        /// Configura las propiedades base de responsividad de un Formulario Hijo.
+        /// </summary>
+        public static void AplicarFormularioResponsivo(Form form)
+        {
+            form.MinimumSize = new Size(0, 0);
+            form.AutoScroll = true;
+
+            // Si es un formulario incrustado en un Panel
+            if (!form.TopLevel)
+            {
+                form.Dock = DockStyle.Fill;
+            }
+        }
+
+        /// <summary>
+        /// Configura el título para que fluya responsivamente y fija el botón superior a la derecha.
+        /// </summary>
+        public static void ConfigurarCabeceraResponsiva(Label lblTitulo, Control botonDerecho = null)
+        {
+            lblTitulo.AutoSize = true;
+            lblTitulo.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            lblTitulo.MaximumSize = new Size(0, 0);
+            lblTitulo.MinimumSize = new Size(0, 0);
+
+            if (botonDerecho != null)
+            {
+                botonDerecho.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            }
+        }
+
+        /// <summary>
+        /// Configura los filtros dentro de un TableLayoutPanel y ajusta DateTimePickers a formato corto.
+        /// </summary>
+        public static void ConfigurarFiltrosTableLayout(TableLayoutPanel tlp)
+        {
+            tlp.Dock = DockStyle.Top;
+            tlp.Margin = new Padding(0);
+
+            // Si tiene 2 columnas, le damos 60% al buscador y 40% a la derecha
+            if (tlp.ColumnCount == 2)
+            {
+                tlp.ColumnStyles.Clear();
+                tlp.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60F));
+                tlp.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
+            }
+
+            foreach (Control control in tlp.Controls)
+            {
+                control.MinimumSize = new Size(0, 0);
+
+                if (control is TextBox)
+                {
+                    control.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                    control.Margin = new Padding(3, 4, 10, 3);
+                }
+                else if (control is ComboBox)
+                {
+                    // El combo no se estira tanto horizontalmente
+                    control.Anchor = AnchorStyles.Left;
+                    control.Width = 180; // Ancho fijo cómodo para opciones como "Todos / Activo / Inactivo"
+                    control.Margin = new Padding(3, 4, 3, 3);
+                }
+            }
+        }
+
+
         // Método para aplicar un estilo uniforme a los DataGridView
-        public static void AplicarEstiloTabla(DataGridView dgv)
+        public static void AplicarEstiloTabla(DataGridView dgv, bool aplicarDockFill = false)
         {
             // Opciones de comportamiento
             dgv.AllowUserToAddRows = false;
@@ -28,10 +99,16 @@ namespace CinemaCtes
             dgv.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dgv.GridColor = Color.FromArgb(38, 42, 60);
 
+            if (aplicarDockFill)
+            {
+                dgv.Dock = DockStyle.Fill;
+            }
+
             // Estilo de encabezados
             dgv.EnableHeadersVisualStyles = false;
             dgv.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dgv.ColumnHeadersHeight = 38;
+            dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(20, 24, 40);
             dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
@@ -136,6 +213,11 @@ namespace CinemaCtes
 
             if (comboBox.Items.Count > 0)
                 comboBox.SelectedIndex = 0; // Selecciona "Todos" por defecto
+        }
+
+        internal static void ConfigurarCabeceraResponsiva(Label label1, Label label2, Label lFecha)
+        {
+            throw new NotImplementedException();
         }
 
         public static void AplicarEstiloOscuroGrafico(Chart chart)

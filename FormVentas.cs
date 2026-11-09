@@ -368,5 +368,10 @@ namespace CinemaCtes
             // Lo abrimos de forma modal
             formDashboard.ShowDialog();
         }
+
+        private void PHeader_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

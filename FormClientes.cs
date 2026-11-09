@@ -19,23 +19,26 @@ namespace CinemaCtes
 
         private void FormClientes_Load(object sender, EventArgs e)
         {
-            // Aplicar estilos a la DataGridView
-            ClassEstilosHelper.AplicarEstiloTabla(DGVClientes);
+            // 1. Aplica la responsividad básica del formulario
+            ClassEstilosHelper.AplicarFormularioResponsivo(this);
 
-            // Configurar placeholder en el TextBox de búsqueda
-            ClassEstilosHelper.ConfigurarPlaceholder(TBuscar, placeholderTexto);
+            // 2. Aplica estilos visuales a la tabla (sin sobreescribir el Dock manual)
+            ClassEstilosHelper.AplicarEstiloTabla(DGVClientes, true);
+            DGVClientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            // Agregar la columna de botón para Modificar y descativar Correo si no existe
             ClassEstilosHelper.AgregarBotonesAccion(DGVClientes);
 
-            // Inicializar el ComboBox de Estado
-            CBEstado.Items.Clear();
-            CBEstado.Items.Add("Todos");
-            CBEstado.Items.Add("Activo");
-            CBEstado.Items.Add("Inactivo");
-            CBEstado.SelectedIndex = 0;
+            // 3. Formatea la barra de filtros en TableLayoutPanel si corresponde
+            if (tableLayoutPanel1 != null)
+            {
+                ClassEstilosHelper.ConfigurarFiltrosTableLayout(tableLayoutPanel1);
+            }
 
-            // Cargar la lista real de clientes llamando al SP
+            // 4. Configura el placeholder del buscador y combo
+            ClassEstilosHelper.ConfigurarPlaceholder(TBuscar, placeholderTexto);
+            ClassEstilosHelper.CargarComboEstados2(CBEstado);
+
+            // 5. Carga de datos desde la base de datos
             CargarClientesDesdeBD();
 
             cargandoFormulario = false;
