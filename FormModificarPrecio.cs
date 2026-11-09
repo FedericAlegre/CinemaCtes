@@ -31,7 +31,6 @@ namespace CinemaCtes
             {
                 using (SqlConnection conexion = conexionBD.ObtenerConexión())
                 {
-                    // Puedes usar un SP o una consulta directa rápida para traer el precio actual
                     using (SqlCommand comando = new SqlCommand("SELECT TOP 1 precio_base FROM tarifa", conexion))
                     {
                         object resultado = comando.ExecuteScalar();
