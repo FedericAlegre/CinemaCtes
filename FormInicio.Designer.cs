@@ -87,7 +87,7 @@
             this.LPeliculas.AutoSize = true;
             this.LPeliculas.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LPeliculas.ForeColor = System.Drawing.Color.White;
-            this.LPeliculas.Location = new System.Drawing.Point(47, 17);
+            this.LPeliculas.Location = new System.Drawing.Point(19, 17);
             this.LPeliculas.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LPeliculas.Name = "LPeliculas";
             this.LPeliculas.Size = new System.Drawing.Size(212, 24);
@@ -211,7 +211,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(40, 17);
+            this.label7.Location = new System.Drawing.Point(21, 17);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(211, 24);
@@ -328,6 +328,7 @@
             this.Controls.Add(this.LProximasFunciones);
             this.Controls.Add(this.PHeader);
             this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MinimumSize = new System.Drawing.Size(816, 489);
             this.Name = "FormInicio";
             this.Text = "FormInicio";
             this.Load += new System.EventHandler(this.FormInicio_Load);
