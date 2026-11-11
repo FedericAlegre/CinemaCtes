@@ -317,11 +317,15 @@ namespace CinemaCtes
             DateTime fechaDesde = DTPDesde.Value.Date;
             DateTime fechaHasta = DTPHasta.Value.Date;
 
+            // Recorremos solo las filas VISIBLES de la grilla para ignorar las filtradas/ocultas
             List<string> peliculasUnicas = new List<string>();
 
             foreach (DataGridViewRow row in DGVFunciones.Rows)
             {
                 if (row.IsNewRow) continue;
+
+                // Ignorar filas que están ocultas por el buscador o filtros
+                if (!row.Visible) continue;
 
                 string nombrePeli = row.Cells["CPelicula"].Value?.ToString();
 
@@ -339,12 +343,13 @@ namespace CinemaCtes
 
             string tituloPeliculaAfectada = null;
 
+            // Si el filtro actual muestra una única película
             if (peliculasUnicas.Count == 1)
             {
-                tituloPeliculaAfectada = peliculasUnicas[0];
+                tituloPeliculaAfectada = peliculasUnicas[0]; 
 
                 DialogResult resultadoUnico = MessageBox.Show(
-                    $"Se detectó una única película afectada en este rango:\n\n📌 {tituloPeliculaAfectada}\n\n¿Confirma la anulación masiva de funciones en la Sala {nroSala} desde el {fechaDesde.ToShortDateString()} al {fechaHasta.ToShortDateString()}?",
+                    $"¿Confirma la anulación masiva de funciones para la película:\n\n📌 {tituloPeliculaAfectada}\n\nen la Sala {nroSala} desde el {fechaDesde.ToShortDateString()} al {fechaHasta.ToShortDateString()}?",
                     "Confirmación de anulación",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question
@@ -354,10 +359,11 @@ namespace CinemaCtes
             }
             else
             {
-                string listaNombres = string.Join("\n- ", peliculasUnicas);
+                // Si hay varias películas en pantalla, avisamos al usuario
+                string listaNombres = string.Join("\n", peliculasUnicas);
 
                 DialogResult resultadoMultiple = MessageBox.Show(
-                    $"⚠️ Atención: El listado actual contiene funciones de múltiples películas ({peliculasUnicas.Count}):\n\n- {listaNombres}\n\n¿Desea continuar de todos modos y desactivar masivamente todas las funciones de este rango?",
+                    $"⚠️ Atención: El listado actual contiene funciones de múltiples películas ({peliculasUnicas.Count}):\n\n{listaNombres}\n\n¿Desea continuar de todos modos y desactivar masivamente todas las funciones de este rango?",
                     "Advertencia: Múltiples películas",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning
@@ -365,7 +371,7 @@ namespace CinemaCtes
 
                 if (resultadoMultiple == DialogResult.No) return;
 
-                tituloPeliculaAfectada = null;
+                tituloPeliculaAfectada = null; // Si confirma múltiples, se anula toda la sala en ese rango
             }
 
             ConexionBD conexionBD = new ConexionBD();
@@ -382,9 +388,16 @@ namespace CinemaCtes
                         comando.Parameters.AddWithValue("@FechaDesde", fechaDesde);
                         comando.Parameters.AddWithValue("@FechaHasta", fechaHasta);
 
-                        comando.ExecuteNonQuery();
+                        int filasAfectadas = comando.ExecuteNonQuery();
 
-                        MessageBox.Show("Las funciones fueron anuladas correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (filasAfectadas > 0)
+                        {
+                            MessageBox.Show($"Se anularon correctamente {filasAfectadas} función(es).", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se encontraron funciones activas que coincidan exactamente con los parámetros para modificar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
 
                         CargarTablaFunciones();
                     }

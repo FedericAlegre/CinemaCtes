@@ -145,6 +145,7 @@ namespace CinemaCtes
             {
                 CBHorario.DataSource = null;
                 CBHorario.Items.Clear();
+                CBHorario.Enabled = false; // Desactivamos si no hay película válida
                 return;
             }
 
@@ -166,14 +167,27 @@ namespace CinemaCtes
                             DataTable dtHorarios = new DataTable();
                             adaptador.Fill(dtHorarios);
 
-                            CBHorario.DataSource = dtHorarios;
-                            CBHorario.DisplayMember = "horario";    // Mostrará por ejemplo: "14:00 (Sala 1)"
-                            CBHorario.ValueMember = "id_funcion";   // El id_funcion oculto vital para el SP de butacas
-
-                            if (CBHorario.Items.Count > 0)
+                            // Verificamos si hay registros disponibles
+                            if (dtHorarios.Rows.Count > 0)
+                            {
+                                // Si hay funciones, habilitamos el ComboBox y cargamos normalmente
+                                CBHorario.Enabled = true;
+                                CBHorario.DataSource = dtHorarios;
+                                CBHorario.DisplayMember = "horario";    // Mostrará por ejemplo: "14:00 (Sala 1)"
+                                CBHorario.ValueMember = "id_funcion";   // El id_funcion oculto
                                 CBHorario.SelectedIndex = 0;
+                            }
                             else
-                                CBHorario.SelectedIndex = -1;
+                            {
+                                // Si no hay funciones, limpiamos y mostramos el mensaje de aviso
+                                CBHorario.DataSource = null;
+                                CBHorario.Items.Clear();
+
+                                // Agregamos un item temporal o texto descriptivo y bloqueamos el control
+                                CBHorario.Items.Add("No hay funciones próximas");
+                                CBHorario.SelectedIndex = 0;
+                                CBHorario.Enabled = false; // Bloquea el ComboBox para que no se pueda interactuar
+                            }
                         }
                     }
                 }

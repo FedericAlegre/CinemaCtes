@@ -128,7 +128,7 @@
             // TDni
             // 
             this.TDni.Location = new System.Drawing.Point(81, 149);
-            this.TDni.MaxLength = 15;
+            this.TDni.MaxLength = 8;
             this.TDni.Name = "TDni";
             this.TDni.Size = new System.Drawing.Size(129, 20);
             this.TDni.TabIndex = 3;
