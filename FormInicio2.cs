@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Data;
-using System.Windows.Forms;
+
 using System.Data.SqlClient;
 using System.Drawing;
-using System;
-
+using System.Windows.Forms;
 
 
 namespace CinemaCtes
@@ -21,17 +20,19 @@ namespace CinemaCtes
 
         private void FormInicio2_Load(object sender, EventArgs e)
         {
-            // 1. Configurar responsividad del formulario hijo
+            // 1. Configura la responsividad básica del formulario contenedor
             ClassEstilosHelper.AplicarFormularioResponsivo(this);
 
-            // 2. Fija la fecha y su alineación
+            // 2. Formatear y alinear la fecha a la derecha
             LFecha.Text = DateTime.Now.ToString("dddd, dd 'de' MMMM 'de' yyyy");
             LFecha.Anchor = AnchorStyles.Top | AnchorStyles.Right;
 
-            // 3. Aplicar estilo visual a la grilla SIN forzar Dock = Fill
+            // 3. Aplicar estilo visual a la grilla y auto-extender sus columnas
             ClassEstilosHelper.AplicarEstiloTabla(DGVRecaudacionPelis, false);
+            DGVRecaudacionPelis.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            DGVRecaudacionPelis.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 
-            // 4. Cargar datos de la BD
+            // 4. Cargar datos desde la BD
             CargarEstadisticasTarjetas();
             CargarRecaudacionPeliculasBD();
         }
@@ -174,6 +175,16 @@ namespace CinemaCtes
                     );
                 }
             }
+        }
+
+        private void lBeneficioNombre_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DGVRecaudacionPelis_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

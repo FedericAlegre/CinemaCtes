@@ -42,8 +42,8 @@
             this.lBeneficioNombre = new System.Windows.Forms.Label();
             this.lBeneficio = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.LPeliculasRecaudacion1 = new System.Windows.Forms.Label();
-            this.DGVRecaudacionPelis = new System.Windows.Forms.DataGridView();
             this.LPeliculasRecaudacion = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.BCambiarButaca = new System.Windows.Forms.Button();
@@ -51,18 +51,20 @@
             this.CVentas = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CRecaudacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PHeader = new System.Windows.Forms.Panel();
-            this.LFecha = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.LFecha = new System.Windows.Forms.Label();
+            this.DGVRecaudacionPelis = new System.Windows.Forms.DataGridView();
             this.pRecaudacion.SuspendLayout();
             this.pEntradas.SuspendLayout();
             this.pPelicula.SuspendLayout();
             this.pBeneficio.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DGVRecaudacionPelis)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
             this.PHeader.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVRecaudacionPelis)).BeginInit();
             this.SuspendLayout();
             // 
             // lTitulo
@@ -77,20 +79,23 @@
             // 
             // pRecaudacion
             // 
+            this.pRecaudacion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pRecaudacion.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.pRecaudacion.Controls.Add(this.lMonto);
             this.pRecaudacion.Controls.Add(this.lRecaudacion);
-            this.pRecaudacion.Location = new System.Drawing.Point(56, 86);
-            this.pRecaudacion.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pRecaudacion.Location = new System.Drawing.Point(51, 10);
+            this.pRecaudacion.Margin = new System.Windows.Forms.Padding(3, 5, 3, 15);
             this.pRecaudacion.Name = "pRecaudacion";
-            this.pRecaudacion.Size = new System.Drawing.Size(375, 75);
+            this.pRecaudacion.Size = new System.Drawing.Size(382, 105);
             this.pRecaudacion.TabIndex = 2;
             // 
             // lMonto
             // 
+            this.lMonto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lMonto.AutoSize = true;
             this.lMonto.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lMonto.Location = new System.Drawing.Point(189, 37);
+            this.lMonto.Location = new System.Drawing.Point(189, 62);
             this.lMonto.Name = "lMonto";
             this.lMonto.Size = new System.Drawing.Size(111, 31);
             this.lMonto.TabIndex = 4;
@@ -100,7 +105,7 @@
             // 
             this.lRecaudacion.AutoSize = true;
             this.lRecaudacion.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lRecaudacion.Location = new System.Drawing.Point(41, 7);
+            this.lRecaudacion.Location = new System.Drawing.Point(41, 26);
             this.lRecaudacion.Name = "lRecaudacion";
             this.lRecaudacion.Size = new System.Drawing.Size(247, 25);
             this.lRecaudacion.TabIndex = 3;
@@ -111,17 +116,17 @@
             this.pEntradas.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.pEntradas.Controls.Add(this.lBoletos);
             this.pEntradas.Controls.Add(this.lEntradas);
-            this.pEntradas.Location = new System.Drawing.Point(517, 86);
-            this.pEntradas.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pEntradas.Location = new System.Drawing.Point(536, 10);
+            this.pEntradas.Margin = new System.Windows.Forms.Padding(3, 5, 3, 15);
             this.pEntradas.Name = "pEntradas";
-            this.pEntradas.Size = new System.Drawing.Size(375, 75);
+            this.pEntradas.Size = new System.Drawing.Size(411, 105);
             this.pEntradas.TabIndex = 3;
             // 
             // lBoletos
             // 
             this.lBoletos.AutoSize = true;
             this.lBoletos.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lBoletos.Location = new System.Drawing.Point(120, 32);
+            this.lBoletos.Location = new System.Drawing.Point(140, 62);
             this.lBoletos.Name = "lBoletos";
             this.lBoletos.Size = new System.Drawing.Size(126, 31);
             this.lBoletos.TabIndex = 4;
@@ -131,7 +136,7 @@
             // 
             this.lEntradas.AutoSize = true;
             this.lEntradas.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lEntradas.Location = new System.Drawing.Point(33, 7);
+            this.lEntradas.Location = new System.Drawing.Point(33, 26);
             this.lEntradas.Name = "lEntradas";
             this.lEntradas.Size = new System.Drawing.Size(279, 25);
             this.lEntradas.TabIndex = 3;
@@ -139,20 +144,21 @@
             // 
             // pPelicula
             // 
+            this.pPelicula.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pPelicula.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.pPelicula.Controls.Add(this.lNombrePel);
             this.pPelicula.Controls.Add(this.lPelicula);
-            this.pPelicula.Location = new System.Drawing.Point(56, 178);
-            this.pPelicula.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pPelicula.Location = new System.Drawing.Point(51, 135);
+            this.pPelicula.Margin = new System.Windows.Forms.Padding(3, 5, 3, 15);
             this.pPelicula.Name = "pPelicula";
-            this.pPelicula.Size = new System.Drawing.Size(375, 75);
+            this.pPelicula.Size = new System.Drawing.Size(382, 107);
             this.pPelicula.TabIndex = 4;
             // 
             // lNombrePel
             // 
             this.lNombrePel.AutoSize = true;
             this.lNombrePel.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lNombrePel.Location = new System.Drawing.Point(121, 39);
+            this.lNombrePel.Location = new System.Drawing.Point(114, 54);
             this.lNombrePel.Name = "lNombrePel";
             this.lNombrePel.Size = new System.Drawing.Size(179, 31);
             this.lNombrePel.TabIndex = 4;
@@ -162,7 +168,7 @@
             // 
             this.lPelicula.AutoSize = true;
             this.lPelicula.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lPelicula.Location = new System.Drawing.Point(25, 6);
+            this.lPelicula.Location = new System.Drawing.Point(20, 18);
             this.lPelicula.Name = "lPelicula";
             this.lPelicula.Size = new System.Drawing.Size(261, 25);
             this.lPelicula.TabIndex = 3;
@@ -170,30 +176,33 @@
             // 
             // pBeneficio
             // 
+            this.pBeneficio.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.pBeneficio.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.pBeneficio.Controls.Add(this.lBeneficioNombre);
             this.pBeneficio.Controls.Add(this.lBeneficio);
-            this.pBeneficio.Location = new System.Drawing.Point(517, 178);
-            this.pBeneficio.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pBeneficio.Location = new System.Drawing.Point(536, 135);
+            this.pBeneficio.Margin = new System.Windows.Forms.Padding(3, 5, 3, 15);
             this.pBeneficio.Name = "pBeneficio";
-            this.pBeneficio.Size = new System.Drawing.Size(375, 75);
+            this.pBeneficio.Size = new System.Drawing.Size(411, 107);
             this.pBeneficio.TabIndex = 5;
             // 
             // lBeneficioNombre
             // 
             this.lBeneficioNombre.AutoSize = true;
             this.lBeneficioNombre.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lBeneficioNombre.Location = new System.Drawing.Point(120, 39);
+            this.lBeneficioNombre.Location = new System.Drawing.Point(140, 54);
             this.lBeneficioNombre.Name = "lBeneficioNombre";
             this.lBeneficioNombre.Size = new System.Drawing.Size(195, 31);
             this.lBeneficioNombre.TabIndex = 4;
             this.lBeneficioNombre.Text = "Estudiante (45%)";
+            this.lBeneficioNombre.Click += new System.EventHandler(this.lBeneficioNombre_Click);
             // 
             // lBeneficio
             // 
             this.lBeneficio.AutoSize = true;
             this.lBeneficio.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lBeneficio.Location = new System.Drawing.Point(33, 6);
+            this.lBeneficio.Location = new System.Drawing.Point(33, 15);
             this.lBeneficio.Name = "lBeneficio";
             this.lBeneficio.Size = new System.Drawing.Size(272, 25);
             this.lBeneficio.TabIndex = 3;
@@ -202,21 +211,38 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(18)))), ((int)(((byte)(38)))));
-            this.panel2.Controls.Add(this.DGVRecaudacionPelis);
+            this.panel2.Controls.Add(this.tableLayoutPanel1);
             this.panel2.Controls.Add(this.LPeliculasRecaudacion1);
             this.panel2.Controls.Add(this.LPeliculasRecaudacion);
             this.panel2.Controls.Add(this.label8);
             this.panel2.Controls.Add(this.BCambiarButaca);
-            this.panel2.Controls.Add(this.pBeneficio);
-            this.panel2.Controls.Add(this.pEntradas);
-            this.panel2.Controls.Add(this.pRecaudacion);
-            this.panel2.Controls.Add(this.pPelicula);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 80);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(979, 567);
+            this.panel2.Size = new System.Drawing.Size(970, 393);
             this.panel2.TabIndex = 13;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45F));
+            this.tableLayoutPanel1.Controls.Add(this.pBeneficio, 2, 2);
+            this.tableLayoutPanel1.Controls.Add(this.pPelicula, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.pEntradas, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.pRecaudacion, 0, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(15, 50, 15, 10);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 2F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(970, 257);
+            this.tableLayoutPanel1.TabIndex = 16;
             // 
             // LPeliculasRecaudacion1
             // 
@@ -231,21 +257,6 @@
             this.LPeliculasRecaudacion1.Size = new System.Drawing.Size(344, 25);
             this.LPeliculasRecaudacion1.TabIndex = 15;
             this.LPeliculasRecaudacion1.Text = "Peliculas con mas recaudacion del mes:";
-            // 
-            // DGVRecaudacionPelis
-            // 
-            this.DGVRecaudacionPelis.AllowUserToAddRows = false;
-            this.DGVRecaudacionPelis.AllowUserToDeleteRows = false;
-            this.DGVRecaudacionPelis.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.DGVRecaudacionPelis.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGVRecaudacionPelis.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.DGVRecaudacionPelis.Location = new System.Drawing.Point(0, 368);
-            this.DGVRecaudacionPelis.Margin = new System.Windows.Forms.Padding(4);
-            this.DGVRecaudacionPelis.Name = "DGVRecaudacionPelis";
-            this.DGVRecaudacionPelis.ReadOnly = true;
-            this.DGVRecaudacionPelis.RowHeadersWidth = 51;
-            this.DGVRecaudacionPelis.Size = new System.Drawing.Size(979, 199);
-            this.DGVRecaudacionPelis.TabIndex = 14;
             // 
             // LPeliculasRecaudacion
             // 
@@ -314,31 +325,17 @@
             this.PHeader.Location = new System.Drawing.Point(0, 0);
             this.PHeader.Margin = new System.Windows.Forms.Padding(4);
             this.PHeader.Name = "PHeader";
-            this.PHeader.Size = new System.Drawing.Size(979, 80);
+            this.PHeader.Size = new System.Drawing.Size(970, 80);
             this.PHeader.TabIndex = 3;
             // 
-            // LFecha
+            // panel1
             // 
-            this.LFecha.AutoSize = true;
-            this.LFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.LFecha.ForeColor = System.Drawing.Color.White;
-            this.LFecha.Location = new System.Drawing.Point(683, 26);
-            this.LFecha.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.LFecha.Name = "LFecha";
-            this.LFecha.Size = new System.Drawing.Size(57, 18);
-            this.LFecha.TabIndex = 3;
-            this.LFecha.Text = "[Fecha]";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(7, 35);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(164, 16);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Vista general - Dashboard";
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Location = new System.Drawing.Point(11, 8);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(326, 65);
+            this.panel1.TabIndex = 4;
             // 
             // label1
             // 
@@ -352,20 +349,50 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "CinemaCtes - Panel Principal";
             // 
-            // panel1
+            // label2
             // 
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Location = new System.Drawing.Point(11, 8);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(326, 65);
-            this.panel1.TabIndex = 4;
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(7, 35);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(164, 16);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Vista general - Dashboard";
+            // 
+            // LFecha
+            // 
+            this.LFecha.AutoSize = true;
+            this.LFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.LFecha.ForeColor = System.Drawing.Color.White;
+            this.LFecha.Location = new System.Drawing.Point(683, 26);
+            this.LFecha.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LFecha.Name = "LFecha";
+            this.LFecha.Size = new System.Drawing.Size(57, 18);
+            this.LFecha.TabIndex = 3;
+            this.LFecha.Text = "[Fecha]";
+            // 
+            // DGVRecaudacionPelis
+            // 
+            this.DGVRecaudacionPelis.AllowUserToAddRows = false;
+            this.DGVRecaudacionPelis.AllowUserToDeleteRows = false;
+            this.DGVRecaudacionPelis.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.DGVRecaudacionPelis.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(18)))), ((int)(((byte)(38)))));
+            this.DGVRecaudacionPelis.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVRecaudacionPelis.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.DGVRecaudacionPelis.Location = new System.Drawing.Point(0, 470);
+            this.DGVRecaudacionPelis.Margin = new System.Windows.Forms.Padding(4);
+            this.DGVRecaudacionPelis.Name = "DGVRecaudacionPelis";
+            this.DGVRecaudacionPelis.RowHeadersWidth = 51;
+            this.DGVRecaudacionPelis.Size = new System.Drawing.Size(970, 255);
+            this.DGVRecaudacionPelis.TabIndex = 15;
             // 
             // FormInicio2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(979, 567);
+            this.ClientSize = new System.Drawing.Size(970, 725);
+            this.Controls.Add(this.DGVRecaudacionPelis);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.PHeader);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -382,11 +409,12 @@
             this.pBeneficio.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DGVRecaudacionPelis)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.PHeader.ResumeLayout(false);
             this.PHeader.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVRecaudacionPelis)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -411,7 +439,6 @@
         private System.Windows.Forms.Label LPeliculasRecaudacion;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button BCambiarButaca;
-        private System.Windows.Forms.DataGridView DGVRecaudacionPelis;
         private System.Windows.Forms.DataGridViewTextBoxColumn CPelicula;
         private System.Windows.Forms.DataGridViewTextBoxColumn CVentas;
         private System.Windows.Forms.DataGridViewTextBoxColumn CRecaudacion;
@@ -420,6 +447,8 @@
         private System.Windows.Forms.Label LFecha;
         private System.Windows.Forms.Label LPeliculasRecaudacion1;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.DataGridView DGVRecaudacionPelis;
     }
 }
 
