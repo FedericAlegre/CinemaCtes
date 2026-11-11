@@ -18,6 +18,8 @@ namespace CinemaCtes
 
         private int idUsuarioActual;
 
+        private decimal montoTotalActual = 0.00m;
+
         public FormRegistrarVenta(int idUsuario)
         {
             InitializeComponent();
@@ -336,12 +338,8 @@ namespace CinemaCtes
             // Usamos el id_usuario dinámico que vino por el constructor 
             int idUsuarioLogueado = idUsuarioActual;
 
-            // Limpiamos el texto del label de monto para pasarlo a decimal (ej: "$ 9.000,00" -> 9000.00)
-            string montoLimpio = LMonto.Text.Replace("$", "").Replace(".", "").Replace(",", ".").Trim();
-            if (!decimal.TryParse(montoLimpio, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out decimal montoTotal))
-            {
-                montoTotal = 0.00m;
-            }
+            // Tomamos el monto total directamente de nuestra variable numérica segura (Adiós problemas de CultureInfo en PCs ajenas)
+            decimal montoTotal = montoTotalActual;
 
             // Ejecución en la Base de Datos usando SqlClient
             ConexionBD conexionBD = new ConexionBD();
@@ -380,6 +378,7 @@ namespace CinemaCtes
 
                             // Limpieza de la interfaz tras la venta exitosa
                             CLBCarrito.Items.Clear();
+                            montoTotalActual = 0.00m;
                             LMonto.Text = "$0,00";
                             TDni.Clear();
                             idClienteSeleccionado = null; // Reseteamos el cliente para la siguiente venta
@@ -529,6 +528,7 @@ namespace CinemaCtes
                         else
                         {
                             MessageBox.Show("No se encontró ninguna tarifa configurada en el sistema.", "Error de Configuración", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            montoTotalActual = 0.00m;
                             LMonto.Text = "$0,00";
                             return;
                         }
@@ -538,11 +538,12 @@ namespace CinemaCtes
             catch (Exception ex)
             {
                 MessageBox.Show("Error al conectar con la base de datos para obtener el precio: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                montoTotalActual = 0.00m;
                 LMonto.Text = "$0,00";
                 return;
             }
 
-            // Contamos cuántasbutacas hay tildadas en el CARRITO en lugar de las disponibles
+            // Contamos cuántas butacas hay tildadas en el CARRITO
             int cantidadButacasSeleccionadas = 0;
             foreach (var item in CLBCarrito.CheckedItems)
             {
@@ -552,6 +553,7 @@ namespace CinemaCtes
             // Si no hay butacas en el carrito, el total es 0 directamente
             if (cantidadButacasSeleccionadas == 0)
             {
+                montoTotalActual = 0.00m;
                 LMonto.Text = "$0,00";
                 return;
             }
@@ -587,15 +589,13 @@ namespace CinemaCtes
                 // Aplicamos la lógica según el tipo de descuento
                 if (textoDescuento == "2x1")
                 {
-                    // Lógica 2x1: Cada 2 entradas, se paga 1.
                     int entradasAPagar = (cantidadButacasSeleccionadas / 2) + (cantidadButacasSeleccionadas % 2);
                     montoFinal = entradasAPagar * precioBasePorButaca;
                 }
                 else if (textoDescuento.EndsWith("%"))
                 {
-                    // Lógica Porcentual (ej: "20%")
                     string valorNumericoStr = textoDescuento.Replace("%", "").Trim();
-                    if (decimal.TryParse(valorNumericoStr, out decimal porcentaje))
+                    if (decimal.TryParse(valorNumericoStr, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out decimal porcentaje))
                     {
                         decimal subtotal = cantidadButacasSeleccionadas * precioBasePorButaca;
                         montoFinal = subtotal - (subtotal * (porcentaje / 100m));
@@ -603,8 +603,12 @@ namespace CinemaCtes
                 }
             }
 
-            // Mostramos el resultado final formateado como moneda
-            LMonto.Text = montoFinal.ToString("C2");
+            // Guardamos el valor numérico en la variable de clase
+            montoTotalActual = montoFinal;
+
+            // Mostramos el resultado formateado forzando la cultura de Argentina (evita que aparezcan Euros o puntos invertidos)
+            System.Globalization.CultureInfo culturaAr = new System.Globalization.CultureInfo("es-AR");
+            LMonto.Text = montoTotalActual.ToString("C2", culturaAr);
         }
 
         private void CLBButaca_SelectedIndexChanged(object sender, EventArgs e)

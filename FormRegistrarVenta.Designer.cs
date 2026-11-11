@@ -77,10 +77,9 @@
             this.CBPelicula.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CBPelicula.FormattingEnabled = true;
-            this.CBPelicula.Location = new System.Drawing.Point(9, 24);
-            this.CBPelicula.Margin = new System.Windows.Forms.Padding(4);
+            this.CBPelicula.Location = new System.Drawing.Point(7, 20);
             this.CBPelicula.Name = "CBPelicula";
-            this.CBPelicula.Size = new System.Drawing.Size(152, 24);
+            this.CBPelicula.Size = new System.Drawing.Size(115, 21);
             this.CBPelicula.TabIndex = 0;
             this.CBPelicula.SelectedIndexChanged += new System.EventHandler(this.CBPelicula_SelectedIndexChanged_1);
             // 
@@ -90,10 +89,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CLBButaca.FormattingEnabled = true;
-            this.CLBButaca.Location = new System.Drawing.Point(393, 84);
-            this.CLBButaca.Margin = new System.Windows.Forms.Padding(4);
+            this.CLBButaca.Location = new System.Drawing.Point(294, 68);
             this.CLBButaca.Name = "CLBButaca";
-            this.CLBButaca.Size = new System.Drawing.Size(202, 72);
+            this.CLBButaca.Size = new System.Drawing.Size(151, 49);
             this.CLBButaca.TabIndex = 2;
             this.CLBButaca.SelectedIndexChanged += new System.EventHandler(this.CLBButaca_SelectedIndexChanged);
             // 
@@ -104,19 +102,17 @@
             this.PHeader.Controls.Add(this.label1);
             this.PHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.PHeader.Location = new System.Drawing.Point(0, 0);
-            this.PHeader.Margin = new System.Windows.Forms.Padding(4);
             this.PHeader.Name = "PHeader";
-            this.PHeader.Size = new System.Drawing.Size(979, 80);
+            this.PHeader.Size = new System.Drawing.Size(734, 65);
             this.PHeader.TabIndex = 3;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(16, 44);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(12, 36);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(208, 16);
+            this.label2.Size = new System.Drawing.Size(166, 13);
             this.label2.TabIndex = 0;
             this.label2.Text = "Registra y consulta ventas del dia";
             // 
@@ -125,20 +121,18 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(16, 20);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(12, 16);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(177, 25);
+            this.label1.Size = new System.Drawing.Size(146, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "Registro de Ventas";
             // 
             // BAñadir
             // 
             this.BAñadir.BackColor = System.Drawing.Color.AliceBlue;
-            this.BAñadir.Location = new System.Drawing.Point(813, 164);
-            this.BAñadir.Margin = new System.Windows.Forms.Padding(4);
+            this.BAñadir.Location = new System.Drawing.Point(608, 133);
             this.BAñadir.Name = "BAñadir";
-            this.BAñadir.Size = new System.Drawing.Size(138, 33);
+            this.BAñadir.Size = new System.Drawing.Size(104, 27);
             this.BAñadir.TabIndex = 1;
             this.BAñadir.Text = "Registrar venta";
             this.BAñadir.UseVisualStyleBackColor = false;
@@ -150,10 +144,9 @@
             this.panel3.Controls.Add(this.tableLayoutPanel1);
             this.panel3.Controls.Add(this.LMonto);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel3.Location = new System.Drawing.Point(0, 80);
-            this.panel3.Margin = new System.Windows.Forms.Padding(4);
+            this.panel3.Location = new System.Drawing.Point(0, 65);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(979, 281);
+            this.panel3.Size = new System.Drawing.Size(734, 228);
             this.panel3.TabIndex = 5;
             // 
             // tableLayoutPanel1
@@ -180,22 +173,24 @@
             this.tableLayoutPanel1.Controls.Add(this.CLBButaca, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.BRegistrarCliente, 2, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 7);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(9, 6);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(955, 241);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(716, 196);
             this.tableLayoutPanel1.TabIndex = 23;
             // 
             // panel7
             // 
             this.panel7.Controls.Add(this.LBeneficio);
             this.panel7.Controls.Add(this.CBBeneficio);
-            this.panel7.Location = new System.Drawing.Point(174, 163);
+            this.panel7.Location = new System.Drawing.Point(130, 132);
+            this.panel7.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(165, 75);
+            this.panel7.Size = new System.Drawing.Size(124, 61);
             this.panel7.TabIndex = 24;
             // 
             // LBeneficio
@@ -203,10 +198,10 @@
             this.LBeneficio.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LBeneficio.ForeColor = System.Drawing.Color.White;
-            this.LBeneficio.Location = new System.Drawing.Point(40, 9);
-            this.LBeneficio.Margin = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.LBeneficio.Location = new System.Drawing.Point(30, 7);
+            this.LBeneficio.Margin = new System.Windows.Forms.Padding(0, 4, 0, 0);
             this.LBeneficio.Name = "LBeneficio";
-            this.LBeneficio.Size = new System.Drawing.Size(100, 20);
+            this.LBeneficio.Size = new System.Drawing.Size(75, 16);
             this.LBeneficio.TabIndex = 14;
             this.LBeneficio.Text = "Beneficio";
             this.LBeneficio.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -218,20 +213,18 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CBBeneficio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBBeneficio.FormattingEnabled = true;
-            this.CBBeneficio.Location = new System.Drawing.Point(15, 35);
-            this.CBBeneficio.Margin = new System.Windows.Forms.Padding(4);
+            this.CBBeneficio.Location = new System.Drawing.Point(11, 28);
             this.CBBeneficio.Name = "CBBeneficio";
-            this.CBBeneficio.Size = new System.Drawing.Size(148, 24);
+            this.CBBeneficio.Size = new System.Drawing.Size(112, 21);
             this.CBBeneficio.TabIndex = 13;
             this.CBBeneficio.SelectedIndexChanged += new System.EventHandler(this.CBBeneficio_SelectedIndexChanged);
             // 
             // BAgregar
             // 
             this.BAgregar.BackColor = System.Drawing.Color.AliceBlue;
-            this.BAgregar.Location = new System.Drawing.Point(813, 84);
-            this.BAgregar.Margin = new System.Windows.Forms.Padding(4);
+            this.BAgregar.Location = new System.Drawing.Point(608, 68);
             this.BAgregar.Name = "BAgregar";
-            this.BAgregar.Size = new System.Drawing.Size(138, 33);
+            this.BAgregar.Size = new System.Drawing.Size(104, 27);
             this.BAgregar.TabIndex = 21;
             this.BAgregar.Text = "Agregar al carro";
             this.BAgregar.UseVisualStyleBackColor = false;
@@ -243,10 +236,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CLBCarrito.FormattingEnabled = true;
-            this.CLBCarrito.Location = new System.Drawing.Point(603, 84);
-            this.CLBCarrito.Margin = new System.Windows.Forms.Padding(4);
+            this.CLBCarrito.Location = new System.Drawing.Point(451, 68);
             this.CLBCarrito.Name = "CLBCarrito";
-            this.CLBCarrito.Size = new System.Drawing.Size(202, 72);
+            this.CLBCarrito.Size = new System.Drawing.Size(151, 49);
             this.CLBCarrito.TabIndex = 22;
             this.CLBCarrito.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.CLBCarrito_ItemCheck);
             this.CLBCarrito.SelectedIndexChanged += new System.EventHandler(this.CLBCarrito_SelectedIndexChanged);
@@ -256,10 +248,9 @@
             this.LCarrito.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.LCarrito.AutoSize = true;
             this.LCarrito.ForeColor = System.Drawing.Color.White;
-            this.LCarrito.Location = new System.Drawing.Point(603, 64);
-            this.LCarrito.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LCarrito.Location = new System.Drawing.Point(451, 52);
             this.LCarrito.Name = "LCarrito";
-            this.LCarrito.Size = new System.Drawing.Size(46, 16);
+            this.LCarrito.Size = new System.Drawing.Size(37, 13);
             this.LCarrito.TabIndex = 19;
             this.LCarrito.Text = "Carrito";
             // 
@@ -267,9 +258,10 @@
             // 
             this.panel6.Controls.Add(this.LDni);
             this.panel6.Controls.Add(this.TDni);
-            this.panel6.Location = new System.Drawing.Point(174, 83);
+            this.panel6.Location = new System.Drawing.Point(130, 67);
+            this.panel6.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(165, 74);
+            this.panel6.Size = new System.Drawing.Size(124, 60);
             this.panel6.TabIndex = 24;
             // 
             // LDni
@@ -277,10 +269,10 @@
             this.LDni.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LDni.ForeColor = System.Drawing.Color.White;
-            this.LDni.Location = new System.Drawing.Point(40, 9);
-            this.LDni.Margin = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.LDni.Location = new System.Drawing.Point(30, 7);
+            this.LDni.Margin = new System.Windows.Forms.Padding(0, 4, 0, 0);
             this.LDni.Name = "LDni";
-            this.LDni.Size = new System.Drawing.Size(100, 20);
+            this.LDni.Size = new System.Drawing.Size(75, 16);
             this.LDni.TabIndex = 7;
             this.LDni.Text = "DNI";
             this.LDni.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -289,11 +281,10 @@
             // 
             this.TDni.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TDni.Location = new System.Drawing.Point(15, 34);
-            this.TDni.Margin = new System.Windows.Forms.Padding(4);
+            this.TDni.Location = new System.Drawing.Point(11, 28);
             this.TDni.MaxLength = 8;
             this.TDni.Name = "TDni";
-            this.TDni.Size = new System.Drawing.Size(146, 22);
+            this.TDni.Size = new System.Drawing.Size(110, 20);
             this.TDni.TabIndex = 16;
             this.TDni.TextChanged += new System.EventHandler(this.TDni_TextChanged);
             this.TDni.Leave += new System.EventHandler(this.TDni_Leave);
@@ -302,9 +293,10 @@
             // 
             this.panel5.Controls.Add(this.LMetodoPago);
             this.panel5.Controls.Add(this.CBMetodoPago);
-            this.panel5.Location = new System.Drawing.Point(3, 163);
+            this.panel5.Location = new System.Drawing.Point(2, 132);
+            this.panel5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(165, 75);
+            this.panel5.Size = new System.Drawing.Size(124, 61);
             this.panel5.TabIndex = 24;
             // 
             // LMetodoPago
@@ -312,10 +304,10 @@
             this.LMetodoPago.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LMetodoPago.ForeColor = System.Drawing.Color.White;
-            this.LMetodoPago.Location = new System.Drawing.Point(22, 9);
-            this.LMetodoPago.Margin = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.LMetodoPago.Location = new System.Drawing.Point(16, 7);
+            this.LMetodoPago.Margin = new System.Windows.Forms.Padding(0, 4, 0, 0);
             this.LMetodoPago.Name = "LMetodoPago";
-            this.LMetodoPago.Size = new System.Drawing.Size(121, 24);
+            this.LMetodoPago.Size = new System.Drawing.Size(91, 20);
             this.LMetodoPago.TabIndex = 15;
             this.LMetodoPago.Text = "Metodo de Pago";
             this.LMetodoPago.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -326,19 +318,19 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CBMetodoPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBMetodoPago.FormattingEnabled = true;
-            this.CBMetodoPago.Location = new System.Drawing.Point(15, 34);
-            this.CBMetodoPago.Margin = new System.Windows.Forms.Padding(4);
+            this.CBMetodoPago.Location = new System.Drawing.Point(11, 28);
             this.CBMetodoPago.Name = "CBMetodoPago";
-            this.CBMetodoPago.Size = new System.Drawing.Size(140, 24);
+            this.CBMetodoPago.Size = new System.Drawing.Size(106, 21);
             this.CBMetodoPago.TabIndex = 12;
             // 
             // panel4
             // 
             this.panel4.Controls.Add(this.LFecha);
             this.panel4.Controls.Add(this.DTPFecha);
-            this.panel4.Location = new System.Drawing.Point(174, 3);
+            this.panel4.Location = new System.Drawing.Point(130, 2);
+            this.panel4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(165, 74);
+            this.panel4.Size = new System.Drawing.Size(124, 60);
             this.panel4.TabIndex = 24;
             // 
             // LFecha
@@ -346,10 +338,10 @@
             this.LFecha.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LFecha.ForeColor = System.Drawing.Color.White;
-            this.LFecha.Location = new System.Drawing.Point(40, 3);
-            this.LFecha.Margin = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.LFecha.Location = new System.Drawing.Point(30, 2);
+            this.LFecha.Margin = new System.Windows.Forms.Padding(0, 4, 0, 0);
             this.LFecha.Name = "LFecha";
-            this.LFecha.Size = new System.Drawing.Size(100, 20);
+            this.LFecha.Size = new System.Drawing.Size(75, 16);
             this.LFecha.TabIndex = 10;
             this.LFecha.Text = "Fecha";
             this.LFecha.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -358,10 +350,9 @@
             // 
             this.DTPFecha.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.DTPFecha.Location = new System.Drawing.Point(9, 25);
-            this.DTPFecha.Margin = new System.Windows.Forms.Padding(4);
+            this.DTPFecha.Location = new System.Drawing.Point(7, 20);
             this.DTPFecha.Name = "DTPFecha";
-            this.DTPFecha.Size = new System.Drawing.Size(154, 22);
+            this.DTPFecha.Size = new System.Drawing.Size(116, 20);
             this.DTPFecha.TabIndex = 9;
             this.DTPFecha.ValueChanged += new System.EventHandler(this.DTPFecha_ValueChanged_1);
             // 
@@ -369,9 +360,10 @@
             // 
             this.panel2.Controls.Add(this.LHorario);
             this.panel2.Controls.Add(this.CBHorario);
-            this.panel2.Location = new System.Drawing.Point(3, 83);
+            this.panel2.Location = new System.Drawing.Point(2, 67);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(165, 74);
+            this.panel2.Size = new System.Drawing.Size(124, 60);
             this.panel2.TabIndex = 24;
             // 
             // LHorario
@@ -379,10 +371,10 @@
             this.LHorario.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LHorario.ForeColor = System.Drawing.Color.White;
-            this.LHorario.Location = new System.Drawing.Point(31, 7);
-            this.LHorario.Margin = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.LHorario.Location = new System.Drawing.Point(23, 6);
+            this.LHorario.Margin = new System.Windows.Forms.Padding(0, 4, 0, 0);
             this.LHorario.Name = "LHorario";
-            this.LHorario.Size = new System.Drawing.Size(100, 20);
+            this.LHorario.Size = new System.Drawing.Size(75, 16);
             this.LHorario.TabIndex = 8;
             this.LHorario.Text = "Horario";
             this.LHorario.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -392,10 +384,9 @@
             this.CBHorario.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CBHorario.FormattingEnabled = true;
-            this.CBHorario.Location = new System.Drawing.Point(12, 31);
-            this.CBHorario.Margin = new System.Windows.Forms.Padding(4);
+            this.CBHorario.Location = new System.Drawing.Point(9, 25);
             this.CBHorario.Name = "CBHorario";
-            this.CBHorario.Size = new System.Drawing.Size(149, 24);
+            this.CBHorario.Size = new System.Drawing.Size(113, 21);
             this.CBHorario.TabIndex = 3;
             this.CBHorario.SelectedIndexChanged += new System.EventHandler(this.CBHorario_SelectedIndexChanged);
             // 
@@ -404,10 +395,9 @@
             this.LButaca.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.LButaca.AutoSize = true;
             this.LButaca.ForeColor = System.Drawing.Color.White;
-            this.LButaca.Location = new System.Drawing.Point(393, 64);
-            this.LButaca.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LButaca.Location = new System.Drawing.Point(294, 52);
             this.LButaca.Name = "LButaca";
-            this.LButaca.Size = new System.Drawing.Size(122, 16);
+            this.LButaca.Size = new System.Drawing.Size(96, 13);
             this.LButaca.TabIndex = 11;
             this.LButaca.Text = "Butaca disponibles";
             // 
@@ -415,9 +405,10 @@
             // 
             this.panel1.Controls.Add(this.LPelicula);
             this.panel1.Controls.Add(this.CBPelicula);
-            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Location = new System.Drawing.Point(2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(165, 74);
+            this.panel1.Size = new System.Drawing.Size(124, 60);
             this.panel1.TabIndex = 24;
             // 
             // LPelicula
@@ -425,10 +416,10 @@
             this.LPelicula.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LPelicula.ForeColor = System.Drawing.Color.White;
-            this.LPelicula.Location = new System.Drawing.Point(31, 3);
-            this.LPelicula.Margin = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.LPelicula.Location = new System.Drawing.Point(23, 2);
+            this.LPelicula.Margin = new System.Windows.Forms.Padding(0, 4, 0, 0);
             this.LPelicula.Name = "LPelicula";
-            this.LPelicula.Size = new System.Drawing.Size(100, 20);
+            this.LPelicula.Size = new System.Drawing.Size(75, 16);
             this.LPelicula.TabIndex = 6;
             this.LPelicula.Text = "Pelicula";
             this.LPelicula.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -440,10 +431,9 @@
             this.BRegistrarCliente.BackColor = System.Drawing.Color.AliceBlue;
             this.BRegistrarCliente.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.BRegistrarCliente.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BRegistrarCliente.Location = new System.Drawing.Point(346, 84);
-            this.BRegistrarCliente.Margin = new System.Windows.Forms.Padding(4);
+            this.BRegistrarCliente.Location = new System.Drawing.Point(259, 68);
             this.BRegistrarCliente.Name = "BRegistrarCliente";
-            this.BRegistrarCliente.Size = new System.Drawing.Size(39, 55);
+            this.BRegistrarCliente.Size = new System.Drawing.Size(29, 45);
             this.BRegistrarCliente.TabIndex = 7;
             this.BRegistrarCliente.Text = "+";
             this.BRegistrarCliente.UseVisualStyleBackColor = false;
@@ -453,10 +443,9 @@
             // 
             this.LMonto.AutoSize = true;
             this.LMonto.ForeColor = System.Drawing.Color.White;
-            this.LMonto.Location = new System.Drawing.Point(637, 185);
-            this.LMonto.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LMonto.Location = new System.Drawing.Point(478, 150);
             this.LMonto.Name = "LMonto";
-            this.LMonto.Size = new System.Drawing.Size(0, 16);
+            this.LMonto.Size = new System.Drawing.Size(0, 13);
             this.LMonto.TabIndex = 17;
             // 
             // DGVVentas
@@ -468,24 +457,22 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DGVVentas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVVentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGVVentas.Location = new System.Drawing.Point(0, 359);
-            this.DGVVentas.Margin = new System.Windows.Forms.Padding(4);
+            this.DGVVentas.Location = new System.Drawing.Point(0, 292);
             this.DGVVentas.Name = "DGVVentas";
             this.DGVVentas.ReadOnly = true;
             this.DGVVentas.RowHeadersWidth = 51;
-            this.DGVVentas.Size = new System.Drawing.Size(979, 218);
+            this.DGVVentas.Size = new System.Drawing.Size(734, 177);
             this.DGVVentas.TabIndex = 9;
             this.DGVVentas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVVentas_CellContentClick);
             // 
             // FormRegistrarVenta
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(979, 567);
+            this.ClientSize = new System.Drawing.Size(734, 461);
             this.Controls.Add(this.DGVVentas);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.PHeader);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormRegistrarVenta";
             this.Text = "FormRegistrarVenta";
             this.Load += new System.EventHandler(this.FormRegistrarVenta_Load);
