@@ -83,6 +83,21 @@ namespace CinemaCtes
                 MessageBox.Show("Error al cargar el panel de inicio: " + ex.Message, "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void LTotalRecaudado_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblCantidadVentas_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblTotalTitulo_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 

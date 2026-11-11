@@ -753,6 +753,10 @@ namespace CinemaCtes
             }
         }
 
+        private void LBeneficio_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
     // Clase simple solo para mostrar la butaca limpia en el selector
