@@ -76,7 +76,7 @@
             this.PHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.PHeader.Location = new System.Drawing.Point(0, 0);
             this.PHeader.Name = "PHeader";
-            this.PHeader.Size = new System.Drawing.Size(663, 63);
+            this.PHeader.Size = new System.Drawing.Size(734, 63);
             this.PHeader.TabIndex = 3;
             this.PHeader.Paint += new System.Windows.Forms.PaintEventHandler(this.PHeader_Paint);
             // 
@@ -84,8 +84,8 @@
             // 
             this.BDashboardVentas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BDashboardVentas.BackColor = System.Drawing.Color.AliceBlue;
-            this.BDashboardVentas.Location = new System.Drawing.Point(324, 27);
-            this.BDashboardVentas.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BDashboardVentas.Location = new System.Drawing.Point(395, 27);
+            this.BDashboardVentas.Margin = new System.Windows.Forms.Padding(4);
             this.BDashboardVentas.Name = "BDashboardVentas";
             this.BDashboardVentas.Size = new System.Drawing.Size(148, 27);
             this.BDashboardVentas.TabIndex = 3;
@@ -102,7 +102,7 @@
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Margin = new System.Windows.Forms.Padding(0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(309, 48);
+            this.panel1.Size = new System.Drawing.Size(380, 48);
             this.panel1.TabIndex = 2;
             // 
             // label1
@@ -134,8 +134,8 @@
             // 
             this.BAñadir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BAñadir.BackColor = System.Drawing.Color.AliceBlue;
-            this.BAñadir.Location = new System.Drawing.Point(498, 27);
-            this.BAñadir.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BAñadir.Location = new System.Drawing.Point(569, 27);
+            this.BAñadir.Margin = new System.Windows.Forms.Padding(4);
             this.BAñadir.Name = "BAñadir";
             this.BAñadir.Size = new System.Drawing.Size(148, 27);
             this.BAñadir.TabIndex = 1;
@@ -152,7 +152,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 63);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(663, 110);
+            this.panel3.Size = new System.Drawing.Size(734, 110);
             this.panel3.TabIndex = 4;
             // 
             // tableLayoutPanel1
@@ -197,7 +197,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(639, 107);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(710, 107);
             this.tableLayoutPanel1.TabIndex = 12;
             // 
             // CBBeneficio
@@ -210,10 +210,10 @@
             "Todos",
             "Promoción",
             "Descuento"});
-            this.CBBeneficio.Location = new System.Drawing.Point(256, 28);
-            this.CBBeneficio.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CBBeneficio.Location = new System.Drawing.Point(286, 28);
+            this.CBBeneficio.Margin = new System.Windows.Forms.Padding(2);
             this.CBBeneficio.Name = "CBBeneficio";
-            this.CBBeneficio.Size = new System.Drawing.Size(123, 21);
+            this.CBBeneficio.Size = new System.Drawing.Size(138, 21);
             this.CBBeneficio.TabIndex = 5;
             this.CBBeneficio.SelectedIndexChanged += new System.EventHandler(this.CBBeneficio_SelectedIndexChanged);
             // 
@@ -227,10 +227,10 @@
             "Todos",
             "Activo",
             "Inactivo"});
-            this.CBEstado.Location = new System.Drawing.Point(510, 28);
-            this.CBEstado.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CBEstado.Location = new System.Drawing.Point(570, 28);
+            this.CBEstado.Margin = new System.Windows.Forms.Padding(2);
             this.CBEstado.Name = "CBEstado";
-            this.CBEstado.Size = new System.Drawing.Size(127, 21);
+            this.CBEstado.Size = new System.Drawing.Size(138, 21);
             this.CBEstado.TabIndex = 1;
             this.CBEstado.SelectedIndexChanged += new System.EventHandler(this.CBEstado_SelectedIndexChanged);
             // 
@@ -239,11 +239,11 @@
             this.LEstado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.LEstado.AutoSize = true;
             this.LEstado.ForeColor = System.Drawing.Color.White;
-            this.LEstado.Location = new System.Drawing.Point(510, 7);
+            this.LEstado.Location = new System.Drawing.Point(570, 7);
             this.LEstado.Margin = new System.Windows.Forms.Padding(2, 4, 2, 2);
             this.LEstado.MinimumSize = new System.Drawing.Size(110, 0);
             this.LEstado.Name = "LEstado";
-            this.LEstado.Size = new System.Drawing.Size(127, 13);
+            this.LEstado.Size = new System.Drawing.Size(138, 13);
             this.LEstado.TabIndex = 4;
             this.LEstado.Text = "Estado";
             // 
@@ -252,11 +252,11 @@
             this.LPelicula.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.LPelicula.AutoSize = true;
             this.LPelicula.ForeColor = System.Drawing.Color.White;
-            this.LPelicula.Location = new System.Drawing.Point(383, 7);
+            this.LPelicula.Location = new System.Drawing.Point(428, 7);
             this.LPelicula.Margin = new System.Windows.Forms.Padding(2, 4, 2, 2);
             this.LPelicula.MinimumSize = new System.Drawing.Size(110, 0);
             this.LPelicula.Name = "LPelicula";
-            this.LPelicula.Size = new System.Drawing.Size(123, 13);
+            this.LPelicula.Size = new System.Drawing.Size(138, 13);
             this.LPelicula.TabIndex = 3;
             this.LPelicula.Text = "Pelicula";
             this.LPelicula.Click += new System.EventHandler(this.LPelicula_Click);
@@ -271,10 +271,10 @@
             "Todos",
             "Promoción",
             "Descuento"});
-            this.CBPelicula.Location = new System.Drawing.Point(383, 28);
-            this.CBPelicula.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CBPelicula.Location = new System.Drawing.Point(428, 28);
+            this.CBPelicula.Margin = new System.Windows.Forms.Padding(2);
             this.CBPelicula.Name = "CBPelicula";
-            this.CBPelicula.Size = new System.Drawing.Size(123, 21);
+            this.CBPelicula.Size = new System.Drawing.Size(138, 21);
             this.CBPelicula.TabIndex = 2;
             this.CBPelicula.SelectedIndexChanged += new System.EventHandler(this.CBPelicula_SelectedIndexChanged);
             // 
@@ -283,11 +283,11 @@
             this.LHasta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.LHasta.AutoSize = true;
             this.LHasta.ForeColor = System.Drawing.Color.White;
-            this.LHasta.Location = new System.Drawing.Point(129, 59);
+            this.LHasta.Location = new System.Drawing.Point(144, 59);
             this.LHasta.Margin = new System.Windows.Forms.Padding(2, 4, 2, 2);
             this.LHasta.MinimumSize = new System.Drawing.Size(110, 0);
             this.LHasta.Name = "LHasta";
-            this.LHasta.Size = new System.Drawing.Size(123, 13);
+            this.LHasta.Size = new System.Drawing.Size(138, 13);
             this.LHasta.TabIndex = 10;
             this.LHasta.Text = "Hasta";
             // 
@@ -296,11 +296,11 @@
             this.DTPDesde.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DTPDesde.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.DTPDesde.Location = new System.Drawing.Point(129, 28);
-            this.DTPDesde.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.DTPDesde.Location = new System.Drawing.Point(144, 28);
+            this.DTPDesde.Margin = new System.Windows.Forms.Padding(2);
             this.DTPDesde.MinimumSize = new System.Drawing.Size(4, 4);
             this.DTPDesde.Name = "DTPDesde";
-            this.DTPDesde.Size = new System.Drawing.Size(123, 20);
+            this.DTPDesde.Size = new System.Drawing.Size(138, 20);
             this.DTPDesde.TabIndex = 9;
             this.DTPDesde.ValueChanged += new System.EventHandler(this.DTPDesde_ValueChanged);
             // 
@@ -310,9 +310,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TBuscar.ForeColor = System.Drawing.Color.Black;
             this.TBuscar.Location = new System.Drawing.Point(2, 28);
-            this.TBuscar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TBuscar.Margin = new System.Windows.Forms.Padding(2);
             this.TBuscar.Name = "TBuscar";
-            this.TBuscar.Size = new System.Drawing.Size(123, 20);
+            this.TBuscar.Size = new System.Drawing.Size(138, 20);
             this.TBuscar.TabIndex = 0;
             this.TBuscar.TextChanged += new System.EventHandler(this.TBuscar_TextChanged);
             // 
@@ -321,11 +321,11 @@
             this.LBeneficio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.LBeneficio.AutoSize = true;
             this.LBeneficio.ForeColor = System.Drawing.Color.White;
-            this.LBeneficio.Location = new System.Drawing.Point(256, 7);
+            this.LBeneficio.Location = new System.Drawing.Point(286, 7);
             this.LBeneficio.Margin = new System.Windows.Forms.Padding(2, 4, 2, 2);
             this.LBeneficio.MinimumSize = new System.Drawing.Size(110, 0);
             this.LBeneficio.Name = "LBeneficio";
-            this.LBeneficio.Size = new System.Drawing.Size(123, 13);
+            this.LBeneficio.Size = new System.Drawing.Size(138, 13);
             this.LBeneficio.TabIndex = 6;
             this.LBeneficio.Text = "Beneficio";
             // 
@@ -334,11 +334,11 @@
             this.LDesde.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.LDesde.AutoSize = true;
             this.LDesde.ForeColor = System.Drawing.Color.White;
-            this.LDesde.Location = new System.Drawing.Point(129, 7);
+            this.LDesde.Location = new System.Drawing.Point(144, 7);
             this.LDesde.Margin = new System.Windows.Forms.Padding(2, 4, 2, 2);
             this.LDesde.MinimumSize = new System.Drawing.Size(110, 0);
             this.LDesde.Name = "LDesde";
-            this.LDesde.Size = new System.Drawing.Size(123, 13);
+            this.LDesde.Size = new System.Drawing.Size(138, 13);
             this.LDesde.TabIndex = 8;
             this.LDesde.Text = "Desde";
             // 
@@ -351,7 +351,7 @@
             this.label3.Margin = new System.Windows.Forms.Padding(2, 4, 2, 2);
             this.label3.MinimumSize = new System.Drawing.Size(110, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(123, 13);
+            this.label3.Size = new System.Drawing.Size(138, 13);
             this.label3.TabIndex = 12;
             this.label3.Text = "DNI";
             // 
@@ -360,10 +360,10 @@
             this.DTPHasta.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DTPHasta.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.DTPHasta.Location = new System.Drawing.Point(129, 80);
-            this.DTPHasta.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.DTPHasta.Location = new System.Drawing.Point(144, 80);
+            this.DTPHasta.Margin = new System.Windows.Forms.Padding(2);
             this.DTPHasta.Name = "DTPHasta";
-            this.DTPHasta.Size = new System.Drawing.Size(123, 20);
+            this.DTPHasta.Size = new System.Drawing.Size(138, 20);
             this.DTPHasta.TabIndex = 11;
             this.DTPHasta.ValueChanged += new System.EventHandler(this.DTPHasta_ValueChanged);
             // 
@@ -401,12 +401,12 @@
             this.DGVVentas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DGVVentas.EnableHeadersVisualStyles = false;
             this.DGVVentas.Location = new System.Drawing.Point(0, 173);
-            this.DGVVentas.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.DGVVentas.Margin = new System.Windows.Forms.Padding(4);
             this.DGVVentas.Name = "DGVVentas";
             this.DGVVentas.ReadOnly = true;
             this.DGVVentas.RowHeadersVisible = false;
             this.DGVVentas.RowHeadersWidth = 51;
-            this.DGVVentas.Size = new System.Drawing.Size(663, 199);
+            this.DGVVentas.Size = new System.Drawing.Size(734, 288);
             this.DGVVentas.TabIndex = 5;
             this.DGVVentas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVVentas_CellClick);
             // 
@@ -480,11 +480,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(663, 372);
+            this.ClientSize = new System.Drawing.Size(734, 461);
             this.Controls.Add(this.DGVVentas);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.PHeader);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(679, 373);
             this.Name = "FormVentas";
             this.Text = "FormVentas";
