@@ -100,5 +100,10 @@ namespace CinemaCtes
             FormBackup formBackup = new FormBackup();
             formBackup.ShowDialog(); // Abre el formulario de forma modal
         }
+
+        private void DGVProximas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

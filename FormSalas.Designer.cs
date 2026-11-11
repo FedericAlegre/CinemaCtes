@@ -49,16 +49,19 @@
             this.PHeader.Controls.Add(this.label1);
             this.PHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.PHeader.Location = new System.Drawing.Point(0, 0);
+            this.PHeader.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.PHeader.Name = "PHeader";
-            this.PHeader.Size = new System.Drawing.Size(734, 65);
+            this.PHeader.Size = new System.Drawing.Size(979, 80);
             this.PHeader.TabIndex = 3;
             // 
             // BAñadir
             // 
+            this.BAñadir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BAñadir.BackColor = System.Drawing.Color.AliceBlue;
-            this.BAñadir.Location = new System.Drawing.Point(609, 22);
+            this.BAñadir.Location = new System.Drawing.Point(812, 27);
+            this.BAñadir.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.BAñadir.Name = "BAñadir";
-            this.BAñadir.Size = new System.Drawing.Size(113, 27);
+            this.BAñadir.Size = new System.Drawing.Size(151, 33);
             this.BAñadir.TabIndex = 1;
             this.BAñadir.Text = "Añadir Sala";
             this.BAñadir.UseVisualStyleBackColor = false;
@@ -68,9 +71,10 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(12, 36);
+            this.label2.Location = new System.Drawing.Point(16, 44);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(179, 13);
+            this.label2.Size = new System.Drawing.Size(231, 16);
             this.label2.TabIndex = 0;
             this.label2.Text = "Administración de salas del complejo";
             // 
@@ -79,9 +83,10 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(12, 16);
+            this.label1.Location = new System.Drawing.Point(16, 20);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(109, 20);
+            this.label1.Size = new System.Drawing.Size(134, 25);
             this.label1.TabIndex = 0;
             this.label1.Text = "Gestión Salas";
             // 
@@ -107,38 +112,44 @@
             this.CEstado});
             this.DGVSalas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DGVSalas.EnableHeadersVisualStyles = false;
-            this.DGVSalas.Location = new System.Drawing.Point(0, 65);
+            this.DGVSalas.Location = new System.Drawing.Point(0, 80);
+            this.DGVSalas.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.DGVSalas.Name = "DGVSalas";
             this.DGVSalas.ReadOnly = true;
-            this.DGVSalas.Size = new System.Drawing.Size(734, 396);
+            this.DGVSalas.RowHeadersWidth = 51;
+            this.DGVSalas.Size = new System.Drawing.Size(979, 487);
             this.DGVSalas.TabIndex = 5;
             this.DGVSalas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVSalas_CellContentClick);
             // 
             // CNroSala
             // 
             this.CNroSala.HeaderText = "Nro sala";
+            this.CNroSala.MinimumWidth = 6;
             this.CNroSala.Name = "CNroSala";
             this.CNroSala.ReadOnly = true;
             // 
             // CCapacidad
             // 
             this.CCapacidad.HeaderText = "Capacidad";
+            this.CCapacidad.MinimumWidth = 6;
             this.CCapacidad.Name = "CCapacidad";
             this.CCapacidad.ReadOnly = true;
             // 
             // CEstado
             // 
             this.CEstado.HeaderText = "Estado";
+            this.CEstado.MinimumWidth = 6;
             this.CEstado.Name = "CEstado";
             this.CEstado.ReadOnly = true;
             // 
             // FormSalas
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(734, 461);
+            this.ClientSize = new System.Drawing.Size(979, 567);
             this.Controls.Add(this.DGVSalas);
             this.Controls.Add(this.PHeader);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FormSalas";
             this.Text = "FormSalas";
             this.Load += new System.EventHandler(this.FormSalas_Load);

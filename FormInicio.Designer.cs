@@ -48,12 +48,14 @@
             this.LProximasFunciones = new System.Windows.Forms.Label();
             this.BBackup = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1.SuspendLayout();
             this.PHeader.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProximas)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -64,9 +66,10 @@
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
             this.panel1.Controls.Add(this.lblPeliculasActivas);
             this.panel1.Controls.Add(this.LPeliculas);
-            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Location = new System.Drawing.Point(4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(226, 90);
+            this.panel1.Size = new System.Drawing.Size(263, 110);
             this.panel1.TabIndex = 0;
             // 
             // lblPeliculasActivas
@@ -74,9 +77,10 @@
             this.lblPeliculasActivas.AutoSize = true;
             this.lblPeliculasActivas.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPeliculasActivas.ForeColor = System.Drawing.Color.White;
-            this.lblPeliculasActivas.Location = new System.Drawing.Point(74, 54);
+            this.lblPeliculasActivas.Location = new System.Drawing.Point(99, 66);
+            this.lblPeliculasActivas.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPeliculasActivas.Name = "lblPeliculasActivas";
-            this.lblPeliculasActivas.Size = new System.Drawing.Size(45, 20);
+            this.lblPeliculasActivas.Size = new System.Drawing.Size(55, 26);
             this.lblPeliculasActivas.TabIndex = 1;
             this.lblPeliculasActivas.Text = "( 6 )";
             // 
@@ -85,22 +89,25 @@
             this.LPeliculas.AutoSize = true;
             this.LPeliculas.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LPeliculas.ForeColor = System.Drawing.Color.White;
-            this.LPeliculas.Location = new System.Drawing.Point(35, 14);
+            this.LPeliculas.Location = new System.Drawing.Point(47, 17);
+            this.LPeliculas.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LPeliculas.Name = "LPeliculas";
-            this.LPeliculas.Size = new System.Drawing.Size(169, 18);
+            this.LPeliculas.Size = new System.Drawing.Size(212, 24);
             this.LPeliculas.TabIndex = 0;
             this.LPeliculas.Text = "PELICULAS ACTIVAS";
             // 
             // PHeader
             // 
+            this.PHeader.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.PHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(60)))));
             this.PHeader.Controls.Add(this.LFecha);
             this.PHeader.Controls.Add(this.label2);
             this.PHeader.Controls.Add(this.label1);
-            this.PHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.PHeader.Location = new System.Drawing.Point(0, 0);
+            this.PHeader.Margin = new System.Windows.Forms.Padding(4);
             this.PHeader.Name = "PHeader";
-            this.PHeader.Size = new System.Drawing.Size(831, 65);
+            this.PHeader.Size = new System.Drawing.Size(1108, 80);
             this.PHeader.TabIndex = 4;
             // 
             // LFecha
@@ -108,9 +115,10 @@
             this.LFecha.AutoSize = true;
             this.LFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.LFecha.ForeColor = System.Drawing.Color.White;
-            this.LFecha.Location = new System.Drawing.Point(512, 21);
+            this.LFecha.Location = new System.Drawing.Point(683, 26);
+            this.LFecha.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LFecha.Name = "LFecha";
-            this.LFecha.Size = new System.Drawing.Size(47, 15);
+            this.LFecha.Size = new System.Drawing.Size(57, 18);
             this.LFecha.TabIndex = 1;
             this.LFecha.Text = "[Fecha]";
             // 
@@ -118,9 +126,10 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(12, 36);
+            this.label2.Location = new System.Drawing.Point(16, 44);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(129, 13);
+            this.label2.Size = new System.Drawing.Size(164, 16);
             this.label2.TabIndex = 0;
             this.label2.Text = "Vista general - Dashboard";
             // 
@@ -129,9 +138,10 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(12, 16);
+            this.label1.Location = new System.Drawing.Point(16, 20);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(212, 20);
+            this.label1.Size = new System.Drawing.Size(267, 25);
             this.label1.TabIndex = 0;
             this.label1.Text = "CinemaCtes - Panel Principal";
             // 
@@ -143,9 +153,10 @@
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
             this.panel4.Controls.Add(this.lblFuncionesHoy);
             this.panel4.Controls.Add(this.label5);
-            this.panel4.Location = new System.Drawing.Point(268, 3);
+            this.panel4.Location = new System.Drawing.Point(314, 4);
+            this.panel4.Margin = new System.Windows.Forms.Padding(4);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(235, 90);
+            this.panel4.Size = new System.Drawing.Size(274, 110);
             this.panel4.TabIndex = 2;
             // 
             // lblFuncionesHoy
@@ -153,9 +164,10 @@
             this.lblFuncionesHoy.AutoSize = true;
             this.lblFuncionesHoy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFuncionesHoy.ForeColor = System.Drawing.Color.White;
-            this.lblFuncionesHoy.Location = new System.Drawing.Point(86, 54);
+            this.lblFuncionesHoy.Location = new System.Drawing.Point(115, 66);
+            this.lblFuncionesHoy.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblFuncionesHoy.Name = "lblFuncionesHoy";
-            this.lblFuncionesHoy.Size = new System.Drawing.Size(55, 20);
+            this.lblFuncionesHoy.Size = new System.Drawing.Size(68, 26);
             this.lblFuncionesHoy.TabIndex = 1;
             this.lblFuncionesHoy.Text = "( 12 )";
             // 
@@ -164,9 +176,10 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(46, 14);
+            this.label5.Location = new System.Drawing.Point(61, 17);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(145, 18);
+            this.label5.Size = new System.Drawing.Size(179, 24);
             this.label5.TabIndex = 0;
             this.label5.Text = "FUNCIONES HOY";
             // 
@@ -178,9 +191,10 @@
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(55)))));
             this.panel2.Controls.Add(this.lblSalasOperativas);
             this.panel2.Controls.Add(this.label7);
-            this.panel2.Location = new System.Drawing.Point(542, 3);
+            this.panel2.Location = new System.Drawing.Point(634, 4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(229, 90);
+            this.panel2.Size = new System.Drawing.Size(265, 110);
             this.panel2.TabIndex = 2;
             // 
             // lblSalasOperativas
@@ -188,9 +202,10 @@
             this.lblSalasOperativas.AutoSize = true;
             this.lblSalasOperativas.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSalasOperativas.ForeColor = System.Drawing.Color.White;
-            this.lblSalasOperativas.Location = new System.Drawing.Point(81, 54);
+            this.lblSalasOperativas.Location = new System.Drawing.Point(108, 66);
+            this.lblSalasOperativas.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSalasOperativas.Name = "lblSalasOperativas";
-            this.lblSalasOperativas.Size = new System.Drawing.Size(45, 20);
+            this.lblSalasOperativas.Size = new System.Drawing.Size(55, 26);
             this.lblSalasOperativas.TabIndex = 1;
             this.lblSalasOperativas.Text = "( 3 )";
             // 
@@ -199,17 +214,19 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(30, 14);
+            this.label7.Location = new System.Drawing.Point(40, 17);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(166, 18);
+            this.label7.Size = new System.Drawing.Size(211, 24);
             this.label7.TabIndex = 0;
             this.label7.Text = "SALAS OPERATIVAS";
             // 
             // BModMetodoPago
             // 
-            this.BModMetodoPago.Location = new System.Drawing.Point(3, 142);
+            this.BModMetodoPago.Location = new System.Drawing.Point(4, 175);
+            this.BModMetodoPago.Margin = new System.Windows.Forms.Padding(4);
             this.BModMetodoPago.Name = "BModMetodoPago";
-            this.BModMetodoPago.Size = new System.Drawing.Size(144, 23);
+            this.BModMetodoPago.Size = new System.Drawing.Size(192, 28);
             this.BModMetodoPago.TabIndex = 5;
             this.BModMetodoPago.Text = "Modificar metodos de pago";
             this.BModMetodoPago.UseVisualStyleBackColor = true;
@@ -217,9 +234,10 @@
             // 
             // BModPrecioBoleto
             // 
-            this.BModPrecioBoleto.Location = new System.Drawing.Point(268, 142);
+            this.BModPrecioBoleto.Location = new System.Drawing.Point(314, 175);
+            this.BModPrecioBoleto.Margin = new System.Windows.Forms.Padding(4);
             this.BModPrecioBoleto.Name = "BModPrecioBoleto";
-            this.BModPrecioBoleto.Size = new System.Drawing.Size(145, 23);
+            this.BModPrecioBoleto.Size = new System.Drawing.Size(193, 28);
             this.BModPrecioBoleto.TabIndex = 6;
             this.BModPrecioBoleto.Text = "Modificar precio de boletos";
             this.BModPrecioBoleto.UseVisualStyleBackColor = true;
@@ -230,9 +248,10 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(3, 113);
+            this.label8.Location = new System.Drawing.Point(4, 139);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(89, 15);
+            this.label8.Size = new System.Drawing.Size(112, 18);
             this.label8.TabIndex = 7;
             this.label8.Text = "Accesos Varios";
             // 
@@ -240,36 +259,37 @@
             // 
             this.DGVProximas.AllowUserToAddRows = false;
             this.DGVProximas.AllowUserToDeleteRows = false;
+            this.DGVProximas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.DGVProximas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVProximas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGVProximas.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.DGVProximas.Location = new System.Drawing.Point(0, 273);
+            this.DGVProximas.Location = new System.Drawing.Point(0, 348);
+            this.DGVProximas.Margin = new System.Windows.Forms.Padding(4);
             this.DGVProximas.Name = "DGVProximas";
             this.DGVProximas.ReadOnly = true;
             this.DGVProximas.RowHeadersWidth = 51;
-            this.DGVProximas.Size = new System.Drawing.Size(831, 188);
+            this.DGVProximas.Size = new System.Drawing.Size(971, 378);
             this.DGVProximas.TabIndex = 8;
+            this.DGVProximas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProximas_CellContentClick);
             // 
             // LProximasFunciones
             // 
-            this.LProximasFunciones.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.LProximasFunciones.AutoSize = true;
             this.LProximasFunciones.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LProximasFunciones.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.LProximasFunciones.Location = new System.Drawing.Point(34, 248);
-            this.LProximasFunciones.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.LProximasFunciones.Location = new System.Drawing.Point(3, 0);
             this.LProximasFunciones.Name = "LProximasFunciones";
-            this.LProximasFunciones.Size = new System.Drawing.Size(301, 20);
+            this.LProximasFunciones.Size = new System.Drawing.Size(370, 25);
             this.LProximasFunciones.TabIndex = 10;
             this.LProximasFunciones.Text = "Proximas funciones en cartelera para hoy:";
             // 
             // BBackup
             // 
-            this.BBackup.Location = new System.Drawing.Point(542, 142);
+            this.BBackup.Location = new System.Drawing.Point(634, 175);
+            this.BBackup.Margin = new System.Windows.Forms.Padding(4);
             this.BBackup.Name = "BBackup";
-            this.BBackup.Size = new System.Drawing.Size(145, 23);
+            this.BBackup.Size = new System.Drawing.Size(193, 28);
             this.BBackup.TabIndex = 11;
             this.BBackup.Text = "Menú backup";
             this.BBackup.UseVisualStyleBackColor = true;
@@ -277,6 +297,8 @@
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.ColumnCount = 5;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.360465F));
@@ -290,27 +312,40 @@
             this.tableLayoutPanel1.Controls.Add(this.label8, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.BModPrecioBoleto, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.BModMetodoPago, 0, 3);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(28, 71);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(37, 86);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(774, 175);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(903, 216);
             this.tableLayoutPanel1.TabIndex = 12;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.LProximasFunciones, 0, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(41, 317);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(493, 25);
+            this.tableLayoutPanel2.TabIndex = 13;
             // 
             // FormInicio
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(18)))), ((int)(((byte)(38)))));
-            this.ClientSize = new System.Drawing.Size(831, 461);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.ClientSize = new System.Drawing.Size(971, 726);
             this.Controls.Add(this.DGVProximas);
-            this.Controls.Add(this.LProximasFunciones);
+            this.Controls.Add(this.tableLayoutPanel2);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.PHeader);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormInicio";
             this.Text = "FormInicio";
             this.Load += new System.EventHandler(this.FormInicio_Load);
@@ -325,8 +360,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.DGVProximas)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -352,5 +388,6 @@
         private System.Windows.Forms.Label LProximasFunciones;
         private System.Windows.Forms.Button BBackup;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
     }
 }

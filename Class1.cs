@@ -6,7 +6,7 @@ namespace CinemaCtes
     public class ConexionBD
     {
         // cadena de conexión configurada 
-        private readonly string cadenaConexion = "Server=DESKTOP-PQ8VA1J\\SQLEXPRESS; Database=db_CinemaCtes; Trusted_Connection=True;";
+        private readonly string cadenaConexion = "Server = ASUS_Mel\\SQLEXPRESS; Database=db_CinemaCtes; Trusted_Connection=True;";
 
         // Método para obtener una conexión abierta
         public SqlConnection ObtenerConexión()
