@@ -40,6 +40,18 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.chartPeliculas = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chartBeneficios = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chartMetodosPago = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -48,17 +60,25 @@
             this.DTPHasta = new System.Windows.Forms.DateTimePicker();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.BCerrar = new System.Windows.Forms.Button();
             this.BFiltrar = new System.Windows.Forms.Button();
             this.LHasta = new System.Windows.Forms.Label();
             this.LDesde = new System.Windows.Forms.Label();
-            this.BCerrar = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.chartCajeros = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chartClientes = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chartFranjaHoraria = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chartEtiquetas = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.chartPeliculas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartBeneficios)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartMetodosPago)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartEvolucionVentas)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartCajeros)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartClientes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartFranjaHoraria)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartEtiquetas)).BeginInit();
             this.SuspendLayout();
             // 
             // chartPeliculas
@@ -140,7 +160,12 @@
             // 
             // panel1
             // 
+            this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(18)))), ((int)(((byte)(38)))));
+            this.panel1.Controls.Add(this.chartEtiquetas);
+            this.panel1.Controls.Add(this.chartFranjaHoraria);
+            this.panel1.Controls.Add(this.chartClientes);
+            this.panel1.Controls.Add(this.chartCajeros);
             this.panel1.Controls.Add(this.chartEvolucionVentas);
             this.panel1.Controls.Add(this.chartMetodosPago);
             this.panel1.Controls.Add(this.chartBeneficios);
@@ -166,6 +191,28 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(185, 450);
             this.panel2.TabIndex = 11;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(16, 24);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(148, 20);
+            this.label1.TabIndex = 24;
+            this.label1.Text = "Dashboard - ventas";
+            // 
+            // BCerrar
+            // 
+            this.BCerrar.BackColor = System.Drawing.Color.AliceBlue;
+            this.BCerrar.Location = new System.Drawing.Point(29, 394);
+            this.BCerrar.Name = "BCerrar";
+            this.BCerrar.Size = new System.Drawing.Size(113, 27);
+            this.BCerrar.TabIndex = 23;
+            this.BCerrar.Text = "Cerrar";
+            this.BCerrar.UseVisualStyleBackColor = false;
+            this.BCerrar.Click += new System.EventHandler(this.BCerrar_Click);
             // 
             // BFiltrar
             // 
@@ -200,27 +247,69 @@
             this.LDesde.TabIndex = 2;
             this.LDesde.Text = "Desde";
             // 
-            // BCerrar
+            // chartCajeros
             // 
-            this.BCerrar.BackColor = System.Drawing.Color.AliceBlue;
-            this.BCerrar.Location = new System.Drawing.Point(29, 394);
-            this.BCerrar.Name = "BCerrar";
-            this.BCerrar.Size = new System.Drawing.Size(113, 27);
-            this.BCerrar.TabIndex = 23;
-            this.BCerrar.Text = "Cerrar";
-            this.BCerrar.UseVisualStyleBackColor = false;
-            this.BCerrar.Click += new System.EventHandler(this.BCerrar_Click);
+            chartArea8.Name = "ChartArea1";
+            this.chartCajeros.ChartAreas.Add(chartArea8);
+            legend8.Name = "Legend1";
+            this.chartCajeros.Legends.Add(legend8);
+            this.chartCajeros.Location = new System.Drawing.Point(182, 453);
+            this.chartCajeros.Name = "chartCajeros";
+            series8.ChartArea = "ChartArea1";
+            series8.Legend = "Legend1";
+            series8.Name = "Series1";
+            this.chartCajeros.Series.Add(series8);
+            this.chartCajeros.Size = new System.Drawing.Size(300, 219);
+            this.chartCajeros.TabIndex = 4;
+            this.chartCajeros.Text = "chart3";
             // 
-            // label1
+            // chartClientes
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(16, 24);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(148, 20);
-            this.label1.TabIndex = 24;
-            this.label1.Text = "Dashboard - ventas";
+            chartArea7.Name = "ChartArea1";
+            this.chartClientes.ChartAreas.Add(chartArea7);
+            legend7.Name = "Legend1";
+            this.chartClientes.Legends.Add(legend7);
+            this.chartClientes.Location = new System.Drawing.Point(488, 453);
+            this.chartClientes.Name = "chartClientes";
+            series7.ChartArea = "ChartArea1";
+            series7.Legend = "Legend1";
+            series7.Name = "Series1";
+            this.chartClientes.Series.Add(series7);
+            this.chartClientes.Size = new System.Drawing.Size(300, 219);
+            this.chartClientes.TabIndex = 5;
+            this.chartClientes.Text = "chart3";
+            // 
+            // chartFranjaHoraria
+            // 
+            chartArea6.Name = "ChartArea1";
+            this.chartFranjaHoraria.ChartAreas.Add(chartArea6);
+            legend6.Name = "Legend1";
+            this.chartFranjaHoraria.Legends.Add(legend6);
+            this.chartFranjaHoraria.Location = new System.Drawing.Point(182, 678);
+            this.chartFranjaHoraria.Name = "chartFranjaHoraria";
+            series6.ChartArea = "ChartArea1";
+            series6.Legend = "Legend1";
+            series6.Name = "Series1";
+            this.chartFranjaHoraria.Series.Add(series6);
+            this.chartFranjaHoraria.Size = new System.Drawing.Size(300, 219);
+            this.chartFranjaHoraria.TabIndex = 6;
+            this.chartFranjaHoraria.Text = "chart3";
+            // 
+            // chartEtiquetas
+            // 
+            chartArea5.Name = "ChartArea1";
+            this.chartEtiquetas.ChartAreas.Add(chartArea5);
+            legend5.Name = "Legend1";
+            this.chartEtiquetas.Legends.Add(legend5);
+            this.chartEtiquetas.Location = new System.Drawing.Point(488, 678);
+            this.chartEtiquetas.Name = "chartEtiquetas";
+            series5.ChartArea = "ChartArea1";
+            series5.Legend = "Legend1";
+            series5.Name = "Series1";
+            this.chartEtiquetas.Series.Add(series5);
+            this.chartEtiquetas.Size = new System.Drawing.Size(300, 219);
+            this.chartEtiquetas.TabIndex = 7;
+            this.chartEtiquetas.Text = "chart3";
             // 
             // FormDashboardVentas
             // 
@@ -239,6 +328,10 @@
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartCajeros)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartClientes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartFranjaHoraria)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartEtiquetas)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -258,5 +351,9 @@
         private System.Windows.Forms.Button BFiltrar;
         private System.Windows.Forms.Button BCerrar;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartEtiquetas;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartFranjaHoraria;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartClientes;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartCajeros;
     }
 }

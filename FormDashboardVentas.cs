@@ -14,24 +14,14 @@ namespace CinemaCtes
 {
     public partial class FormDashboardVentas : Form
     {
-
         public FormDashboardVentas()
         {
-            if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
-            {
-                InitializeComponent();
-                return;
-            }
-
             InitializeComponent();
+            this.MinimumSize = new Size(816, 489);
         }
 
         private void FormDashboardVentas_Load(object sender, EventArgs e)
         {
-
-            // Doble seguridad por si acaso
-            if (this.DesignMode) return;
-
             // Configurar el DateTimePicker "Desde" para que muestre solo Mes y Año
             DTPDesde.Format = DateTimePickerFormat.Custom;
             DTPDesde.CustomFormat = "MMMM yyyy";
@@ -85,29 +75,33 @@ namespace CinemaCtes
 
         private void CargarTodosLosGraficos()
         {
-
-            if (this.DesignMode) return;
-
-            // Verificación de seguridad por si algún chart aún no se creó
-            if (chartPeliculas == null || chartBeneficios == null || chartMetodosPago == null || chartEvolucionVentas == null)
-                return;
-
             DateTime fechaInicio = new DateTime(DTPDesde.Value.Year, DTPDesde.Value.Month, 1);
 
             // "Hasta" -> Último día exacto del mes seleccionado
             int ultimoDia = DateTime.DaysInMonth(DTPHasta.Value.Year, DTPHasta.Value.Month);
             DateTime fechaFin = new DateTime(DTPHasta.Value.Year, DTPHasta.Value.Month, ultimoDia);
 
-            // Llamamos a los 4 métodos de carga pasándoles las fechas
+            // Llamamos a los métodos de carga de los primeros 4 gráficos originales
             CargarGraficoPeliculas(fechaInicio, fechaFin);
             CargarGraficoBeneficios(fechaInicio, fechaFin);
             CargarGraficoMetodosPago(fechaInicio, fechaFin);
             CargarGraficoVentasPorMes(fechaInicio, fechaFin);
 
+            // Llamamos a los 4 nuevos gráficos agregados
+            CargarGraficoVentasPorCajero(fechaInicio, fechaFin);
+            CargarGraficoClientesVsAnonimos(fechaInicio, fechaFin);
+            CargarGraficoFranjaHoraria(fechaInicio, fechaFin);
+            CargarGraficoVentasPorEtiqueta(fechaInicio, fechaFin);
+
+            // Aplicamos el estilo oscuro a TODOS los gráficos del dashboard
             ClassEstilosHelper.AplicarEstiloOscuroGrafico(chartPeliculas);
             ClassEstilosHelper.AplicarEstiloOscuroGrafico(chartBeneficios);
             ClassEstilosHelper.AplicarEstiloOscuroGrafico(chartMetodosPago);
             ClassEstilosHelper.AplicarEstiloOscuroGrafico(chartEvolucionVentas);
+            ClassEstilosHelper.AplicarEstiloOscuroGrafico(chartCajeros);
+            ClassEstilosHelper.AplicarEstiloOscuroGrafico(chartClientes);
+            ClassEstilosHelper.AplicarEstiloOscuroGrafico(chartFranjaHoraria);
+            ClassEstilosHelper.AplicarEstiloOscuroGrafico(chartEtiquetas);
         }
 
         // Gráfico de Películas Más Vendidas
@@ -213,10 +207,9 @@ namespace CinemaCtes
                             DataTable dt = new DataTable();
                             adaptador.Fill(dt);
 
-                            // Ajusta el nombre del chart (ej: chartMetodosPago) según tu diseñador
                             chartMetodosPago.Series.Clear();
                             Series serie = new Series("Recaudación");
-                            serie.ChartType = SeriesChartType.Column; // O Bar (horizontal)
+                            serie.ChartType = SeriesChartType.Column;
                             serie.IsValueShownAsLabel = true;
 
                             foreach (DataRow row in dt.Rows)
@@ -256,10 +249,9 @@ namespace CinemaCtes
                             DataTable dt = new DataTable();
                             adaptador.Fill(dt);
 
-                            // Ajusta el nombre del chart (ej: chartEvolucionVentas) según tu diseñador
                             chartEvolucionVentas.Series.Clear();
                             Series serie = new Series("Ventas Mensuales");
-                            serie.ChartType = SeriesChartType.Spline; // Línea con curvas suaves
+                            serie.ChartType = SeriesChartType.Spline;
                             serie.IsValueShownAsLabel = true;
 
                             foreach (DataRow row in dt.Rows)
@@ -277,6 +269,178 @@ namespace CinemaCtes
             catch (Exception ex)
             {
                 MessageBox.Show("Error en gráfico de evolución: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // ==========================================
+        // 🚀 NUEVOS MÉTODOS PARA LOS 4 GRÁfICOS AGREGADOS
+        // ==========================================
+
+        // 5. Gráfico de Ventas por Cajero
+        private void CargarGraficoVentasPorCajero(DateTime inicio, DateTime fin)
+        {
+            ConexionBD conexionBD = new ConexionBD();
+            try
+            {
+                using (SqlConnection conexion = conexionBD.ObtenerConexión())
+                {
+                    using (SqlCommand comando = new SqlCommand("SP_GraficoVentasPorCajero", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        comando.Parameters.AddWithValue("@FechaInicio", inicio);
+                        comando.Parameters.AddWithValue("@FechaFin", fin);
+
+                        using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                        {
+                            DataTable dt = new DataTable();
+                            adaptador.Fill(dt);
+
+                            chartCajeros.Series.Clear();
+                            Series serie = new Series("Ventas");
+                            serie.ChartType = SeriesChartType.Bar; // Barras horizontales ideal para nombres
+                            serie.IsValueShownAsLabel = true;
+
+                            foreach (DataRow row in dt.Rows)
+                            {
+                                serie.Points.AddXY(row["Cajero"].ToString(), Convert.ToInt32(row["CantidadVentas"]));
+                            }
+
+                            chartCajeros.Series.Add(serie);
+                            chartCajeros.Titles.Clear();
+                            chartCajeros.Titles.Add("Ventas Realizadas por Cajero");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error en gráfico de cajeros: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // 6. Gráfico de Clientes Registrados vs Anónimos
+        private void CargarGraficoClientesVsAnonimos(DateTime inicio, DateTime fin)
+        {
+            ConexionBD conexionBD = new ConexionBD();
+            try
+            {
+                using (SqlConnection conexion = conexionBD.ObtenerConexión())
+                {
+                    using (SqlCommand comando = new SqlCommand("SP_GraficoClientesVsAnonimos", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        comando.Parameters.AddWithValue("@FechaInicio", inicio);
+                        comando.Parameters.AddWithValue("@FechaFin", fin);
+
+                        using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                        {
+                            DataTable dt = new DataTable();
+                            adaptador.Fill(dt);
+
+                            chartClientes.Series.Clear();
+                            Series serie = new Series("Clientes");
+                            serie.ChartType = SeriesChartType.Pie;
+                            serie.IsValueShownAsLabel = true;
+
+                            foreach (DataRow row in dt.Rows)
+                            {
+                                serie.Points.AddXY(row["TipoCliente"].ToString(), Convert.ToInt32(row["CantidadVentas"]));
+                            }
+
+                            chartClientes.Series.Add(serie);
+                            chartClientes.Titles.Clear();
+                            chartClientes.Titles.Add("Clientes Registrados vs Anónimos");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error en gráfico de clientes: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // 7. Gráfico de Demanda por Franja Horaria
+        private void CargarGraficoFranjaHoraria(DateTime inicio, DateTime fin)
+        {
+            ConexionBD conexionBD = new ConexionBD();
+            try
+            {
+                using (SqlConnection conexion = conexionBD.ObtenerConexión())
+                {
+                    using (SqlCommand comando = new SqlCommand("SP_GraficoVentasPorFranjaHoraria", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        comando.Parameters.AddWithValue("@FechaInicio", inicio);
+                        comando.Parameters.AddWithValue("@FechaFin", fin);
+
+                        using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                        {
+                            DataTable dt = new DataTable();
+                            adaptador.Fill(dt);
+
+                            chartFranjaHoraria.Series.Clear();
+                            Series serie = new Series("Entradas");
+                            serie.ChartType = SeriesChartType.Column;
+                            serie.IsValueShownAsLabel = true;
+
+                            foreach (DataRow row in dt.Rows)
+                            {
+                                serie.Points.AddXY(row["FranjaHoraria"].ToString(), Convert.ToInt32(row["EntradasVendidas"]));
+                            }
+
+                            chartFranjaHoraria.Series.Add(serie);
+                            chartFranjaHoraria.Titles.Clear();
+                            chartFranjaHoraria.Titles.Add("Demanda por Franja Horaria");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error en gráfico de franja horaria: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // 8. Gráfico de Recaudación por Género / Etiqueta
+        private void CargarGraficoVentasPorEtiqueta(DateTime inicio, DateTime fin)
+        {
+            ConexionBD conexionBD = new ConexionBD();
+            try
+            {
+                using (SqlConnection conexion = conexionBD.ObtenerConexión())
+                {
+                    using (SqlCommand comando = new SqlCommand("SP_GraficoVentasPorEtiqueta", conexion))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        comando.Parameters.AddWithValue("@FechaInicio", inicio);
+                        comando.Parameters.AddWithValue("@FechaFin", fin);
+
+                        using (SqlDataAdapter adaptador = new SqlDataAdapter(comando))
+                        {
+                            DataTable dt = new DataTable();
+                            adaptador.Fill(dt);
+
+                            chartEtiquetas.Series.Clear();
+                            Series serie = new Series("Recaudación");
+                            serie.ChartType = SeriesChartType.Column;
+                            serie.IsValueShownAsLabel = true;
+
+                            foreach (DataRow row in dt.Rows)
+                            {
+                                serie.Points.AddXY(row["Etiqueta"].ToString(), Convert.ToDecimal(row["TotalRecaudado"]));
+                            }
+
+                            chartEtiquetas.Series.Add(serie);
+                            chartEtiquetas.Titles.Clear();
+                            chartEtiquetas.Titles.Add("Recaudación por Género / Etiqueta");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error en gráfico de etiquetas: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
