@@ -24,6 +24,8 @@ namespace CinemaCtes
             InitializeComponent();
             rolUsuario = rol;
             idUsuarioActual = idUsuario;
+            this.MinimumSize = new Size(900, 500);
+
         }
 
         private void FormMenuPrincipal_Load(object sender, EventArgs e)

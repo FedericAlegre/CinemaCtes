@@ -72,9 +72,10 @@
             this.lTitulo.AutoSize = true;
             this.lTitulo.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold);
             this.lTitulo.ForeColor = System.Drawing.Color.White;
-            this.lTitulo.Location = new System.Drawing.Point(15, 25);
+            this.lTitulo.Location = new System.Drawing.Point(11, 20);
+            this.lTitulo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lTitulo.Name = "lTitulo";
-            this.lTitulo.Size = new System.Drawing.Size(0, 31);
+            this.lTitulo.Size = new System.Drawing.Size(0, 25);
             this.lTitulo.TabIndex = 0;
             // 
             // pRecaudacion
@@ -83,10 +84,10 @@
             this.pRecaudacion.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.pRecaudacion.Controls.Add(this.lMonto);
             this.pRecaudacion.Controls.Add(this.lRecaudacion);
-            this.pRecaudacion.Location = new System.Drawing.Point(51, 10);
-            this.pRecaudacion.Margin = new System.Windows.Forms.Padding(3, 5, 3, 15);
+            this.pRecaudacion.Location = new System.Drawing.Point(39, 8);
+            this.pRecaudacion.Margin = new System.Windows.Forms.Padding(2, 4, 2, 12);
             this.pRecaudacion.Name = "pRecaudacion";
-            this.pRecaudacion.Size = new System.Drawing.Size(382, 105);
+            this.pRecaudacion.Size = new System.Drawing.Size(286, 85);
             this.pRecaudacion.TabIndex = 2;
             // 
             // lMonto
@@ -95,9 +96,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lMonto.AutoSize = true;
             this.lMonto.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lMonto.Location = new System.Drawing.Point(189, 62);
+            this.lMonto.Location = new System.Drawing.Point(142, 50);
+            this.lMonto.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lMonto.Name = "lMonto";
-            this.lMonto.Size = new System.Drawing.Size(111, 31);
+            this.lMonto.Size = new System.Drawing.Size(94, 25);
             this.lMonto.TabIndex = 4;
             this.lMonto.Text = "$125.000";
             // 
@@ -105,9 +107,10 @@
             // 
             this.lRecaudacion.AutoSize = true;
             this.lRecaudacion.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lRecaudacion.Location = new System.Drawing.Point(41, 26);
+            this.lRecaudacion.Location = new System.Drawing.Point(31, 21);
+            this.lRecaudacion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lRecaudacion.Name = "lRecaudacion";
-            this.lRecaudacion.Size = new System.Drawing.Size(247, 25);
+            this.lRecaudacion.Size = new System.Drawing.Size(205, 20);
             this.lRecaudacion.TabIndex = 3;
             this.lRecaudacion.Text = "💵 RECAUDACIÓN DEL DÍA";
             // 
@@ -116,19 +119,20 @@
             this.pEntradas.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.pEntradas.Controls.Add(this.lBoletos);
             this.pEntradas.Controls.Add(this.lEntradas);
-            this.pEntradas.Location = new System.Drawing.Point(536, 10);
-            this.pEntradas.Margin = new System.Windows.Forms.Padding(3, 5, 3, 15);
+            this.pEntradas.Location = new System.Drawing.Point(401, 8);
+            this.pEntradas.Margin = new System.Windows.Forms.Padding(2, 4, 2, 12);
             this.pEntradas.Name = "pEntradas";
-            this.pEntradas.Size = new System.Drawing.Size(411, 105);
+            this.pEntradas.Size = new System.Drawing.Size(308, 85);
             this.pEntradas.TabIndex = 3;
             // 
             // lBoletos
             // 
             this.lBoletos.AutoSize = true;
             this.lBoletos.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lBoletos.Location = new System.Drawing.Point(140, 62);
+            this.lBoletos.Location = new System.Drawing.Point(105, 50);
+            this.lBoletos.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lBoletos.Name = "lBoletos";
-            this.lBoletos.Size = new System.Drawing.Size(126, 31);
+            this.lBoletos.Size = new System.Drawing.Size(105, 25);
             this.lBoletos.TabIndex = 4;
             this.lBoletos.Text = "45 boletos";
             // 
@@ -136,9 +140,10 @@
             // 
             this.lEntradas.AutoSize = true;
             this.lEntradas.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lEntradas.Location = new System.Drawing.Point(33, 26);
+            this.lEntradas.Location = new System.Drawing.Point(25, 21);
+            this.lEntradas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lEntradas.Name = "lEntradas";
-            this.lEntradas.Size = new System.Drawing.Size(279, 25);
+            this.lEntradas.Size = new System.Drawing.Size(230, 20);
             this.lEntradas.TabIndex = 3;
             this.lEntradas.Text = "🎟️ ENTRADAS VENDIDAS HOY";
             // 
@@ -148,19 +153,20 @@
             this.pPelicula.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.pPelicula.Controls.Add(this.lNombrePel);
             this.pPelicula.Controls.Add(this.lPelicula);
-            this.pPelicula.Location = new System.Drawing.Point(51, 135);
-            this.pPelicula.Margin = new System.Windows.Forms.Padding(3, 5, 3, 15);
+            this.pPelicula.Location = new System.Drawing.Point(39, 110);
+            this.pPelicula.Margin = new System.Windows.Forms.Padding(2, 4, 2, 12);
             this.pPelicula.Name = "pPelicula";
-            this.pPelicula.Size = new System.Drawing.Size(382, 107);
+            this.pPelicula.Size = new System.Drawing.Size(286, 87);
             this.pPelicula.TabIndex = 4;
             // 
             // lNombrePel
             // 
             this.lNombrePel.AutoSize = true;
             this.lNombrePel.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lNombrePel.Location = new System.Drawing.Point(114, 54);
+            this.lNombrePel.Location = new System.Drawing.Point(86, 44);
+            this.lNombrePel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lNombrePel.Name = "lNombrePel";
-            this.lNombrePel.Size = new System.Drawing.Size(179, 31);
+            this.lNombrePel.Size = new System.Drawing.Size(149, 25);
             this.lNombrePel.TabIndex = 4;
             this.lNombrePel.Text = "Intensamente 2";
             // 
@@ -168,9 +174,10 @@
             // 
             this.lPelicula.AutoSize = true;
             this.lPelicula.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lPelicula.Location = new System.Drawing.Point(20, 18);
+            this.lPelicula.Location = new System.Drawing.Point(15, 15);
+            this.lPelicula.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lPelicula.Name = "lPelicula";
-            this.lPelicula.Size = new System.Drawing.Size(261, 25);
+            this.lPelicula.Size = new System.Drawing.Size(217, 20);
             this.lPelicula.TabIndex = 3;
             this.lPelicula.Text = "🎬 PELÍCULA EN TENDENCIA";
             // 
@@ -181,19 +188,20 @@
             this.pBeneficio.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.pBeneficio.Controls.Add(this.lBeneficioNombre);
             this.pBeneficio.Controls.Add(this.lBeneficio);
-            this.pBeneficio.Location = new System.Drawing.Point(536, 135);
-            this.pBeneficio.Margin = new System.Windows.Forms.Padding(3, 5, 3, 15);
+            this.pBeneficio.Location = new System.Drawing.Point(401, 110);
+            this.pBeneficio.Margin = new System.Windows.Forms.Padding(2, 4, 2, 12);
             this.pBeneficio.Name = "pBeneficio";
-            this.pBeneficio.Size = new System.Drawing.Size(411, 107);
+            this.pBeneficio.Size = new System.Drawing.Size(308, 87);
             this.pBeneficio.TabIndex = 5;
             // 
             // lBeneficioNombre
             // 
             this.lBeneficioNombre.AutoSize = true;
             this.lBeneficioNombre.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lBeneficioNombre.Location = new System.Drawing.Point(140, 54);
+            this.lBeneficioNombre.Location = new System.Drawing.Point(105, 44);
+            this.lBeneficioNombre.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lBeneficioNombre.Name = "lBeneficioNombre";
-            this.lBeneficioNombre.Size = new System.Drawing.Size(195, 31);
+            this.lBeneficioNombre.Size = new System.Drawing.Size(162, 25);
             this.lBeneficioNombre.TabIndex = 4;
             this.lBeneficioNombre.Text = "Estudiante (45%)";
             this.lBeneficioNombre.Click += new System.EventHandler(this.lBeneficioNombre_Click);
@@ -202,9 +210,10 @@
             // 
             this.lBeneficio.AutoSize = true;
             this.lBeneficio.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lBeneficio.Location = new System.Drawing.Point(33, 15);
+            this.lBeneficio.Location = new System.Drawing.Point(25, 12);
+            this.lBeneficio.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lBeneficio.Name = "lBeneficio";
-            this.lBeneficio.Size = new System.Drawing.Size(272, 25);
+            this.lBeneficio.Size = new System.Drawing.Size(224, 20);
             this.lBeneficio.TabIndex = 3;
             this.lBeneficio.Text = "⭐ BENEFICIO MÁS UTILIZADO";
             // 
@@ -217,10 +226,9 @@
             this.panel2.Controls.Add(this.label8);
             this.panel2.Controls.Add(this.BCambiarButaca);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(0, 80);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4);
+            this.panel2.Location = new System.Drawing.Point(0, 65);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(970, 393);
+            this.panel2.Size = new System.Drawing.Size(728, 319);
             this.panel2.TabIndex = 13;
             // 
             // tableLayoutPanel1
@@ -235,13 +243,13 @@
             this.tableLayoutPanel1.Controls.Add(this.pRecaudacion, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(15, 50, 15, 10);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(11, 41, 11, 8);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 2F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(970, 257);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(728, 209);
             this.tableLayoutPanel1.TabIndex = 16;
             // 
             // LPeliculasRecaudacion1
@@ -252,9 +260,10 @@
             this.LPeliculasRecaudacion1.AutoSize = true;
             this.LPeliculasRecaudacion1.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LPeliculasRecaudacion1.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.LPeliculasRecaudacion1.Location = new System.Drawing.Point(47, 340);
+            this.LPeliculasRecaudacion1.Location = new System.Drawing.Point(35, 276);
+            this.LPeliculasRecaudacion1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.LPeliculasRecaudacion1.Name = "LPeliculasRecaudacion1";
-            this.LPeliculasRecaudacion1.Size = new System.Drawing.Size(344, 25);
+            this.LPeliculasRecaudacion1.Size = new System.Drawing.Size(281, 20);
             this.LPeliculasRecaudacion1.TabIndex = 15;
             this.LPeliculasRecaudacion1.Text = "Peliculas con mas recaudacion del mes:";
             // 
@@ -263,10 +272,9 @@
             this.LPeliculasRecaudacion.AutoSize = true;
             this.LPeliculasRecaudacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.LPeliculasRecaudacion.ForeColor = System.Drawing.Color.White;
-            this.LPeliculasRecaudacion.Location = new System.Drawing.Point(52, 324);
-            this.LPeliculasRecaudacion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LPeliculasRecaudacion.Location = new System.Drawing.Point(39, 263);
             this.LPeliculasRecaudacion.Name = "LPeliculasRecaudacion";
-            this.LPeliculasRecaudacion.Size = new System.Drawing.Size(0, 18);
+            this.LPeliculasRecaudacion.Size = new System.Drawing.Size(0, 15);
             this.LPeliculasRecaudacion.TabIndex = 13;
             // 
             // label8
@@ -274,19 +282,17 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(52, 267);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Location = new System.Drawing.Point(39, 217);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(119, 18);
+            this.label8.Size = new System.Drawing.Size(96, 15);
             this.label8.TabIndex = 12;
             this.label8.Text = "Accesos rapidos";
             // 
             // BCambiarButaca
             // 
-            this.BCambiarButaca.Location = new System.Drawing.Point(52, 289);
-            this.BCambiarButaca.Margin = new System.Windows.Forms.Padding(4);
+            this.BCambiarButaca.Location = new System.Drawing.Point(39, 235);
             this.BCambiarButaca.Name = "BCambiarButaca";
-            this.BCambiarButaca.Size = new System.Drawing.Size(205, 31);
+            this.BCambiarButaca.Size = new System.Drawing.Size(154, 25);
             this.BCambiarButaca.TabIndex = 10;
             this.BCambiarButaca.Text = "Activar/desactivar butaca";
             this.BCambiarButaca.UseVisualStyleBackColor = true;
@@ -323,18 +329,18 @@
             this.PHeader.Controls.Add(this.lTitulo);
             this.PHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.PHeader.Location = new System.Drawing.Point(0, 0);
-            this.PHeader.Margin = new System.Windows.Forms.Padding(4);
             this.PHeader.Name = "PHeader";
-            this.PHeader.Size = new System.Drawing.Size(970, 80);
+            this.PHeader.Size = new System.Drawing.Size(728, 65);
             this.PHeader.TabIndex = 3;
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Location = new System.Drawing.Point(11, 8);
+            this.panel1.Location = new System.Drawing.Point(8, 6);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(326, 65);
+            this.panel1.Size = new System.Drawing.Size(244, 53);
             this.panel1.TabIndex = 4;
             // 
             // label1
@@ -342,10 +348,9 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(4, 5);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(3, 4);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(267, 25);
+            this.label1.Size = new System.Drawing.Size(212, 20);
             this.label1.TabIndex = 2;
             this.label1.Text = "CinemaCtes - Panel Principal";
             // 
@@ -353,10 +358,9 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(7, 35);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(5, 28);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(164, 16);
+            this.label2.Size = new System.Drawing.Size(129, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Vista general - Dashboard";
             // 
@@ -365,10 +369,9 @@
             this.LFecha.AutoSize = true;
             this.LFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.LFecha.ForeColor = System.Drawing.Color.White;
-            this.LFecha.Location = new System.Drawing.Point(683, 26);
-            this.LFecha.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LFecha.Location = new System.Drawing.Point(512, 21);
             this.LFecha.Name = "LFecha";
-            this.LFecha.Size = new System.Drawing.Size(57, 18);
+            this.LFecha.Size = new System.Drawing.Size(47, 15);
             this.LFecha.TabIndex = 3;
             this.LFecha.Text = "[Fecha]";
             // 
@@ -380,22 +383,21 @@
             this.DGVRecaudacionPelis.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(18)))), ((int)(((byte)(38)))));
             this.DGVRecaudacionPelis.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVRecaudacionPelis.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.DGVRecaudacionPelis.Location = new System.Drawing.Point(0, 470);
-            this.DGVRecaudacionPelis.Margin = new System.Windows.Forms.Padding(4);
+            this.DGVRecaudacionPelis.Location = new System.Drawing.Point(0, 383);
             this.DGVRecaudacionPelis.Name = "DGVRecaudacionPelis";
             this.DGVRecaudacionPelis.RowHeadersWidth = 51;
-            this.DGVRecaudacionPelis.Size = new System.Drawing.Size(970, 255);
+            this.DGVRecaudacionPelis.Size = new System.Drawing.Size(728, 207);
             this.DGVRecaudacionPelis.TabIndex = 15;
             // 
             // FormInicio2
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(970, 725);
+            this.ClientSize = new System.Drawing.Size(728, 590);
             this.Controls.Add(this.DGVRecaudacionPelis);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.PHeader);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FormInicio2";
             this.Text = "Inicio";
             this.Load += new System.EventHandler(this.FormInicio2_Load);
