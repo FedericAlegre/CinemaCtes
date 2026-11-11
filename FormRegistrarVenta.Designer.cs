@@ -180,7 +180,7 @@
             this.tableLayoutPanel1.Controls.Add(this.CLBButaca, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.BRegistrarCliente, 2, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 13);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 7);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
@@ -216,6 +216,7 @@
             // 
             this.CBBeneficio.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.CBBeneficio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBBeneficio.FormattingEnabled = true;
             this.CBBeneficio.Location = new System.Drawing.Point(15, 35);
             this.CBBeneficio.Margin = new System.Windows.Forms.Padding(4);
@@ -290,6 +291,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TDni.Location = new System.Drawing.Point(15, 34);
             this.TDni.Margin = new System.Windows.Forms.Padding(4);
+            this.TDni.MaxLength = 8;
             this.TDni.Name = "TDni";
             this.TDni.Size = new System.Drawing.Size(146, 22);
             this.TDni.TabIndex = 16;
@@ -322,6 +324,7 @@
             // 
             this.CBMetodoPago.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.CBMetodoPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBMetodoPago.FormattingEnabled = true;
             this.CBMetodoPago.Location = new System.Drawing.Point(15, 34);
             this.CBMetodoPago.Margin = new System.Windows.Forms.Padding(4);
@@ -432,14 +435,15 @@
             // 
             // BRegistrarCliente
             // 
+            this.BRegistrarCliente.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.BRegistrarCliente.BackColor = System.Drawing.Color.AliceBlue;
-            this.BRegistrarCliente.Dock = System.Windows.Forms.DockStyle.Fill;
             this.BRegistrarCliente.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.BRegistrarCliente.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BRegistrarCliente.Location = new System.Drawing.Point(346, 84);
             this.BRegistrarCliente.Margin = new System.Windows.Forms.Padding(4);
             this.BRegistrarCliente.Name = "BRegistrarCliente";
-            this.BRegistrarCliente.Size = new System.Drawing.Size(39, 72);
+            this.BRegistrarCliente.Size = new System.Drawing.Size(39, 55);
             this.BRegistrarCliente.TabIndex = 7;
             this.BRegistrarCliente.Text = "+";
             this.BRegistrarCliente.UseVisualStyleBackColor = false;
@@ -469,8 +473,9 @@
             this.DGVVentas.Name = "DGVVentas";
             this.DGVVentas.ReadOnly = true;
             this.DGVVentas.RowHeadersWidth = 51;
-            this.DGVVentas.Size = new System.Drawing.Size(979, 208);
+            this.DGVVentas.Size = new System.Drawing.Size(979, 218);
             this.DGVVentas.TabIndex = 9;
+            this.DGVVentas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVVentas_CellContentClick);
             // 
             // FormRegistrarVenta
             // 

@@ -757,6 +757,11 @@ namespace CinemaCtes
         {
 
         }
+
+        private void DGVVentas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 
     // Clase simple solo para mostrar la butaca limpia en el selector
